@@ -7,23 +7,61 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A73DDC4828B7CF7D00C37A03 /* FeaturedCocktails.swift in Sources */ = {isa = PBXBuildFile; fileRef = A73DDC4728B7CF7D00C37A03 /* FeaturedCocktails.swift */; };
+		A73DDC4A28B7DCA500C37A03 /* Columns.swift in Sources */ = {isa = PBXBuildFile; fileRef = A73DDC4928B7DCA500C37A03 /* Columns.swift */; };
 		A7EB0AE628B6B29300D223F7 /* MixerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7EB0AE528B6B29300D223F7 /* MixerApp.swift */; };
-		A7EB0AE828B6B29300D223F7 /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7EB0AE728B6B29300D223F7 /* Persistence.swift */; };
+		A7EB0AE828B6B29300D223F7 /* Bar.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7EB0AE728B6B29300D223F7 /* Bar.swift */; };
 		A7EB0AEB28B6B29300D223F7 /* Mixer.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = A7EB0AE928B6B29300D223F7 /* Mixer.xcdatamodeld */; };
-		A7EB0AED28B6B29300D223F7 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7EB0AEC28B6B29300D223F7 /* ContentView.swift */; };
 		A7EB0AEF28B6B29500D223F7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A7EB0AEE28B6B29500D223F7 /* Assets.xcassets */; };
 		A7EB0AF328B6B29500D223F7 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A7EB0AF228B6B29500D223F7 /* Preview Assets.xcassets */; };
+		A7EB0AFA28B6B32600D223F7 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7EB0AF928B6B32600D223F7 /* HomeView.swift */; };
+		A7EB0B0128B6B46700D223F7 /* Enums.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7EB0AFC28B6B46600D223F7 /* Enums.swift */; };
+		A7EB0B0228B6B46700D223F7 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7EB0AFD28B6B46600D223F7 /* Extensions.swift */; };
+		A7EB0B0328B6B46700D223F7 /* Cocktails.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7EB0AFE28B6B46700D223F7 /* Cocktails.swift */; };
+		A7EB0B0428B6B46700D223F7 /* Structs.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7EB0AFF28B6B46700D223F7 /* Structs.swift */; };
+		A7EB0B0528B6B46700D223F7 /* Measurements.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7EB0B0028B6B46700D223F7 /* Measurements.swift */; };
+		A7EB0B0728B6CA8A00D223F7 /* LargeCocktailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7EB0B0628B6CA8A00D223F7 /* LargeCocktailView.swift */; };
+		A7EB0B0F28B6CB8E00D223F7 /* Rating.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7EB0B0B28B6CB8E00D223F7 /* Rating.swift */; };
+		A7EB0B1028B6CB8E00D223F7 /* Filter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7EB0B0C28B6CB8E00D223F7 /* Filter.swift */; };
+		A7EB0B2D28B6CC8600D223F7 /* CocktailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7EB0B1528B6CC8300D223F7 /* CocktailView.swift */; };
+		A7EB0B2E28B6CC8600D223F7 /* Guests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7EB0B1628B6CC8300D223F7 /* Guests.swift */; };
+		A7EB0B2F28B6CC8600D223F7 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7EB0B1728B6CC8300D223F7 /* Settings.swift */; };
+		A7EB0B3028B6CC8600D223F7 /* CocktailList.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7EB0B1828B6CC8300D223F7 /* CocktailList.swift */; };
+		A7EB0B3128B6CC8600D223F7 /* HeroView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7EB0B1928B6CC8300D223F7 /* HeroView.swift */; };
+		A7EB0B3228B6CC8600D223F7 /* CategoryItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7EB0B1B28B6CC8300D223F7 /* CategoryItem.swift */; };
+		A7EB0B3328B6CC8600D223F7 /* CategoryList.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7EB0B1C28B6CC8300D223F7 /* CategoryList.swift */; };
+		A7EB0B3428B6CC8600D223F7 /* CategoryGrid.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7EB0B1D28B6CC8300D223F7 /* CategoryGrid.swift */; };
+		A7EB0B3528B6CC8600D223F7 /* CategoryRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7EB0B1E28B6CC8300D223F7 /* CategoryRow.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		A73DDC4728B7CF7D00C37A03 /* FeaturedCocktails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeaturedCocktails.swift; sourceTree = "<group>"; };
+		A73DDC4928B7DCA500C37A03 /* Columns.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Columns.swift; sourceTree = "<group>"; };
 		A7EB0AE228B6B29300D223F7 /* Mixer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Mixer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A7EB0AE528B6B29300D223F7 /* MixerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MixerApp.swift; sourceTree = "<group>"; };
-		A7EB0AE728B6B29300D223F7 /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
+		A7EB0AE728B6B29300D223F7 /* Bar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bar.swift; sourceTree = "<group>"; };
 		A7EB0AEA28B6B29300D223F7 /* Mixer.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Mixer.xcdatamodel; sourceTree = "<group>"; };
-		A7EB0AEC28B6B29300D223F7 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		A7EB0AEE28B6B29500D223F7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A7EB0AF028B6B29500D223F7 /* Mixer.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Mixer.entitlements; sourceTree = "<group>"; };
 		A7EB0AF228B6B29500D223F7 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		A7EB0AF928B6B32600D223F7 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
+		A7EB0AFC28B6B46600D223F7 /* Enums.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Enums.swift; sourceTree = "<group>"; };
+		A7EB0AFD28B6B46600D223F7 /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		A7EB0AFE28B6B46700D223F7 /* Cocktails.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Cocktails.swift; sourceTree = "<group>"; };
+		A7EB0AFF28B6B46700D223F7 /* Structs.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Structs.swift; sourceTree = "<group>"; };
+		A7EB0B0028B6B46700D223F7 /* Measurements.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Measurements.swift; sourceTree = "<group>"; };
+		A7EB0B0628B6CA8A00D223F7 /* LargeCocktailView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LargeCocktailView.swift; sourceTree = "<group>"; };
+		A7EB0B0B28B6CB8E00D223F7 /* Rating.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Rating.swift; sourceTree = "<group>"; };
+		A7EB0B0C28B6CB8E00D223F7 /* Filter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Filter.swift; sourceTree = "<group>"; };
+		A7EB0B1528B6CC8300D223F7 /* CocktailView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CocktailView.swift; sourceTree = "<group>"; };
+		A7EB0B1628B6CC8300D223F7 /* Guests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Guests.swift; sourceTree = "<group>"; };
+		A7EB0B1728B6CC8300D223F7 /* Settings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
+		A7EB0B1828B6CC8300D223F7 /* CocktailList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CocktailList.swift; sourceTree = "<group>"; };
+		A7EB0B1928B6CC8300D223F7 /* HeroView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HeroView.swift; sourceTree = "<group>"; };
+		A7EB0B1B28B6CC8300D223F7 /* CategoryItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryItem.swift; sourceTree = "<group>"; };
+		A7EB0B1C28B6CC8300D223F7 /* CategoryList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryList.swift; sourceTree = "<group>"; };
+		A7EB0B1D28B6CC8300D223F7 /* CategoryGrid.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryGrid.swift; sourceTree = "<group>"; };
+		A7EB0B1E28B6CC8300D223F7 /* CategoryRow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryRow.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,8 +95,10 @@
 			isa = PBXGroup;
 			children = (
 				A7EB0AE528B6B29300D223F7 /* MixerApp.swift */,
-				A7EB0AE728B6B29300D223F7 /* Persistence.swift */,
-				A7EB0AEC28B6B29300D223F7 /* ContentView.swift */,
+				A7EB0AE728B6B29300D223F7 /* Bar.swift */,
+				A7EB0B0828B6CB6900D223F7 /* Views */,
+				A7EB0B0A28B6CB8E00D223F7 /* Extensions */,
+				A7EB0AFB28B6B45200D223F7 /* Data */,
 				A7EB0AEE28B6B29500D223F7 /* Assets.xcassets */,
 				A7EB0AF028B6B29500D223F7 /* Mixer.entitlements */,
 				A7EB0AE928B6B29300D223F7 /* Mixer.xcdatamodeld */,
@@ -73,6 +113,63 @@
 				A7EB0AF228B6B29500D223F7 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		A7EB0AFB28B6B45200D223F7 /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				A7EB0AFE28B6B46700D223F7 /* Cocktails.swift */,
+				A7EB0AFC28B6B46600D223F7 /* Enums.swift */,
+				A7EB0AFD28B6B46600D223F7 /* Extensions.swift */,
+				A7EB0B0028B6B46700D223F7 /* Measurements.swift */,
+				A7EB0AFF28B6B46700D223F7 /* Structs.swift */,
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
+		A7EB0B0828B6CB6900D223F7 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				A7EB0B1428B6CC8300D223F7 /* iOS */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		A7EB0B0A28B6CB8E00D223F7 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				A73DDC4928B7DCA500C37A03 /* Columns.swift */,
+				A7EB0B0C28B6CB8E00D223F7 /* Filter.swift */,
+				A7EB0B0B28B6CB8E00D223F7 /* Rating.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		A7EB0B1428B6CC8300D223F7 /* iOS */ = {
+			isa = PBXGroup;
+			children = (
+				A7EB0AF928B6B32600D223F7 /* HomeView.swift */,
+				A7EB0B1828B6CC8300D223F7 /* CocktailList.swift */,
+				A73DDC4728B7CF7D00C37A03 /* FeaturedCocktails.swift */,
+				A7EB0B1528B6CC8300D223F7 /* CocktailView.swift */,
+				A7EB0B0628B6CA8A00D223F7 /* LargeCocktailView.swift */,
+				A7EB0B1628B6CC8300D223F7 /* Guests.swift */,
+				A7EB0B1728B6CC8300D223F7 /* Settings.swift */,
+				A7EB0B1928B6CC8300D223F7 /* HeroView.swift */,
+				A7EB0B1A28B6CC8300D223F7 /* Categories */,
+			);
+			path = iOS;
+			sourceTree = "<group>";
+		};
+		A7EB0B1A28B6CC8300D223F7 /* Categories */ = {
+			isa = PBXGroup;
+			children = (
+				A7EB0B1C28B6CC8300D223F7 /* CategoryList.swift */,
+				A7EB0B1E28B6CC8300D223F7 /* CategoryRow.swift */,
+				A7EB0B1D28B6CC8300D223F7 /* CategoryGrid.swift */,
+				A7EB0B1B28B6CC8300D223F7 /* CategoryItem.swift */,
+			);
+			path = Categories;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -145,10 +242,29 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A7EB0B0F28B6CB8E00D223F7 /* Rating.swift in Sources */,
+				A7EB0B3428B6CC8600D223F7 /* CategoryGrid.swift in Sources */,
+				A7EB0B0428B6B46700D223F7 /* Structs.swift in Sources */,
+				A7EB0B2E28B6CC8600D223F7 /* Guests.swift in Sources */,
+				A7EB0B2F28B6CC8600D223F7 /* Settings.swift in Sources */,
+				A73DDC4A28B7DCA500C37A03 /* Columns.swift in Sources */,
 				A7EB0AE628B6B29300D223F7 /* MixerApp.swift in Sources */,
+				A7EB0B3528B6CC8600D223F7 /* CategoryRow.swift in Sources */,
+				A7EB0B0228B6B46700D223F7 /* Extensions.swift in Sources */,
+				A7EB0B0328B6B46700D223F7 /* Cocktails.swift in Sources */,
+				A7EB0B0728B6CA8A00D223F7 /* LargeCocktailView.swift in Sources */,
+				A7EB0B3328B6CC8600D223F7 /* CategoryList.swift in Sources */,
 				A7EB0AEB28B6B29300D223F7 /* Mixer.xcdatamodeld in Sources */,
-				A7EB0AED28B6B29300D223F7 /* ContentView.swift in Sources */,
-				A7EB0AE828B6B29300D223F7 /* Persistence.swift in Sources */,
+				A7EB0B3028B6CC8600D223F7 /* CocktailList.swift in Sources */,
+				A73DDC4828B7CF7D00C37A03 /* FeaturedCocktails.swift in Sources */,
+				A7EB0B0128B6B46700D223F7 /* Enums.swift in Sources */,
+				A7EB0AFA28B6B32600D223F7 /* HomeView.swift in Sources */,
+				A7EB0B1028B6CB8E00D223F7 /* Filter.swift in Sources */,
+				A7EB0B0528B6B46700D223F7 /* Measurements.swift in Sources */,
+				A7EB0B2D28B6CC8600D223F7 /* CocktailView.swift in Sources */,
+				A7EB0B3128B6CC8600D223F7 /* HeroView.swift in Sources */,
+				A7EB0B3228B6CC8600D223F7 /* CategoryItem.swift in Sources */,
+				A7EB0AE828B6B29300D223F7 /* Bar.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -277,6 +393,7 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.food-and-drink";
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
@@ -285,8 +402,8 @@
 				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphoneos*]" = UIStatusBarStyleDefault;
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
@@ -315,6 +432,7 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.food-and-drink";
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
@@ -323,8 +441,8 @@
 				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphoneos*]" = UIStatusBarStyleDefault;
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";

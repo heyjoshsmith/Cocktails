@@ -9,12 +9,19 @@ import SwiftUI
 
 @main
 struct MixerApp: App {
-    let persistenceController = PersistenceController.shared
+    
+    @StateObject var bar: Bar
+
+    init() {
+        let bar = Bar.shared
+        _bar = StateObject(wrappedValue: bar)
+    }
 
     var body: some Scene {
         WindowGroup {
-            ContentView()
-                .environment(\.managedObjectContext, persistenceController.container.viewContext)
+            CocktailList()
+                .environment(\.managedObjectContext, bar.container.viewContext)
+                .environmentObject(bar)
         }
     }
 }
