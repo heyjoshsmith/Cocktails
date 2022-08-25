@@ -33,6 +33,8 @@ struct FeaturedCocktails: View {
                     .padding()
 
                 }
+                .tag(featuredCocktails.firstIndex(of: cocktail)!)
+                
             }
         }
         #if os(iOS)
