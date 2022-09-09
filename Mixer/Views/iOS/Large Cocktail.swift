@@ -35,7 +35,7 @@ struct LargeCocktailView: View {
                 
                 cocktail.heroImage(width: geo.size.width, height: geo.size.height)
                 
-                HStack(alignment: .top, spacing: size(tv: 100, mac: 50)) {
+                HStack(alignment: .top, spacing: viewSpacing) {
                     
                     VStack(alignment: .leading) {
                         
@@ -53,10 +53,16 @@ struct LargeCocktailView: View {
                         .padding([.leading, .top])
                         #endif
                         
-                        description(size: geo)
-                            .frame(width: geo.size.width / 3, alignment: .top)
-                            .padding([.vertical, .leading], size(tv: 75, mac: 0))
-                            .padding(.leading, size(tv: 0, mac: 35))
+                        Group {
+                            if bar.device == .iPhone {
+                                smallScreenView(size: geo)
+                            } else {
+                                largeScreenView(size: geo)
+                            }
+                        }
+                        .frame(width: geo.size.width / 3, alignment: .top)
+                        .padding([.vertical, .leading], size(tv: 75, mac: 0))
+                        .padding(.leading, size(tv: 0, mac: 35))
                         
                     }
                     
@@ -64,30 +70,32 @@ struct LargeCocktailView: View {
                         
                         VStack(spacing: 25) {
                             
-                            details
-                                .padding(.trailing)
-                            
-                            Divider()
+                            if bar.device != .iPhone {
+                                details
+                                    .padding(.trailing)
+                                
+                                Divider()
+                            }
                             
                             ingredients
-                                .padding(.horizontal)
+//                                .padding(.horizontal)
                             
                             Divider()
                             
                             instructions
-                                .padding(.horizontal)
+//                                .padding(.horizontal)
                             
                             Divider()
                             
                             supplies
-                                .padding(.horizontal)
+//                                .padding(.horizontal)
                             
                         }
-                        .padding([.vertical, .trailing], size(tv: 0, mac: 25))
-                        .padding(.vertical, size(tv: 0, mac: 25))
+                        .padding([.vertical, .trailing], size(tv: 0, mac: 25, iPhone: 10))
+                        .padding(.vertical, size(tv: 0, mac: 25, iPhone: 10))
                         
                     }
-                    .padding([.vertical, .trailing], size(tv: 75, mac: 0))
+                    .padding([.vertical, .trailing], size(tv: 75, mac: 0, iPhone: 0))
                     
                 }
                 .background(Color.black.opacity(0.5))
@@ -101,66 +109,42 @@ struct LargeCocktailView: View {
             #endif
             
         }
-        .ignoresSafeArea()
+//        .ignoresSafeArea()
         .onAppear(perform: load)
     }
     
-    enum Device {
-        case iPhone, iPad, watch, mac, tv
-    }
-    
-    var device: Device {
-        
-        #if os(iOS)
-        let type = UIDevice.current.userInterfaceIdiom
-        
-        switch type {
-        case .pad: return .iPad
-        default: return .iPhone
-        }
-        
-        #elseif os(macOS)
-        return .mac
-        #elseif os(tvOS)
-        return .tv
-        #else
-        return .watch
-        #endif
-        
-    }
-    
     func load() {
-//        if bar.likes.contains(cocktail.number) {
-//            isLiked = true
-//        }
-//        if bar.dislikes.contains(cocktail.number) {
-//            isDisliked = true
-//        }
+        if bar.likes.contains(cocktail.number) {
+            isLiked = true
+        }
+        if bar.dislikes.contains(cocktail.number) {
+            isDisliked = true
+        }
     }
     
     func like() {
         withAnimation {
-//            if bar.likes.contains(cocktail.number) {
-//                bar.rate(cocktail, rating: .none)
-//                self.isLiked = false
-//            } else {
-//                bar.rate(cocktail, rating: .liked)
-//                self.isLiked = true
-//                self.isDisliked = false
-//            }
+            if bar.likes.contains(cocktail.number) {
+                bar.rate(cocktail, rating: .none)
+                self.isLiked = false
+            } else {
+                bar.rate(cocktail, rating: .liked)
+                self.isLiked = true
+                self.isDisliked = false
+            }
         }
     }
     
     func dislike() {
         withAnimation {
-//            if bar.dislikes.contains(cocktail.number) {
-//                bar.rate(cocktail, rating: .none)
-//                self.isDisliked = false
-//            } else {
-//                bar.rate(cocktail, rating: .disliked)
-//                self.isDisliked = true
-//                self.isLiked = false
-//            }
+            if bar.dislikes.contains(cocktail.number) {
+                bar.rate(cocktail, rating: .none)
+                self.isDisliked = false
+            } else {
+                bar.rate(cocktail, rating: .disliked)
+                self.isDisliked = true
+                self.isLiked = false
+            }
         }
     }
     
@@ -188,21 +172,43 @@ struct LargeCocktailView: View {
     }
     
     var firstColumnPadding: CGFloat {
-        return device == .tv ? 75 : 25
+        return bar.device == .tv ? 75 : 25
     }
     
-    func size(tv: CGFloat, mac: CGFloat) -> CGFloat {
-        return device == .tv ? tv : mac
+    var viewSpacing: CGFloat {
+        switch bar.device {
+        case .tv: return 100
+        case .mac: return 50
+        default: return 25
+        }
     }
     
-    func description(size geo: GeometryProxy) -> some View {
-                                
+    func size(tv: CGFloat, mac: CGFloat, iPhone: CGFloat? = nil) -> CGFloat {
+        
+        var result: CGFloat? = 0
+        
+        switch bar.device {
+        case .tv: result = tv
+        case .mac: result = mac
+        case .iPhone: result = iPhone
+        default: result = 0
+        }
+        
+        return result ?? 0
+        
+    }
+    
+    func heroImage(size geo: GeometryProxy) -> some View {
+        cocktail.squareImage(size: geo.size.width / 3)
+            .cornerRadius(size(tv: 20, mac: 10, iPhone: 10))
+            .padding(.bottom, bar.device == .iPhone ? 0 : size(tv: 35, mac: 15))
+    }
+    
+    func largeScreenView(size geo: GeometryProxy) -> some View {
         return ScrollView(.vertical, showsIndicators: false) {
             VStack(alignment: .leading) {
                 
-                cocktail.squareImage(size: geo.size.width / 3)
-                    .cornerRadius(size(tv: 20, mac: 10))
-                    .padding(.bottom, size(tv: 35, mac: 15))
+                heroImage(size: geo)
                 
                 Text("History")
                     .font(.system(size: size(tv: 40, mac: 30), weight: .bold))
@@ -217,6 +223,52 @@ struct LargeCocktailView: View {
             .multilineTextAlignment(.leading)
             .frame(width: geo.size.width / 3)
             .padding(.vertical, size(tv: 0, mac: 15))
+        }
+    }
+    
+    func smallScreenView(size geo: GeometryProxy) -> some View {
+        
+        VStack {
+            Spacer()
+            heroImage(size: geo)
+            
+            HStack(spacing: 15) {
+                
+                Text(cocktail.name)
+                    .font(.system(size: 25, weight: .bold))
+                    .foregroundColor(.white)
+                
+                Spacer()
+                
+                Button(action: like) {
+                    Image(systemName: "hand.thumbsup")
+                        .symbolVariant(isLiked  ? .fill : .none)
+                        .frame(width: 5, height: 5, alignment: .center)
+                        .rotationEffect(.degrees(isLiked  ? 0 : 360))
+                        .animation(.spring(), value: isLiked)
+                }
+                .buttonStyle(TVButtonStyle(color: isLiked ? .green : nil, mac: bar.device == .iPhone))
+                .transition(.scale)
+                
+                Button(action: dislike) {
+                    Image(systemName: "hand.thumbsdown")
+                        .symbolVariant(isDisliked  ? .fill : .none)
+                        .frame(width: 5, height: 5, alignment: .center)
+                        .rotationEffect(.degrees(isDisliked  ? 0 : 360))
+                        .animation(.spring(), value: isDisliked)
+                }
+                .buttonStyle(TVButtonStyle(color: isDisliked ? .red : nil, mac: bar.device == .iPhone))
+                .transition(.scale)
+                
+            }
+            
+            Text(cocktail.flavorProfile)
+                .font(.system(size: 15))
+                .foregroundColor(.white)
+                .opacity(0.7)
+            
+            Spacer()
+            
         }
         
     }
@@ -235,10 +287,10 @@ struct LargeCocktailView: View {
         
         return VStack(alignment: .leading) {
             
-            HStack(spacing: 25) {
+            HStack(spacing: size(tv: 25, mac: 25, iPhone: 10)) {
                 
                 Text(cocktail.name)
-                    .font(.system(size: size(tv: 75, mac: 40), weight: .bold))
+                    .font(.system(size: size(tv: 75, mac: 40, iPhone: 35), weight: .bold))
                     .foregroundColor(.white)
                 
                 Spacer()
@@ -250,7 +302,7 @@ struct LargeCocktailView: View {
                         .rotationEffect(.degrees(isLiked  ? 0 : 360))
                         .animation(.spring(), value: isLiked)
                 }
-                .buttonStyle(TVButtonStyle(color: isLiked ? .green : nil, mac: device == .mac))
+                .buttonStyle(TVButtonStyle(color: isLiked ? .green : nil, mac: bar.device == .mac))
                 .transition(.scale)
                 
                 Button(action: dislike) {
@@ -260,13 +312,13 @@ struct LargeCocktailView: View {
                         .rotationEffect(.degrees(isDisliked  ? 0 : 360))
                         .animation(.spring(), value: isDisliked)
                 }
-                .buttonStyle(TVButtonStyle(color: isDisliked ? .red : nil, mac: device == .mac))
+                .buttonStyle(TVButtonStyle(color: isDisliked ? .red : nil, mac: bar.device == .mac))
                 .transition(.scale)
                 
             }
             
             Text(cocktail.flavorProfile)
-                .font(.system(size: size(tv: 40, mac: 25)))
+                .font(.system(size: size(tv: 40, mac: 25, iPhone: 20)))
                 .foregroundColor(.white)
                 .opacity(0.7)
                 .fixedSize(horizontal: false, vertical: true)
@@ -288,23 +340,23 @@ struct LargeCocktailView: View {
     }
     
     var sectionTitle: CGFloat {
-        size(tv: 55, mac: 30)
+        size(tv: 55, mac: 30, iPhone: 25)
     }
     
     var buttonFrame: CGFloat {
-        size(tv: 30, mac: 10)
+        size(tv: 30, mac: 10, iPhone: 1)
     }
     
     var textSize: CGFloat {
-        size(tv: 40, mac: 20)
+        size(tv: 40, mac: 20, iPhone: 20)
     }
     
     var ingredients: some View {
         
         return VStack(alignment: .leading, spacing: 20) {
             
-            HStack(spacing: 25) {
-                
+            HStack(spacing: size(tv: 25, mac: 25, iPhone: 10)) {
+
                 Text("Ingredients")
                     .font(.system(size: sectionTitle, weight: .bold))
                     .foregroundColor(.white)
@@ -319,7 +371,7 @@ struct LargeCocktailView: View {
                     Image(systemName: "plus")
                         .frame(width: buttonFrame, height: buttonFrame, alignment: .center)
                 }
-                .buttonStyle(TVButtonStyle(color: upColor, mac: device == .mac))
+                .buttonStyle(TVButtonStyle(color: upColor, mac: bar.device != .tv))
                 .scaleEffect(upColor == nil ? 1 : 1.1)
                 .animation(.easeInOut(duration: 0.1), value: upColor)
                 
@@ -327,7 +379,7 @@ struct LargeCocktailView: View {
                     Image(systemName: "minus")
                         .frame(width: buttonFrame, height: buttonFrame, alignment: .center)
                 }
-                .buttonStyle(TVButtonStyle(color: downColor, mac: device == .mac))
+                .buttonStyle(TVButtonStyle(color: downColor, mac: bar.device != .tv))
                 .scaleEffect(downColor == nil ? 1 : 1.1)
                 .animation(.easeInOut(duration: 0.1), value: downColor)
                 .opacity(numberOfDrinks == 1 ? 0.5 : 1)
@@ -375,7 +427,7 @@ struct LargeCocktailView: View {
                         Button(action: {}) {
                             HStack(alignment: .top, spacing: 10) {
                                 Text("\(index + 1).")
-                                    .frame(width: size(tv: 60, mac: 20), alignment: .leading)
+                                    .frame(width: size(tv: 60, mac: 20, iPhone: 20), alignment: .leading)
                                 Text(instruction)
                                     .fixedSize(horizontal: false, vertical: true)
                                 
@@ -384,6 +436,7 @@ struct LargeCocktailView: View {
                             .font(.system(size: textSize))
                         }
                         .buttonStyle(HighlightNavigationLinkButtonStyle())
+
                     }
                     
                 }
@@ -431,5 +484,6 @@ struct LargeCocktailView: View {
 struct LargeCocktailView_Previews: PreviewProvider {
     static var previews: some View {
         LargeCocktailView(for: Cocktail.example(of: "Martini"), viewing: .constant(nil))
+            .environmentObject(Bar.preview)
     }
 }

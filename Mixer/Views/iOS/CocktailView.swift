@@ -28,76 +28,112 @@ struct CocktailView: View {
     
     @State private var currentRating: RatingType = .none
     
+    @State private var orientation = UIDeviceOrientation.unknown
+    
+    var item: Image {
+        Image(uiImage: ShareableView(for: cocktail).snapshot())
+    }
+    
     var body: some View {
         
-        ScrollView {
-            VStack(alignment: .leading, spacing: 25) {
-                
-                ZStack(alignment: .bottomLeading) {
-                    
-                    cocktail.heroImage(height: 225)
-                    
-                    HStack {
-                        Text(cocktail.flavorProfile)
-                            .foregroundColor(.white)
-                            .font(.footnote)
-                            .multilineTextAlignment(.leading)
-                        Spacer()
-                    }
-                    .padding([.leading, .vertical])
-                    .backgroundGradient()
-                }
-                
-                VStack(alignment: .leading, spacing: 25) {
-                    
-                    if let tip = cocktail.tip {
-                        tips(tip: tip)
-                    }
-                    
-                    ingredients
-                    
-                    instructions
-                    
-                    supplies
-                    
-                }
-                .padding(.horizontal)
-                
-            }
-            .padding(.bottom)
-            .tint(cocktail.category.color)
-            .accentColor(cocktail.category.color)
-            .navigationTitle(cocktail.name)
-
-        }
-        .background(Color.background)
-        .onAppear(perform: load)
-        .toolbar {
-            ToolbarItem(placement: .confirmationAction) {
-                Menu {
-                    ForEach(RatingType.allCases, id: \.self) { rating in
-                        Button {
-                            bar.rate(cocktail, rating: rating)
-                            currentRating = rating
-                        } label: {
-                            Label(rating.action, systemImage: rating.icon)
+        Group {
+            if bar.device == .iPhone && orientation == .landscapeLeft || orientation == .landscapeRight {
+                LargeCocktailView(for: cocktail, viewing: .constant(cocktail))
+            } else {
+                ScrollView {
+                    VStack(alignment: .leading, spacing: 25) {
+                        
+                        ZStack(alignment: .bottomLeading) {
+                            
+                            cocktail.heroImage(height: 225)
+                            
+                            HStack {
+                                Text(cocktail.flavorProfile)
+                                    .foregroundColor(.white)
+                                    .font(.footnote)
+                                    .multilineTextAlignment(.leading)
+                                Spacer()
+                            }
+                            .padding([.leading, .vertical])
+                            .backgroundGradient()
                         }
+                        
+                        VStack(alignment: .leading, spacing: 25) {
+                            
+                            if let tip = cocktail.tip {
+                                tips(tip: tip)
+                            }
+                            
+                            ingredients
+                            
+                            instructions
+                            
+                            supplies
+                            
+                        }
+                        .padding(.horizontal)
+                        
                     }
-                } label: {
-                    if self.currentRating == .none {
-                        Text("Rate")
-                            .fontWeight(.regular)
-                    } else {
-                        Label(self.currentRating.action, systemImage: self.currentRating.icon)
-                            .symbolVariant(.circle.fill)
-                            .foregroundStyle(.white, self.currentRating.color)
-                            .font(.system(size: 20))
+                    .padding(.bottom)
+                    .tint(cocktail.category.color)
+                    .accentColor(cocktail.category.color)
+                    .navigationTitle(cocktail.name)
+
+                }
+                .background(Color.background)
+                .onAppear(perform: load)
+                .toolbar {
+                    ToolbarItemGroup(placement: .confirmationAction) {
+                        
+                        Menu {
+                            ForEach(RatingType.allCases, id: \.self) { rating in
+                                Button {
+                                    bar.rate(cocktail, rating: rating)
+                                    currentRating = rating
+                                } label: {
+                                    Label(rating.action, systemImage: rating.icon)
+                                }
+                            }
+                        } label: {
+                            if self.currentRating == .none {
+                                Text("Rate")
+                                    .fontWeight(.regular)
+                            } else {
+                                Label(self.currentRating.action, systemImage: self.currentRating.icon)
+                                    .symbolVariant(.circle.fill)
+                                    .foregroundStyle(.white, self.currentRating.color)
+                                    .font(.system(size: 20))
+                            }
+                        }
+                        
+                        Button(action: share) {
+                            Image(systemName: "square.and.arrow.up")
+                        }
+                        
                     }
                 }
             }
+        }
+        .onRotate { newOrientation in
+            orientation = newOrientation
         }
         
     }
+    
+    func share() {
+        
+        withAnimation {
+            
+            let image = ShareableView(for: cocktail).offset(y: -20).snapshot()
+                        
+            let av = UIActivityViewController(activityItems: [image], applicationActivities: nil)
+            
+            UIApplication.shared.windows.first?.rootViewController?.present(av, animated: true, completion: nil)
+            
+        }
+        
+    }
+
     
     func load() {
         if bar.likes.contains(cocktail.number) {
@@ -349,7 +385,8 @@ struct CocktailView: View {
 struct CocktailView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
-            CocktailView(for: cocktails[0])
+            CocktailView(for: cocktails[69])
         }
+        .environmentObject(Bar.preview)
     }
 }

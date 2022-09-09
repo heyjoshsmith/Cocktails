@@ -37,13 +37,14 @@ struct CategoryRow: View {
             ScrollView(.horizontal, showsIndicators: false) {
                 LazyHStack(alignment: .top, spacing: 15) {
                     ForEach(category.recipes) { cocktail in
-                        if filterIncludes(cocktail) {
+                        if filterIncludes(cocktail) && searchIncludes(cocktail) {
                             CategoryItem(cocktail: cocktail)
                                 .transition(.scale)
                         }
                     }
                 }
                 .padding(.horizontal)
+                .padding(.trailing, 50)
             }
             .frame(height: 185)
             
@@ -66,7 +67,35 @@ struct CategoryRow: View {
             return !liked && !disliked
         case .none:
             return true
+        case .ingredient(let type):
+            return cocktail.ingredients.map { $0.kind }.contains(type)
         }
+    }
+    
+    func searchIncludes(_ cocktail: Cocktail) -> Bool {
+        
+        if bar.search.isEmpty {
+            return true
+        } else {
+                        
+            let cocktailsMatchSearch = cocktail.name.lowercased().contains(bar.search.lowercased())
+            
+            var ingredientsMatchSearch: Bool {
+                
+                let ingredientList = cocktail.ingredients.map { ingredient in
+                    ingredient.name.lowercased()
+                }
+                
+                return ingredientList.map { ingredient in
+                    ingredient.contains(bar.search.lowercased())
+                }.contains(true)
+            
+            }
+            
+            return cocktailsMatchSearch || ingredientsMatchSearch
+            
+        }
+        
     }
     
     func viewAll() {

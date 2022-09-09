@@ -72,4 +72,15 @@ enum RatingType: CaseIterable {
         }
     }
     
+    var filter: Filter {
+        switch self {
+        case .liked:
+            return .liked
+        case .disliked:
+            return .disliked
+        case .none:
+            return .notRated
+        }
+    }
+    
 }

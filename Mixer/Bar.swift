@@ -5,6 +5,7 @@
 //  Created by Josh Smith on 8/24/22.
 //
 
+import SwiftUI
 import CoreData
 
 class Bar: ObservableObject {
@@ -76,7 +77,30 @@ class Bar: ObservableObject {
         }
     }
     
+    var device: Device {
+        
+        #if os(iOS)
+        let type = UIDevice.current.userInterfaceIdiom
+        
+        switch type {
+        case .pad: return .iPad
+        default: return .iPhone
+        }
+        
+        #elseif os(macOS)
+        return .mac
+        #elseif os(tvOS)
+        return .tv
+        #else
+        return .watch
+        #endif
+        
+    }
+    
+    @AppStorage("Hidden Ingredients") var hiddenIngredients = [IngredientType]()
+    
     @Published var filter: Filter = .none
+    @Published var search = ""
     
     
     var liked: [Rating] {
@@ -160,4 +184,8 @@ class Bar: ObservableObject {
 
     }
     
+}
+
+enum Device {
+    case iPhone, iPad, watch, mac, tv
 }

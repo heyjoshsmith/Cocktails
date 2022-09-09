@@ -7,8 +7,9 @@
 
 import SwiftUI
 
-enum Filter: Int, CaseIterable {
-    case none, liked, disliked, notRated
+enum Filter: Equatable, Hashable {
+    
+    case none, liked, disliked, notRated, ingredient(_ type: IngredientType)
     
     static var ratings: [Filter] = [.liked, .disliked, .notRated]
     
@@ -22,6 +23,8 @@ enum Filter: Int, CaseIterable {
             return "Disliked"
         case .notRated:
             return "Not Rated"
+        case .ingredient(let type):
+            return type.name
         }
     }
     
@@ -35,6 +38,8 @@ enum Filter: Int, CaseIterable {
             return "hand.thumbsdown"
         case .notRated:
             return "questionmark.app.dashed"
+        case .ingredient(_):
+            return "drop.fill"
         }
     }
     
@@ -48,7 +53,13 @@ enum Filter: Int, CaseIterable {
             return KeyboardShortcut("2")
         case .notRated:
             return KeyboardShortcut("3")
+        case .ingredient(_):
+            return KeyboardShortcut("i")
         }
+    }
+    
+    static func == (lhs: Filter, rhs: Filter) -> Bool {
+        lhs.name == rhs.name
     }
     
 }

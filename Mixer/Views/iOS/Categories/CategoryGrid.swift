@@ -20,7 +20,7 @@ struct CategoryGrid: View {
     var body: some View {
         GeometryReader { geo in
             ScrollView {
-                LazyVGrid(columns: columns, spacing: 10) {
+                LazyVGrid(columns: columns(geo: geo), spacing: 10) {
                     ForEach(category.recipes) { cocktail in
                         if filterIncludes(cocktail) {
                             NavigationLink {
@@ -48,7 +48,7 @@ struct CategoryGrid: View {
     func gridItem(for cocktail: Cocktail, geo: GeometryProxy) -> some View {
         
         var size: CGFloat {
-            return (geo.size.width - (15 * CGFloat(columns.count)) - 15) / CGFloat(columns.count)
+            return (geo.size.width - (15 * CGFloat(columns(geo: geo).count)) - 15) / CGFloat(columns(geo: geo).count)
         }
         
         return ZStack(alignment: .bottomLeading) {
@@ -92,6 +92,8 @@ struct CategoryGrid: View {
         case .notRated:
             return !liked && !disliked
         case .none:
+            return true
+        default:
             return true
         }
     }
@@ -143,8 +145,8 @@ struct CategoryGrid: View {
         
     }
     
-    var columns: Columns {
-        if device == .iPad {
+    func columns(geo: GeometryProxy) -> Columns {
+        if device == .iPad || geo.size.width > geo.size.height {
             return Columns(4)
         } else {
             return Columns(2)
@@ -158,5 +160,6 @@ struct CategoryGrid_Previews: PreviewProvider {
         NavigationView {
             CategoryGrid(for: .gin)
         }
+        .environmentObject(Bar.preview)
     }
 }

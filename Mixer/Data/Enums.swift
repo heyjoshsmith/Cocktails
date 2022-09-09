@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-enum CocktailCategory: Hashable, CaseIterable {
+enum CocktailCategory: Codable, Hashable, CaseIterable {
     case brandy, dessert, gin, rum, scotch, sparklingWine, tequila, vodka, whiskey, other
     
     var name: String {
@@ -69,9 +69,19 @@ enum CocktailCategory: Hashable, CaseIterable {
             cocktail.category == self
         }
     }
+    
+    func searchRecipes(_ search: String) -> [Cocktail] {
+        if search.isEmpty {
+            return recipes
+        } else {
+            return recipes.filter { cocktail in
+                cocktail.name.lowercased().contains(search.lowercased())
+            }
+        }
+    }
 }
 
-enum IngredientType: Hashable, CaseIterable {
+enum IngredientType: String, Codable, Hashable, CaseIterable, Identifiable {
     case brandy, cognac, cremeDeCacao, heavyCream, groundNutmeg, demeraraSugar, egg, orangeLiqueur, lemonJuice, sugarRim, lemonPeel, ryeWhiskey, sweetVermouth, benedictine, angosturaBitters, peychaudsBitters, lemonTwistOrCherry, orangeSlices, maraschinoCherries, sugarCube, sevenUp, cherryAndOrangeSlice, amaretto, baileys, kahlua, caramelAndShavedChocolate, vodka, chocolateSyrupAndShavedChocolate, cremeDeMentheGreen, groundNutmegOrChocolate, cognacOrBrandy, eggYolk, mascarponeCheese, chocolatePowder, gin, maraschino, cremeDeViolette, lemonPeelOrDarkCharry, honeySyrup, lemonTwist, simpleSyrup, cremeDeMure, lemonWedgeAndBlackberry, raspberrySyrup, eggWhite, raspberriesOrLemonZest, cocchiAmericano, absinthe, campari, redGrapes, orangeWedgeAndGrape, limeJuice, limeWheel, stGermain, sugarRimAndGrapefruitTwist, greenChartreuse, maraschinoLiqueur, maraschinoCherry, dryGin, orangeBitters, dryVermouth, oliveJuice, cocktailOlives, orangePeel, orangeFlowerWater, sodaWater, lemonPeelOrCherry, lillet, bourbon, orangePeelOrWedge, rum, tequila, blueCuracao, lemonLimeSoda, lemonWedgeOrCherry, jagerMeister, lightRum, mexicanCoke, pimms1, lemonSoda, cucumber, lemon, strawberries, appleSlices, mint, pisco, redWine, oranges, dicedGreenApple, dicedLemon, cinnamonStick, agedRum, pineappleJuice, orgeatAlmondSyrup, pineappleFrond, cachaca, lime, fineSugar, whiteRum, limeWedge, darkRum, gingerBeer, blancVermouth, dryCurcacao, grenadine, grapefruitJucie, saltedButter, brownSugar, groundNutmegCinnamonAndClove, vanillaIceCream, spicedRum, hotButteredBatter, hotWater, darkSpicedRum, passionfruitSyrup, orgeatSyrup, halfLimeAndMint, limeWheelAndMintSprig, pussersRum, cremeOfCoconut, orangeJuice, pineappleFrondsAndGroundNutmeg, pineappleWedgeAndCherry, rum151, coffee, heavyCreamAndNutmeg, blendedScotch, cherryHeering, orangePeelOrCherry, gingerSyrup, islayScotchFloat, candiedGinger, cherry, drambuie, aperol, prosecco, orangeWedgeOrTwist, champagne, peachPuree, sliceOfPeach, blancoTequila, cranberryJuice, grapefruitPeel, tripleSec, agave, reposadoTequila, mezcal, agaveNectar, greenAppleSchnapps, appleSliceOrCherry, tomatoJuice, worcestershire, horseradish, hotSauce, saltAndPepper, celery, espresso, coffeBeans, raspberryLiqueur, raspberriesOrPineappleWedgeOrLemontTwist, grapefruitWedge, fuzzyNavelPeachSchnapps, hairyNavelPeachSchnapps, hairyNavelVodka, galliano,orangeWedgeOrCherry, peachschnapps, orangeWheelAndCherry, whiskey, blackWalnutBitters, realMapleSyrup, demeraraSyrup, amaroNonino, fernetBranca, crownRoyal, sourAppleSchnapps
     
     var name: String {
@@ -822,9 +832,11 @@ enum IngredientType: Hashable, CaseIterable {
         lhs.name < rhs.name
     }
     
+    var id: Self { return self }
+    
 }
 
-enum Glass: Hashable, CaseIterable {
+enum Glass: Codable, Hashable, CaseIterable {
     case rocks, doubleRocks, coupe, smallCoupe, martini, stemmed, coffee, nickAndNora, collins, margarita, doubleOldFashioned, hurricane, tiki, wine, champagneFlute, copperMug
     
     var name: String {
@@ -886,7 +898,7 @@ extension Glasses {
     
 }
 
-enum Item: Hashable, CaseIterable {
+enum Item: Codable, Hashable, CaseIterable {
     case shaker, jigger, barSpoon, strainer, fineStrainer, juicer, microplane, muddler, glass(_ kind: Glass), glasses(_ kinds: [Glass]), mixingGlass, yPeeler, hawthorneStrainer, lewisBag, fineMeshStrainer, channelKnife, barKnife, pitcher, measuringCups, blender, longLighterOrMatch, coffeeCup, custom(_ name: String)
     
     static var allCases: [Item] {

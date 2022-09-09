@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct Ingredient: Hashable, Identifiable {
+struct Ingredient: Codable, Hashable, Identifiable {
     
     var id = UUID()
     
@@ -75,9 +75,13 @@ struct Ingredient: Hashable, Identifiable {
         self.amount = amount
     }
     
+    static func < (lhs: Ingredient, rhs: Ingredient) -> Bool {
+        lhs.kind.name < rhs.kind.name
+    }
+    
 }
 
-struct Cocktail: Hashable, Identifiable, Equatable {
+struct Cocktail: Codable, Hashable, Identifiable, Equatable {
     
     var id: Self { self }
     
@@ -122,6 +126,14 @@ struct Cocktail: Hashable, Identifiable, Equatable {
         lhs.number > rhs.number
     }
     
+    static func aToZ (lhs: Cocktail, rhs: Cocktail) -> Bool {
+        lhs.name < rhs.name
+    }
+    
+    static func zToA (lhs: Cocktail, rhs: Cocktail) -> Bool {
+        lhs.name > rhs.name
+    }
+    
     static func == (lhs: Cocktail, rhs: Cocktail) -> Bool {
         return lhs.number == rhs.number
     }
@@ -137,6 +149,118 @@ struct Cocktail: Hashable, Identifiable, Equatable {
         }.first
         
         return result ?? cocktails[0]
+    }
+    
+    static func random(_ range: ClosedRange<Int>) -> [Cocktail] {
+        
+        var examples = [Cocktail]()
+        let number = range.randomElement() ?? 0
+        
+        for _ in 1...number {
+            let remaining = cocktails.filter { cocktail in
+                !examples.contains(cocktail)
+            }
+            let example = remaining.randomElement()!
+            examples.append(example)
+        }
+        
+        return examples
+        
+    }
+    
+}
+
+typealias Cocktails = [Cocktail]
+extension Cocktails {
+    
+    func ingredientList(_ includeGarnish: Bool? = false) -> [IngredientType] {
+        
+        let original = Set(self.map { $0.ingredients.map { $0.kind }}.joined())
+        var filtered: Set<IngredientType> {
+            if includeGarnish! {
+                return original
+            } else {
+                return original.filter { ingredient in
+                    ingredient.units != UnitGarnish.garnish
+                }
+            }
+        }
+        let array = Array<IngredientType>(filtered).sorted(by: <)
+        return array
+    }
+    
+    var garnishes: [IngredientType] {
+        
+        let original = Set(self.map { $0.ingredients.map { $0.kind }}.joined())
+        var filtered: Set<IngredientType> {
+            return original.filter { ingredient in
+                ingredient.units == UnitGarnish.garnish
+            }
+        }
+        let array = Array<IngredientType>(filtered).sorted(by: <)
+        return array
+    }
+    
+}
+
+extension [MenuItem] {
+    
+    func ingredientList(_ includeGarnish: Bool? = false) -> [Ingredient] {
+        
+        let fullIngredients = Set(self.map { $0.scaledIngredients }.joined())
+        var mergedIngredients = [Ingredient]()
+        
+        for ingredient in fullIngredients {
+            if !(mergedIngredients.map { $0.kind }).contains(ingredient.kind) {
+                let matches = fullIngredients.filter { match in
+                    match.kind == ingredient.kind
+                }
+                let total = matches.map { $0.value.value }.reduce(0, +)
+                let merged = Ingredient(ingredient.kind, amount: total)
+                mergedIngredients.append(merged)
+            }
+        }
+        
+        var filtered: [Ingredient] {
+            if includeGarnish! {
+                return mergedIngredients
+            } else {
+                return mergedIngredients.filter { ingredient in
+                    ingredient.value.unit != UnitGarnish.garnish
+                }
+            }
+        }
+        
+        return filtered.sorted(by: <)
+        
+    }
+    
+    func ingredientTypeList(_ includeGarnish: Bool? = false) -> [IngredientType] {
+        
+        let original = Set(self.map { $0.cocktail.ingredients.map { $0.kind }}.joined())
+        var filtered: Set<IngredientType> {
+            if includeGarnish! {
+                return original
+            } else {
+                return original.filter { ingredient in
+                    ingredient.units != UnitGarnish.garnish
+                }
+            }
+        }
+        let array = Array<IngredientType>(filtered).sorted(by: <)
+        return array
+    }
+    
+    var garnishes: [IngredientType] {
+        
+        let original = Set(self.map { $0.cocktail.ingredients.map { $0.kind }}.joined())
+        var filtered: Set<IngredientType> {
+            return original.filter { ingredient in
+                ingredient.units == UnitGarnish.garnish
+            }
+        }
+        let array = Array<IngredientType>(filtered).sorted(by: <)
+        return array
     }
     
 }
