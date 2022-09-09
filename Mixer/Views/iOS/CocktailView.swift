@@ -37,7 +37,7 @@ struct CocktailView: View {
     var body: some View {
         
         Group {
-            if bar.device == .iPhone && orientation == .landscapeLeft || orientation == .landscapeRight {
+            if bar.device == .iPad || (bar.device == .iPhone && (orientation == .landscapeLeft || orientation == .landscapeRight)) {
                 LargeCocktailView(for: cocktail, viewing: .constant(cocktail))
             } else {
                 ScrollView {

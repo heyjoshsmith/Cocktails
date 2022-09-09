@@ -211,3 +211,18 @@ extension View {
     }
     
 }
+
+extension String {
+    
+    var asFraction: String {
+        let quarter = self.replacingOccurrences(of: "0.25", with: "¼")
+        let half = quarter.replacingOccurrences(of: "0.5", with: "½")
+        let threeQuarters = half.replacingOccurrences(of: "0.75", with: "¾")
+        
+        let quarter2 = threeQuarters.replacingOccurrences(of: ".25", with: " ¼")
+        let half2 = quarter2.replacingOccurrences(of: ".5", with: " ½")
+        let threeQuarters2 = half2.replacingOccurrences(of: ".75", with: " ¾")
+        
+        return threeQuarters2
+    }
+}

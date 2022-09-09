@@ -10,6 +10,7 @@ import SwiftUI
 struct LargeCocktailView: View {
     
     @EnvironmentObject private var bar: Bar
+    @Environment(\.dismiss) private var dismiss
     @Environment(\.isFocused) private var focused: Bool
     
     @State private var isLiked = false
@@ -39,19 +40,20 @@ struct LargeCocktailView: View {
                     
                     VStack(alignment: .leading) {
                         
-                        #if os(macOS)
-                        Button {
-                            withAnimation {
-                                viewing = nil
+                        if bar.device == .iPad || bar.device == .mac {
+                            Button {
+                                withAnimation {
+                                    viewing = nil
+                                    dismiss()
+                                }
+                            } label: {
+                                Label("Home", systemImage: "chevron.left")
+                                    .foregroundColor(.white)
+                                    .font(.system(size: size(tv: 0, mac: 20, iPad: 15)))
                             }
-                        } label: {
-                            Label("Home", systemImage: "chevron.left")
-                                .foregroundColor(.white)
-                                .font(.system(size: 20))
+                            .buttonStyle(.plain)
+                            .padding([.leading, .top])
                         }
-                        .buttonStyle(.plain)
-                        .padding([.leading, .top])
-                        #endif
                         
                         Group {
                             if bar.device == .iPhone {
@@ -62,7 +64,7 @@ struct LargeCocktailView: View {
                         }
                         .frame(width: geo.size.width / 3, alignment: .top)
                         .padding([.vertical, .leading], size(tv: 75, mac: 0))
-                        .padding(.leading, size(tv: 0, mac: 35))
+                        .padding(.leading, size(tv: 0, mac: 35, iPad: 15))
                         
                     }
                     
@@ -72,27 +74,23 @@ struct LargeCocktailView: View {
                             
                             if bar.device != .iPhone {
                                 details
-                                    .padding(.trailing)
                                 
                                 Divider()
                             }
                             
                             ingredients
-//                                .padding(.horizontal)
                             
                             Divider()
                             
                             instructions
-//                                .padding(.horizontal)
                             
                             Divider()
                             
                             supplies
-//                                .padding(.horizontal)
                             
                         }
-                        .padding([.vertical, .trailing], size(tv: 0, mac: 25, iPhone: 10))
-                        .padding(.vertical, size(tv: 0, mac: 25, iPhone: 10))
+                        .padding([.vertical, .trailing], size(tv: 0, mac: 25, iPad: 20, iPhone: 10))
+                        .padding(.vertical, size(tv: 0, mac: 25, iPad: 20, iPhone: 10))
                         
                     }
                     .padding([.vertical, .trailing], size(tv: 75, mac: 0, iPhone: 0))
@@ -109,7 +107,6 @@ struct LargeCocktailView: View {
             #endif
             
         }
-//        .ignoresSafeArea()
         .onAppear(perform: load)
     }
     
@@ -183,13 +180,14 @@ struct LargeCocktailView: View {
         }
     }
     
-    func size(tv: CGFloat, mac: CGFloat, iPhone: CGFloat? = nil) -> CGFloat {
+    func size(tv: CGFloat, mac: CGFloat, iPad: CGFloat? = nil, iPhone: CGFloat? = nil) -> CGFloat {
         
         var result: CGFloat? = 0
         
         switch bar.device {
         case .tv: result = tv
         case .mac: result = mac
+        case .iPad: result = iPad
         case .iPhone: result = iPhone
         default: result = 0
         }
@@ -200,8 +198,8 @@ struct LargeCocktailView: View {
     
     func heroImage(size geo: GeometryProxy) -> some View {
         cocktail.squareImage(size: geo.size.width / 3)
-            .cornerRadius(size(tv: 20, mac: 10, iPhone: 10))
-            .padding(.bottom, bar.device == .iPhone ? 0 : size(tv: 35, mac: 15))
+            .cornerRadius(size(tv: 20, mac: 10, iPad: 10, iPhone: 10))
+            .padding(.bottom, size(tv: 35, mac: 15, iPad: 15, iPhone: 0))
     }
     
     func largeScreenView(size geo: GeometryProxy) -> some View {
@@ -211,12 +209,12 @@ struct LargeCocktailView: View {
                 heroImage(size: geo)
                 
                 Text("History")
-                    .font(.system(size: size(tv: 40, mac: 30), weight: .bold))
+                    .font(.system(size: size(tv: 40, mac: 30, iPad: 20), weight: .bold))
                     .foregroundColor(.white)
                     .padding(.bottom, size(tv: 0, mac: 5))
                 
                 Text(cocktail.history)
-                    .font(.system(size: size(tv: 25, mac: 20)))
+                    .font(.system(size: size(tv: 25, mac: 20, iPad: 15)))
                     .foregroundColor(.white)
                 
             }
@@ -287,10 +285,10 @@ struct LargeCocktailView: View {
         
         return VStack(alignment: .leading) {
             
-            HStack(spacing: size(tv: 25, mac: 25, iPhone: 10)) {
+            HStack(spacing: size(tv: 25, mac: 25, iPad: 10, iPhone: 10)) {
                 
                 Text(cocktail.name)
-                    .font(.system(size: size(tv: 75, mac: 40, iPhone: 35), weight: .bold))
+                    .font(.system(size: size(tv: 75, mac: 40, iPad: 35, iPhone: 35), weight: .bold))
                     .foregroundColor(.white)
                 
                 Spacer()
@@ -302,7 +300,7 @@ struct LargeCocktailView: View {
                         .rotationEffect(.degrees(isLiked  ? 0 : 360))
                         .animation(.spring(), value: isLiked)
                 }
-                .buttonStyle(TVButtonStyle(color: isLiked ? .green : nil, mac: bar.device == .mac))
+                .buttonStyle(TVButtonStyle(color: isLiked ? .green : nil, mac: bar.device != .tv))
                 .transition(.scale)
                 
                 Button(action: dislike) {
@@ -312,13 +310,13 @@ struct LargeCocktailView: View {
                         .rotationEffect(.degrees(isDisliked  ? 0 : 360))
                         .animation(.spring(), value: isDisliked)
                 }
-                .buttonStyle(TVButtonStyle(color: isDisliked ? .red : nil, mac: bar.device == .mac))
+                .buttonStyle(TVButtonStyle(color: isDisliked ? .red : nil, mac: bar.device != .tv))
                 .transition(.scale)
                 
             }
             
             Text(cocktail.flavorProfile)
-                .font(.system(size: size(tv: 40, mac: 25, iPhone: 20)))
+                .font(.system(size: size(tv: 40, mac: 25, iPad: 20, iPhone: 20)))
                 .foregroundColor(.white)
                 .opacity(0.7)
                 .fixedSize(horizontal: false, vertical: true)
@@ -340,7 +338,7 @@ struct LargeCocktailView: View {
     }
     
     var sectionTitle: CGFloat {
-        size(tv: 55, mac: 30, iPhone: 25)
+        size(tv: 55, mac: 30, iPad: 20, iPhone: 25)
     }
     
     var buttonFrame: CGFloat {
@@ -348,14 +346,14 @@ struct LargeCocktailView: View {
     }
     
     var textSize: CGFloat {
-        size(tv: 40, mac: 20, iPhone: 20)
+        size(tv: 40, mac: 20, iPad: 15, iPhone: 20)
     }
     
     var ingredients: some View {
         
         return VStack(alignment: .leading, spacing: 20) {
             
-            HStack(spacing: size(tv: 25, mac: 25, iPhone: 10)) {
+            HStack(spacing: size(tv: 25, mac: 25, iPad: 15, iPhone: 10)) {
 
                 Text("Ingredients")
                     .font(.system(size: sectionTitle, weight: .bold))
@@ -427,7 +425,7 @@ struct LargeCocktailView: View {
                         Button(action: {}) {
                             HStack(alignment: .top, spacing: 10) {
                                 Text("\(index + 1).")
-                                    .frame(width: size(tv: 60, mac: 20, iPhone: 20), alignment: .leading)
+                                    .frame(width: size(tv: 60, mac: 20, iPad: 15, iPhone: 20), alignment: .leading)
                                 Text(instruction)
                                     .fixedSize(horizontal: false, vertical: true)
                                 

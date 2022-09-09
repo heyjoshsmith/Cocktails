@@ -39,10 +39,10 @@ struct Ingredient: Codable, Hashable, Identifiable {
             if amount == 0 {
                 return "Top Off"
             } else {
-                return formatter.string(from: value)
+                return formatter.string(from: value).asFraction
             }
         default:
-            return formatter.string(from: value)
+            return formatter.string(from: value).asFraction
         }
     }
     
@@ -63,10 +63,10 @@ struct Ingredient: Codable, Hashable, Identifiable {
             if value.value == 0 {
                 return "Top Off"
             } else {
-                return formatter.string(from: value * Double(amount))
+                return formatter.string(from: value * Double(amount)).asFraction
             }
         default:
-            return formatter.string(from: value * Double(amount))
+            return formatter.string(from: value * Double(amount)).asFraction
         }
     }
     
