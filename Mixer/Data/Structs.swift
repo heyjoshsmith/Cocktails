@@ -117,7 +117,7 @@ struct Cocktail: Codable, Hashable, Identifiable, Equatable {
     }
     
     var imageData: Data {
-        return UIImage(named: "\(name)-Square")!.jpegData(compressionQuality: 0.5)!
+        return UIImage(named: "\(name)-Square")?.jpegData(compressionQuality: 0.5) ?? Data()
     }
     
     // sorting
@@ -198,6 +198,15 @@ struct Cocktail: Codable, Hashable, Identifiable, Equatable {
         
         return examples
         
+    }
+    
+    static var random: Cocktail {
+        return random(1...50).randomElement() ?? Cocktail("Martini")
+    }
+    
+    var url: URL {
+        print("COMMENT (): \(name)")
+        return URL(string: "cocktails://\(name.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed) ?? "")")!
     }
     
 }

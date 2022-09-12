@@ -8,6 +8,7 @@
 import SwiftUI
 import CoreData
 import CoreSpotlight
+import WidgetKit
 
 class Bar: ObservableObject {
 
@@ -54,9 +55,14 @@ class Bar: ObservableObject {
         return result
     }()
     
+    func reloadWidgets() {
+        WidgetCenter.shared.reloadAllTimelines()
+    }
+    
     func save() {
         do {
             try container.viewContext.save()
+            reloadWidgets()
         } catch {
             let nsError = error as NSError
             fatalError("Unresolved error \(nsError), \(nsError.userInfo)")

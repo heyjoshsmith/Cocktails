@@ -7,6 +7,7 @@
 
 import SwiftUI
 import CoreSpotlight
+import WidgetKit
 
 @main
 struct MixerApp: App {

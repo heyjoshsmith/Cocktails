@@ -18,10 +18,38 @@ struct SettingsView: View {
     var body: some View {
         NavigationStack {
             List {
-                Button("Reset Spotlight", action: {bar.spotlightIndexed = false})
-                    .disabled(bar.spotlightIndexed == false)
-                Button("Reset Ratings", role: .destructive, action: bar.deleteRatings)
-                    .disabled(bar.liked.isEmpty && bar.disliked.isEmpty)
+                Section {
+                    Button("Request Permission") {
+                        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .sound]) { success, error in
+                            if success {
+                                print("All set!")
+                            } else if let error = error {
+                                print(error.localizedDescription)
+                            }
+                        }
+                    }
+                    Button("Schedule Notification") {
+                        let content = UNMutableNotificationContent()
+                        content.title = "Feed the cat"
+                        content.subtitle = "It looks hungry"
+                        content.sound = UNNotificationSound.default
+
+                        // show this notification five seconds from now
+                        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 3, repeats: false)
+
+                        // choose a random identifier
+                        let request = UNNotificationRequest(identifier: UUID().uuidString, content: content, trigger: trigger)
+
+                        // add our notification request
+                        UNUserNotificationCenter.current().add(request)
+                    }
+                }
+                Section {
+                    Button("Reset Spotlight", action: {bar.spotlightIndexed = false})
+                        .disabled(bar.spotlightIndexed == false)
+                    Button("Reset Ratings", role: .destructive, action: bar.deleteRatings)
+                        .disabled(bar.liked.isEmpty && bar.disliked.isEmpty)
+                }
             }
             .navigationTitle("Settings")
         }
@@ -53,5 +81,6 @@ extension Double {
 struct SettingsView_Previews: PreviewProvider {
     static var previews: some View {
         SettingsView()
+            .environmentObject(Bar.preview)
     }
 }

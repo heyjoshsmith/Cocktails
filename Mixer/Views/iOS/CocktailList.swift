@@ -114,6 +114,7 @@ struct CocktailList: View {
             
         }
         .background(Color.background)
+        .onAppear(perform: bar.reloadWidgets)
         
     }
     

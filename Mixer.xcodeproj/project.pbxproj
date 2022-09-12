@@ -18,6 +18,17 @@
 		A7694EE128C83E2F001678A1 /* ShoppingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7694EE028C83E2F001678A1 /* ShoppingView.swift */; };
 		A7694EE328C8507D001678A1 /* MenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7694EE228C8507D001678A1 /* MenuView.swift */; };
 		A7694EE528C8FB28001678A1 /* MenuItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7694EE428C8FB28001678A1 /* MenuItem.swift */; };
+		A7981AB728CEB9C800B64689 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A7981A9A28CEB7B700B64689 /* WidgetKit.framework */; };
+		A7981AB828CEB9C800B64689 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A7981A9C28CEB7B700B64689 /* SwiftUI.framework */; };
+		A7981ABB28CEB9C800B64689 /* FeaturedCocktailsWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7981ABA28CEB9C800B64689 /* FeaturedCocktailsWidget.swift */; };
+		A7981ABD28CEB9CA00B64689 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A7981ABC28CEB9CA00B64689 /* Assets.xcassets */; };
+		A7981AC128CEB9CA00B64689 /* FeaturedCocktailsWidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = A7981AB628CEB9C800B64689 /* FeaturedCocktailsWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		A7981AC528CEB9D900B64689 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7EB0AFD28B6B46600D223F7 /* Extensions.swift */; };
+		A7981AC628CEB9D900B64689 /* Cocktails.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7EB0AFE28B6B46700D223F7 /* Cocktails.swift */; };
+		A7981AC728CEB9D900B64689 /* Measurements.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7EB0B0028B6B46700D223F7 /* Measurements.swift */; };
+		A7981AC828CEB9D900B64689 /* MenuItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7694EE428C8FB28001678A1 /* MenuItem.swift */; };
+		A7981AC928CEB9D900B64689 /* Enums.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7EB0AFC28B6B46600D223F7 /* Enums.swift */; };
+		A7981ACA28CEB9D900B64689 /* Structs.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7EB0AFF28B6B46700D223F7 /* Structs.swift */; };
 		A7C5FD5F28CE86890012CBC5 /* LinkTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7C5FD5E28CE86890012CBC5 /* LinkTests.swift */; };
 		A7EB0AE628B6B29300D223F7 /* MixerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7EB0AE528B6B29300D223F7 /* MixerApp.swift */; };
 		A7EB0AE828B6B29300D223F7 /* Bar.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7EB0AE728B6B29300D223F7 /* Bar.swift */; };
@@ -43,6 +54,30 @@
 		A7EB0B3528B6CC8600D223F7 /* CategoryRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7EB0B1E28B6CC8300D223F7 /* CategoryRow.swift */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		A7981ABF28CEB9CA00B64689 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = A7EB0ADA28B6B29300D223F7 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = A7981AB528CEB9C800B64689;
+			remoteInfo = FeaturedCocktailsWidgetExtension;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		A7981AA728CEB7B900B64689 /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				A7981AC128CEB9CA00B64689 /* FeaturedCocktailsWidgetExtension.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		A720D36828BC469100CC12BA /* IngredientsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IngredientsView.swift; sourceTree = "<group>"; };
 		A720D36A28BC650500CC12BA /* FilterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterView.swift; sourceTree = "<group>"; };
@@ -55,6 +90,12 @@
 		A7694EE028C83E2F001678A1 /* ShoppingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoppingView.swift; sourceTree = "<group>"; };
 		A7694EE228C8507D001678A1 /* MenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuView.swift; sourceTree = "<group>"; };
 		A7694EE428C8FB28001678A1 /* MenuItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuItem.swift; sourceTree = "<group>"; };
+		A7981A9A28CEB7B700B64689 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
+		A7981A9C28CEB7B700B64689 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
+		A7981AB628CEB9C800B64689 /* FeaturedCocktailsWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = FeaturedCocktailsWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		A7981ABA28CEB9C800B64689 /* FeaturedCocktailsWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeaturedCocktailsWidget.swift; sourceTree = "<group>"; };
+		A7981ABC28CEB9CA00B64689 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		A7981ABE28CEB9CA00B64689 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A7C5FD5A28CE76F90012CBC5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		A7C5FD5E28CE86890012CBC5 /* LinkTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkTests.swift; sourceTree = "<group>"; };
 		A7EB0AE228B6B29300D223F7 /* Mixer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Mixer.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -84,6 +125,15 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		A7981AB328CEB9C800B64689 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A7981AB828CEB9C800B64689 /* SwiftUI.framework in Frameworks */,
+				A7981AB728CEB9C800B64689 /* WidgetKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		A7EB0ADF28B6B29300D223F7 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -104,6 +154,25 @@
 			path = Resources;
 			sourceTree = "<group>";
 		};
+		A7981A9928CEB7B700B64689 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				A7981A9A28CEB7B700B64689 /* WidgetKit.framework */,
+				A7981A9C28CEB7B700B64689 /* SwiftUI.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		A7981AB928CEB9C800B64689 /* FeaturedCocktailsWidget */ = {
+			isa = PBXGroup;
+			children = (
+				A7981ABA28CEB9C800B64689 /* FeaturedCocktailsWidget.swift */,
+				A7981ABC28CEB9CA00B64689 /* Assets.xcassets */,
+				A7981ABE28CEB9CA00B64689 /* Info.plist */,
+			);
+			path = FeaturedCocktailsWidget;
+			sourceTree = "<group>";
+		};
 		A7C5FD5D28CE867C0012CBC5 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
@@ -116,6 +185,8 @@
 			isa = PBXGroup;
 			children = (
 				A7EB0AE428B6B29300D223F7 /* Mixer */,
+				A7981AB928CEB9C800B64689 /* FeaturedCocktailsWidget */,
+				A7981A9928CEB7B700B64689 /* Frameworks */,
 				A7EB0AE328B6B29300D223F7 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -124,6 +195,7 @@
 			isa = PBXGroup;
 			children = (
 				A7EB0AE228B6B29300D223F7 /* Mixer.app */,
+				A7981AB628CEB9C800B64689 /* FeaturedCocktailsWidgetExtension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -220,6 +292,23 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		A7981AB528CEB9C800B64689 /* FeaturedCocktailsWidgetExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A7981AC228CEB9CA00B64689 /* Build configuration list for PBXNativeTarget "FeaturedCocktailsWidgetExtension" */;
+			buildPhases = (
+				A7981AB228CEB9C800B64689 /* Sources */,
+				A7981AB328CEB9C800B64689 /* Frameworks */,
+				A7981AB428CEB9C800B64689 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = FeaturedCocktailsWidgetExtension;
+			productName = FeaturedCocktailsWidgetExtension;
+			productReference = A7981AB628CEB9C800B64689 /* FeaturedCocktailsWidgetExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 		A7EB0AE128B6B29300D223F7 /* Mixer */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = A7EB0AF628B6B29500D223F7 /* Build configuration list for PBXNativeTarget "Mixer" */;
@@ -227,10 +316,12 @@
 				A7EB0ADE28B6B29300D223F7 /* Sources */,
 				A7EB0ADF28B6B29300D223F7 /* Frameworks */,
 				A7EB0AE028B6B29300D223F7 /* Resources */,
+				A7981AA728CEB7B900B64689 /* Embed Foundation Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				A7981AC028CEB9CA00B64689 /* PBXTargetDependency */,
 			);
 			name = Mixer;
 			productName = Mixer;
@@ -247,6 +338,9 @@
 				LastSwiftUpdateCheck = 1400;
 				LastUpgradeCheck = 1400;
 				TargetAttributes = {
+					A7981AB528CEB9C800B64689 = {
+						CreatedOnToolsVersion = 14.0;
+					};
 					A7EB0AE128B6B29300D223F7 = {
 						CreatedOnToolsVersion = 14.0;
 					};
@@ -266,11 +360,20 @@
 			projectRoot = "";
 			targets = (
 				A7EB0AE128B6B29300D223F7 /* Mixer */,
+				A7981AB528CEB9C800B64689 /* FeaturedCocktailsWidgetExtension */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		A7981AB428CEB9C800B64689 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A7981ABD28CEB9CA00B64689 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		A7EB0AE028B6B29300D223F7 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -283,6 +386,20 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		A7981AB228CEB9C800B64689 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A7981AC628CEB9D900B64689 /* Cocktails.swift in Sources */,
+				A7981ABB28CEB9C800B64689 /* FeaturedCocktailsWidget.swift in Sources */,
+				A7981AC728CEB9D900B64689 /* Measurements.swift in Sources */,
+				A7981ACA28CEB9D900B64689 /* Structs.swift in Sources */,
+				A7981AC528CEB9D900B64689 /* Extensions.swift in Sources */,
+				A7981AC928CEB9D900B64689 /* Enums.swift in Sources */,
+				A7981AC828CEB9D900B64689 /* MenuItem.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		A7EB0ADE28B6B29300D223F7 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -324,7 +441,74 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		A7981AC028CEB9CA00B64689 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = A7981AB528CEB9C800B64689 /* FeaturedCocktailsWidgetExtension */;
+			targetProxy = A7981ABF28CEB9CA00B64689 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin XCBuildConfiguration section */
+		A7981AC328CEB9CA00B64689 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = K6FKZVH5G5;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = FeaturedCocktailsWidget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = FeaturedCocktailsWidget;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.heyjoshsmith.Mixer.FeaturedCocktailsWidget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		A7981AC428CEB9CA00B64689 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = K6FKZVH5G5;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = FeaturedCocktailsWidget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = FeaturedCocktailsWidget;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.heyjoshsmith.Mixer.FeaturedCocktailsWidget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
 		A7EB0AF428B6B29500D223F7 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -437,6 +621,7 @@
 		A7EB0AF728B6B29500D223F7 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Mixer/Resources/Mixer.entitlements;
@@ -478,6 +663,7 @@
 		A7EB0AF828B6B29500D223F7 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Mixer/Resources/Mixer.entitlements;
@@ -519,6 +705,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		A7981AC228CEB9CA00B64689 /* Build configuration list for PBXNativeTarget "FeaturedCocktailsWidgetExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A7981AC328CEB9CA00B64689 /* Debug */,
+				A7981AC428CEB9CA00B64689 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		A7EB0ADD28B6B29300D223F7 /* Build configuration list for PBXProject "Mixer" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
