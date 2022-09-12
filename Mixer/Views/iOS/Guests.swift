@@ -15,7 +15,7 @@ struct GuestsView: View {
     private var people: FetchedResults<Person>
     
     var body: some View {
-        NavigationView {
+        NavigationStack {
             List {
                 ForEach(people, id: \.self) { person in
                     HStack {

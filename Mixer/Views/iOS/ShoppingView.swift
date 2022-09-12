@@ -20,7 +20,7 @@ struct ShoppingView: View {
     @State private var count: Int?
     
     var body: some View {
-        NavigationView {
+        NavigationStack {
             Group {
                 
                 if menu.isEmpty {

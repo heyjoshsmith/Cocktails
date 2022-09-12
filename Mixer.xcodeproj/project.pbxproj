@@ -18,6 +18,7 @@
 		A7694EE128C83E2F001678A1 /* ShoppingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7694EE028C83E2F001678A1 /* ShoppingView.swift */; };
 		A7694EE328C8507D001678A1 /* MenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7694EE228C8507D001678A1 /* MenuView.swift */; };
 		A7694EE528C8FB28001678A1 /* MenuItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7694EE428C8FB28001678A1 /* MenuItem.swift */; };
+		A7C5FD5F28CE86890012CBC5 /* LinkTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7C5FD5E28CE86890012CBC5 /* LinkTests.swift */; };
 		A7EB0AE628B6B29300D223F7 /* MixerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7EB0AE528B6B29300D223F7 /* MixerApp.swift */; };
 		A7EB0AE828B6B29300D223F7 /* Bar.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7EB0AE728B6B29300D223F7 /* Bar.swift */; };
 		A7EB0AEB28B6B29300D223F7 /* Mixer.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = A7EB0AE928B6B29300D223F7 /* Mixer.xcdatamodeld */; };
@@ -54,6 +55,8 @@
 		A7694EE028C83E2F001678A1 /* ShoppingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoppingView.swift; sourceTree = "<group>"; };
 		A7694EE228C8507D001678A1 /* MenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuView.swift; sourceTree = "<group>"; };
 		A7694EE428C8FB28001678A1 /* MenuItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuItem.swift; sourceTree = "<group>"; };
+		A7C5FD5A28CE76F90012CBC5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		A7C5FD5E28CE86890012CBC5 /* LinkTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkTests.swift; sourceTree = "<group>"; };
 		A7EB0AE228B6B29300D223F7 /* Mixer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Mixer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A7EB0AE528B6B29300D223F7 /* MixerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MixerApp.swift; sourceTree = "<group>"; };
 		A7EB0AE728B6B29300D223F7 /* Bar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bar.swift; sourceTree = "<group>"; };
@@ -101,6 +104,14 @@
 			path = Resources;
 			sourceTree = "<group>";
 		};
+		A7C5FD5D28CE867C0012CBC5 /* Tests */ = {
+			isa = PBXGroup;
+			children = (
+				A7C5FD5E28CE86890012CBC5 /* LinkTests.swift */,
+			);
+			path = Tests;
+			sourceTree = "<group>";
+		};
 		A7EB0AD928B6B29300D223F7 = {
 			isa = PBXGroup;
 			children = (
@@ -120,8 +131,10 @@
 		A7EB0AE428B6B29300D223F7 /* Mixer */ = {
 			isa = PBXGroup;
 			children = (
+				A7C5FD5A28CE76F90012CBC5 /* Info.plist */,
 				A7EB0AE528B6B29300D223F7 /* MixerApp.swift */,
 				A7EB0AE728B6B29300D223F7 /* Bar.swift */,
+				A7C5FD5D28CE867C0012CBC5 /* Tests */,
 				A7EB0B0828B6CB6900D223F7 /* Views */,
 				A7EB0B0A28B6CB8E00D223F7 /* Extensions */,
 				A7EB0AFB28B6B45200D223F7 /* Data */,
@@ -285,6 +298,7 @@
 				A720D36B28BC650500CC12BA /* FilterView.swift in Sources */,
 				A7EB0B3528B6CC8600D223F7 /* CategoryRow.swift in Sources */,
 				A7EB0B0228B6B46700D223F7 /* Extensions.swift in Sources */,
+				A7C5FD5F28CE86890012CBC5 /* LinkTests.swift in Sources */,
 				A7EB0B0328B6B46700D223F7 /* Cocktails.swift in Sources */,
 				A7EB0B0728B6CA8A00D223F7 /* Large Cocktail.swift in Sources */,
 				A7EB0B3328B6CC8600D223F7 /* CategoryList.swift in Sources */,
@@ -433,6 +447,7 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Mixer/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Cocktails;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.food-and-drink";
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
@@ -473,6 +488,7 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Mixer/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Cocktails;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.food-and-drink";
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;

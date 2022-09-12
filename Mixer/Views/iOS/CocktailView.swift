@@ -136,6 +136,7 @@ struct CocktailView: View {
 
     
     func load() {
+        
         if bar.likes.contains(cocktail.number) {
             currentRating = .liked
         } else if bar.dislikes.contains(cocktail.number) {
@@ -143,6 +144,14 @@ struct CocktailView: View {
         } else {
             currentRating = .none
         }
+        
+        let userActivity = NSUserActivity(activityType: "com.heyjoshsmith.Cocktails")
+        userActivity.title = cocktail.name
+        userActivity.persistentIdentifier = cocktail.name
+        userActivity.isEligibleForSearch = true
+        userActivity.contentAttributeSet = bar.attributeSet(cocktail)
+        userActivity.becomeCurrent() // making this the current user activity will index it
+
     }
     
     var titleView: some View {
@@ -384,7 +393,7 @@ struct CocktailView: View {
 
 struct CocktailView_Previews: PreviewProvider {
     static var previews: some View {
-        NavigationView {
+        NavigationStack {
             CocktailView(for: cocktails[69])
         }
         .environmentObject(Bar.preview)

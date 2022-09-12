@@ -110,7 +110,7 @@ struct CategoryRow: View {
 
 struct CategoryRow_Previews: PreviewProvider {
     static var previews: some View {
-        NavigationView {
+        NavigationStack {
             List {
                 Group {
                     CategoryRow(category: .brandy)

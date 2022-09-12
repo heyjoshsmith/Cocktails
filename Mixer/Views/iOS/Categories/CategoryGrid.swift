@@ -157,7 +157,7 @@ struct CategoryGrid: View {
 
 struct CategoryGrid_Previews: PreviewProvider {
     static var previews: some View {
-        NavigationView {
+        NavigationStack {
             CategoryGrid(for: .gin)
         }
         .environmentObject(Bar.preview)

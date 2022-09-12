@@ -62,7 +62,7 @@ struct CategoryList: View {
 
 struct CategoryList_Previews: PreviewProvider {
     static var previews: some View {
-        NavigationView {
+        NavigationStack {
             CategoryList(for: .brandy)
         }
     }

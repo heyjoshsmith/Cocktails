@@ -16,8 +16,10 @@ struct SettingsView: View {
     @State private var max: Int?
     
     var body: some View {
-        NavigationView {
+        NavigationStack {
             List {
+                Button("Reset Spotlight", action: {bar.spotlightIndexed = false})
+                    .disabled(bar.spotlightIndexed == false)
                 Button("Reset Ratings", role: .destructive, action: bar.deleteRatings)
                     .disabled(bar.liked.isEmpty && bar.disliked.isEmpty)
             }

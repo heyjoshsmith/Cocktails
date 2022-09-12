@@ -47,9 +47,7 @@ struct FeaturedCocktails: View {
     }
     
     func updateFeatured(forced: Bool? = false) {
-        
-        print("Comment (func updateFeatured): Updating Featured Cocktails")
-        
+                
         var components = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute, .second], from: .now)
         components.hour = 0
         components.minute = 0
@@ -63,53 +61,33 @@ struct FeaturedCocktails: View {
         let today = DateInterval(start: start, end: end)
         
         if !today.contains(featuredDate) || featured.isEmpty || forced! {
-            
-            print("Comment (func updateFeatured): Last Updated on \(featuredDate.formatted(date: .abbreviated, time: .shortened)).")
-            
+                        
             var results: [Int] = []
             
             while results.count < 5 {
-                
-                print("Comment (func updateFeatured): Adding featured item #\(results.count + 1).")
-                
+                                
                 if let item = cocktails.randomElement() {
                     if !results.contains(item.number) {
-                        
-                        print("Comment (func updateFeatured): Adding \(item.name) to featured list.")
-                        
+                                                
                         results.append(item.number)
                         
-                    } else {
-                        print("Comment (func updateFeatured): \(item.name) is already featured.")
                     }
-                } else {
-                    print("Comment (func updateFeatured): Error finding cocktail to feature.")
                 }
             }
             
             featured = results
-            
-            print("Comment (func updateFeatured): Finished updating Featured Cocktails. Saving date now.")
-            
+                        
             featuredDate = .now
-        } else {
-            if today.contains(featuredDate) {
-                print("Comment (func updateFeatured): Featured Cocktails list was updated earlier today.")
-            }
         }
         
     }
     
     func swipe(timer: Date) {
-        
-        print("Comment (func swipe): Showing Feature #\(feature + 1).")
-        
+                
         withAnimation {
             if feature < 4 {
-                print("Comment (func swipe): Moving to next feature.")
                 feature = feature + 1
             } else {
-                print("Comment (func swipe): Starting over.")
                 feature = 0
             }
         }

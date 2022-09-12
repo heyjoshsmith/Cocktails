@@ -116,6 +116,10 @@ struct Cocktail: Codable, Hashable, Identifiable, Equatable {
             .frame(width: size, height: size, alignment: .center)
     }
     
+    var imageData: Data {
+        return UIImage(named: "\(name)-Square")!.jpegData(compressionQuality: 0.5)!
+    }
+    
     // sorting
 
     static func < (lhs: Cocktail, rhs: Cocktail) -> Bool {
@@ -140,6 +144,34 @@ struct Cocktail: Codable, Hashable, Identifiable, Equatable {
     
     func hash(into hasher: inout Hasher) {
         hasher.combine(name)
+    }
+    
+    init(_ name: String) {
+        let result = cocktails.filter { cocktail in
+            cocktail.name.lowercased() == name.lowercased()
+        }.first
+        
+        self = result ?? cocktails[0]
+    }
+    
+    init(
+        number: Int, category: CocktailCategory, name: String,
+        flavorProfile: String,
+        history: String,
+        ingredients: [Ingredient],
+        instructions: [String],
+        supplies: [Item],
+        tip: String
+    ) {
+        self.number = number
+        self.category = category
+        self.name = name
+        self.flavorProfile = flavorProfile
+        self.history = history
+        self.ingredients = ingredients
+        self.instructions = instructions
+        self.supplies = supplies
+        self.tip = tip
     }
     
     static func example(of name: String) -> Cocktail {

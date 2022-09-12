@@ -12,12 +12,14 @@ struct CocktailList: View {
     @EnvironmentObject private var bar: Bar
     
     @State private var shopping = false
+    @State private var searchingIngredients = false
     @State private var viewingSettings = false
     @State private var viewingFriends = false
     @State private var showingFilter = false
     
     var body: some View {
-        NavigationView {
+        
+        NavigationStack(path: $bar.selectedCocktail) {
             ScrollView {
                 
                 VStack {
@@ -46,16 +48,17 @@ struct CocktailList: View {
             .edgesIgnoringSafeArea(.horizontal)
             .searchable(text: $bar.search)
             .navigationTitle(bar.filter == .none ? "Featured" : bar.filter.name)
+            .navigationDestination(for: Cocktail.self, destination: CocktailView.init)
             .toolbar {
                 
                 ToolbarItemGroup(placement: .cancellationAction) {
                     
                     Button {
-                        viewingSettings.toggle()
+                        searchingIngredients.toggle()
                     } label: {
                         Image(systemName: "vial.viewfinder")
                     }
-                    .fullScreenCover(isPresented: $viewingSettings) {
+                    .fullScreenCover(isPresented: $searchingIngredients) {
                         CocktailsByIngredient()
                     }
                     
@@ -88,21 +91,21 @@ struct CocktailList: View {
                         } label: {
                             Label("Friends", systemImage: "person.crop.circle")
                         }
-                        .sheet(isPresented: $viewingFriends) {
-                            GuestsView()
-                        }
                         
                         Button {
                             viewingSettings.toggle()
                         } label: {
                             Label("Settings", systemImage: "gear")
                         }
-                        .sheet(isPresented: $viewingSettings) {
-                            SettingsView()
-                        }
                         
                     } label: {
                         Label("Menu", systemImage: "ellipsis.circle")
+                    }
+                    .sheet(isPresented: $viewingFriends) {
+                        GuestsView()
+                    }
+                    .sheet(isPresented: $viewingSettings) {
+                        SettingsView()
                     }
                 
                 }
@@ -111,9 +114,6 @@ struct CocktailList: View {
             
         }
         .background(Color.background)
-        #if os(iOS)
-        .navigationViewStyle(.stack)
-        #endif
         
     }
     
@@ -180,6 +180,22 @@ struct CocktailList: View {
             
         }
         
+    }
+}
+
+extension URL {
+    
+    var isDeepLink: Bool {
+        return scheme == "cocktails"
+    }
+    
+    var cocktail: Cocktail? {
+        if let host {
+            if (cocktails.map {$0.name.lowercased()}).contains(host.lowercased()) {
+                return Cocktail(host)
+            }
+        }
+        return nil
     }
     
 }

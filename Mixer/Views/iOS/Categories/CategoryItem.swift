@@ -20,8 +20,10 @@ struct CategoryItem: View {
     
     @State private var rating: RatingType = .none
     
+    @State private var isActive = false
+    
     var body: some View {
-        NavigationLink(destination: CocktailView(for: cocktail)) {
+        NavigationLink(value: cocktail) {
             VStack(alignment: .leading) {
                 
                 ZStack(alignment: .topLeading) {

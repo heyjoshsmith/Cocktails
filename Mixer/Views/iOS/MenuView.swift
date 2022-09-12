@@ -21,7 +21,7 @@ struct MenuView: View {
     
     var body: some View {
         
-        NavigationView {
+        NavigationStack {
             List {
                 
                 if search.isEmpty {
