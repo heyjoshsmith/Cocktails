@@ -39,6 +39,7 @@ struct CategoryGrid: View {
                     }
                 }
                 .padding(.horizontal)
+                .padding(.bottom, 50)
             }
             .navigationTitle(category.name)
         }

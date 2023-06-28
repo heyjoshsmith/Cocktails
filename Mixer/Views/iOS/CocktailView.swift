@@ -30,6 +30,8 @@ struct CocktailView: View {
     
     @State private var orientation = UIDeviceOrientation.unknown
     
+    @State private var bartenderView = false
+    
     var item: Image {
         Image(uiImage: ShareableView(for: cocktail).snapshot())
     }
@@ -37,7 +39,7 @@ struct CocktailView: View {
     var body: some View {
         
         Group {
-            if bar.device == .iPad || (bar.device == .iPhone && (orientation == .landscapeLeft || orientation == .landscapeRight)) {
+            if largeScreen {
                 LargeCocktailView(for: cocktail, viewing: .constant(cocktail))
             } else {
                 ScrollView {
@@ -60,9 +62,7 @@ struct CocktailView: View {
                         
                         VStack(alignment: .leading, spacing: 25) {
                             
-                            if let tip = cocktail.tip {
-                                tips(tip: tip)
-                            }
+                            tips(tip: cocktail.tip)
                             
                             ingredients
                             
@@ -116,6 +116,9 @@ struct CocktailView: View {
         }
         .onRotate { newOrientation in
             orientation = newOrientation
+        }
+        .fullScreenCover(isPresented: $bartenderView) {
+            BartenderTest(cocktail)
         }
         
     }
@@ -387,6 +390,14 @@ struct CocktailView: View {
         }
         .cornerRadius(10)
         
+    }
+    
+    var largeScreen: Bool {
+        #if os(xrOS)
+        return true
+        #else
+        return (bar.device == .iPad || (bar.device == .iPhone && (orientation == .landscapeLeft || orientation == .landscapeRight)))
+        #endif
     }
     
 }

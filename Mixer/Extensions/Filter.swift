@@ -43,6 +43,7 @@ enum Filter: Equatable, Hashable {
         }
     }
     
+    #if os(macOS)
     var keyboardShortcut: KeyboardShortcut {
         switch self {
         case .none:
@@ -57,6 +58,7 @@ enum Filter: Equatable, Hashable {
             return KeyboardShortcut("i")
         }
     }
+    #endif
     
     static func == (lhs: Filter, rhs: Filter) -> Bool {
         lhs.name == rhs.name

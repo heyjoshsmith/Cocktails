@@ -28,6 +28,7 @@ struct LargeCocktailView: View {
     }
     
     @State private var numberOfDrinks = 1
+    @State private var bartenderView = false
     
     var body: some View {
         GeometryReader { geo in
@@ -40,7 +41,8 @@ struct LargeCocktailView: View {
                     
                     VStack(alignment: .leading) {
                         
-                        if bar.device == .iPad || bar.device == .mac {
+                        HStack(spacing: 25) {
+                            
                             Button {
                                 withAnimation {
                                     viewing = nil
@@ -49,11 +51,25 @@ struct LargeCocktailView: View {
                             } label: {
                                 Label("Home", systemImage: "chevron.left")
                                     .foregroundColor(.white)
+                                #if !os(xrOS)
                                     .font(.system(size: size(tv: 0, mac: 20, iPad: 15)))
+                                #endif
                             }
                             .buttonStyle(.plain)
-                            .padding([.leading, .top])
+                            
+                            Button {
+                                bartenderView.toggle()
+                            } label: {
+                                Label("Mix", systemImage: "info.circle")
+                                    .foregroundColor(.white)
+                                #if !os(xrOS)
+                                    .font(.system(size: size(tv: 0, mac: 20, iPad: 15)))
+                                #endif
+                            }
+                            .buttonStyle(.plain)
+                            
                         }
+                        .padding([.leading, .top])
                         
                         Group {
                             if bar.device == .iPhone {
@@ -67,6 +83,10 @@ struct LargeCocktailView: View {
                         .padding(.leading, size(tv: 0, mac: 35, iPad: 15))
                         
                     }
+                    #if os(xrOS)
+                    .padding(.vertical)
+                    .padding(.leading, 30)
+                    #endif
                     
                     ScrollView(.vertical, showsIndicators: false) {
                         
@@ -91,6 +111,10 @@ struct LargeCocktailView: View {
                         }
                         .padding([.vertical, .trailing], size(tv: 0, mac: 25, iPad: 20, iPhone: 10))
                         .padding(.vertical, size(tv: 0, mac: 25, iPad: 20, iPhone: 10))
+                        #if os(xrOS)
+                        .padding(.vertical)
+                        .padding(.trailing, 30)
+                        #endif
                         
                     }
                     .padding([.vertical, .trailing], size(tv: 75, mac: 0, iPhone: 0))
@@ -108,6 +132,9 @@ struct LargeCocktailView: View {
             
         }
         .onAppear(perform: load)
+        .fullScreenCover(isPresented: $bartenderView) {
+            BartenderTest(cocktail)
+        }
     }
     
     func load() {
@@ -233,7 +260,11 @@ struct LargeCocktailView: View {
             HStack(spacing: 15) {
                 
                 Text(cocktail.name)
+                #if os(xrOS)
+                    .font(.title.weight(.bold))
+                #else
                     .font(.system(size: 25, weight: .bold))
+                #endif
                     .foregroundColor(.white)
                 
                 Spacer()
@@ -261,7 +292,9 @@ struct LargeCocktailView: View {
             }
             
             Text(cocktail.flavorProfile)
+            #if !os(xrOS)
                 .font(.system(size: 15))
+            #endif
                 .foregroundColor(.white)
                 .opacity(0.7)
             

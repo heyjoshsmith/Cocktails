@@ -17,22 +17,39 @@ struct CategoryRow: View {
     
     var body: some View {
         VStack(alignment: .leading) {
+            
+            #if os(xrOS)
+            HStack {
+                Text(category.name)
+                    .font(.title.weight(.bold))
+                    .padding(.leading, 15)
+                Spacer()
+                NavigationLink(destination: CategoryGrid(for: category)) {
+                    HStack {
+                        Text("View All")
+                        Image(systemName: "chevron.right")
+                    }
+                }
+            }
+            .foregroundStyle(labelColor(for: category))
+            .padding([.horizontal, .top])
+            #else
             NavigationLink {
                 CategoryGrid(for: category)
             } label: {
                 HStack {
                     Text(category.name)
-                        .foregroundStyle(category.color)
                         .font(.title2.weight(.bold))
                         .padding(.leading, 15)
                     Spacer()
                     Image(systemName: "chevron.right")
-                        .foregroundColor(category.color)
                         .foregroundStyle(.secondary)
                 }
+                .foregroundStyle(labelColor(for: category))
             }
             .padding(.top, 5)
             .padding(.trailing)
+            #endif
 
             ScrollView(.horizontal, showsIndicators: false) {
                 LazyHStack(alignment: .top, spacing: 15) {
@@ -52,6 +69,10 @@ struct CategoryRow: View {
         .onAppear(perform: load)
         
     }
+    
+    
+    
+    // Additional Info
     
     func filterIncludes(_ cocktail: Cocktail) -> Bool {
         
@@ -98,6 +119,18 @@ struct CategoryRow: View {
         
     }
     
+    func labelColor(for category: CocktailCategory) -> Color {
+        #if os(xrOS)
+        return Color.primary
+        #else
+        return category.color
+        #endif
+    }
+    
+    
+    
+    // Main Functions
+    
     func viewAll() {
         opacity = 0.5
         isActive = true
@@ -106,6 +139,7 @@ struct CategoryRow: View {
     func load() {
         opacity = 1
     }
+    
 }
 
 struct CategoryRow_Previews: PreviewProvider {

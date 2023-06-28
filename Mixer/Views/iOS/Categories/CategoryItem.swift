@@ -23,27 +23,42 @@ struct CategoryItem: View {
     @State private var isActive = false
     
     var body: some View {
-        NavigationLink(value: cocktail) {
-            VStack(alignment: .leading) {
-                
-                ZStack(alignment: .topLeading) {
-                    cocktail.squareImage(size: 155)
-                        .cornerRadius(5)
+        VStack {
+            NavigationLink(value: cocktail) {
+                VStack(alignment: .leading) {
                     
-                    if rating != .none {
-                        LinearGradient(colors: [.clear, .clear, .clear, .clear, .black.opacity(0.25), .black.opacity(0.55)], startPoint: .bottomTrailing, endPoint: .topLeading)
+                    ZStack(alignment: .topLeading) {
+                        
+                        #if os(xrOS)
+                        cocktail.circleImage(size: 155)
+                        #else
+                        cocktail.squareImage(size: 155)
+                            .cornerRadius(5)
+                        #endif
+                        
+                        if rating != .none {
+                            LinearGradient(colors: [.clear, .clear, .clear, .clear, .black.opacity(0.25), .black.opacity(0.55)], startPoint: .bottomTrailing, endPoint: .topLeading)
+                        }
+                        
+                        ratingIcon
+                            .transition(.scale)
                     }
+                    .frame(width: 155, height: 155, alignment: .center)
                     
-                    ratingIcon
-                        .transition(.scale)
+                    #if !os(xrOS)
+                    textLabel
+                    #endif
+                    
                 }
-                .frame(width: 155, height: 155, alignment: .center)
-                
-                Text(cocktail.name)
-                    .font(.footnote)
-                    .foregroundColor(.primary)
-                
             }
+            #if os(xrOS)
+            .buttonBorderShape(.circle)
+            #endif
+            
+            #if os(xrOS)
+            textLabel
+            #endif
+            
         }
         .onAppear(perform: load)
         .contextMenu {
@@ -55,35 +70,16 @@ struct CategoryItem: View {
                 }
             }
         } preview: {
-            VStack {
-                ZStack(alignment: .topLeading) {
-                    heroPreview
-                    ratingIcon
-                        .scaleEffect(1.5)
-                        .padding()
-                }
-                VStack(alignment: .leading) {
-                    Text("Ingredients")
-                        .font(.title2.weight(.bold))
-                        .padding(.bottom, 5)
-                    VStack(spacing: 5) {
-                        ForEach(cocktail.ingredients) { ingredient in
-                            HStack {
-                                Text(ingredient.name)
-                                Spacer()
-                                Text(ingredient.measurement)
-                                    .foregroundColor(.secondary)
-                            }
-                        }
-                    }
-                }
-                .padding()
-                
-                Spacer()
-            }
+            preview()
         }
 
 
+    }
+    
+    var textLabel: some View {
+        Text(cocktail.name)
+            .font(.footnote)
+            .foregroundColor(.primary)
     }
     
     func load() {
@@ -142,6 +138,36 @@ struct CategoryItem: View {
             
         }
     }
+    
+    func preview() -> some View {
+        return VStack {
+            ZStack(alignment: .topLeading) {
+                heroPreview
+                ratingIcon
+                    .scaleEffect(1.5)
+                    .padding()
+            }
+            VStack(alignment: .leading) {
+                Text("Ingredients")
+                    .font(.title2.weight(.bold))
+                    .padding(.bottom, 5)
+                VStack(spacing: 5) {
+                    ForEach(cocktail.ingredients) { ingredient in
+                        HStack {
+                            Text(ingredient.name)
+                            Spacer()
+                            Text(ingredient.measurement)
+                                .foregroundColor(.secondary)
+                        }
+                    }
+                }
+            }
+            .padding()
+            
+            Spacer()
+        }
+    }
+    
 }
 
 struct CategoryItem_Previews: PreviewProvider {

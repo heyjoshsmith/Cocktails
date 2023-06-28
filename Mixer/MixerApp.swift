@@ -7,7 +7,9 @@
 
 import SwiftUI
 import CoreSpotlight
+#if canImport(WidgetKit)
 import WidgetKit
+#endif
 
 @main
 struct MixerApp: App {
@@ -24,6 +26,9 @@ struct MixerApp: App {
     var body: some Scene {
         WindowGroup {
             Group {
+                #if os(xrOS)
+                VisionHome()
+                #else
                 CocktailList()
                     .sheet(item: $sheet) { sheet in
                         switch sheet {
@@ -39,6 +44,7 @@ struct MixerApp: App {
                             SettingsView()
                         }
                     }
+                #endif
             }
             .environment(\.managedObjectContext, bar.container.viewContext)
             .environmentObject(bar)

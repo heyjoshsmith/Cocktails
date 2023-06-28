@@ -116,6 +116,14 @@ struct Cocktail: Codable, Hashable, Identifiable, Equatable {
             .frame(width: size, height: size, alignment: .center)
     }
     
+    func circleImage(size: CGFloat) -> some View {
+        return Image("\(name)-Square")
+            .renderingMode(.original)
+            .resizable()
+            .scaledToFill()
+            .clipShape(.circle)
+    }
+    
     var imageData: Data {
         return UIImage(named: "\(name)-Square")?.jpegData(compressionQuality: 0.5) ?? Data()
     }
@@ -316,6 +324,7 @@ struct Crop {
     
 }
 
+#if !os(watchOS)
 
 struct PlainNavigationLinkButtonStyle: ButtonStyle {
   func makeBody(configuration: Self.Configuration) -> some View {
@@ -384,3 +393,4 @@ struct TVButton: View {
         .animation(.default, value: focused)
   }
 }
+#endif

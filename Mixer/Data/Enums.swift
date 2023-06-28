@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-enum CocktailCategory: Codable, Hashable, CaseIterable {
+enum CocktailCategory: Codable, Hashable, CaseIterable, Identifiable {
     case brandy, dessert, gin, rum, scotch, sparklingWine, tequila, vodka, whiskey, other
     
     var name: String {
@@ -78,6 +78,11 @@ enum CocktailCategory: Codable, Hashable, CaseIterable {
                 cocktail.name.lowercased().contains(search.lowercased())
             }
         }
+    }
+    
+    
+    var id: Self {
+        return self
     }
 }
 
