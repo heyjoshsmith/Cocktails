@@ -22,4 +22,28 @@ extension View {
             view?.drawHierarchy(in: controller.view.bounds, afterScreenUpdates: true)
         }
     }
+    
+    func gradient(for cocktail: Cocktail) -> some View {
+        self
+            .background(
+                LinearGradient(
+                    colors: [
+                        cocktail.category.color.opacity(0),
+                        cocktail.category.color.opacity(0),
+                        cocktail.category.color.opacity(0.25),
+                        cocktail.category.color.opacity(0.5),
+                        cocktail.category.color.opacity(0.75)
+                    ],
+                    startPoint: .top,
+                    endPoint: .bottom
+                )
+            )
+    }
+    
+    func cocktailButton(radius: CGFloat) -> some View {
+            self
+            .buttonStyle(.plain)
+            .buttonBorderShape(.roundedRectangle(radius: radius))
+            .hoverEffect()
+    }
 }

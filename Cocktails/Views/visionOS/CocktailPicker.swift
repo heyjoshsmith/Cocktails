@@ -10,34 +10,31 @@ import SwiftUI
 struct CocktailPicker: View {
     
     @EnvironmentObject private var bar: Bar
-    @State private var category: CocktailCategory = .vodka
     @State private var showingFilter = false
     
     var body: some View {
         NavigationStack {
-            CategoryGrid(for: category)
+            CategoryGrid(for: bar.category)
                 .searchable(text: $bar.search)
                 .toolbarTitleMenu {
-                    Picker("Categories", selection: $category) {
+                    Picker("Categories", selection: $bar.category) {
                         ForEach(CocktailCategory.allCases) { category in
                             Text(category.name)
                                 .tag(category)
                         }
                     }
                 }
-                .navigationTitle(category.name)
+                .navigationTitle(bar.category.name)
                 .toolbar {
                     ToolbarItemGroup {
                         
-                        Button {
+                        Button("Filter", systemImage: "line.horizontal.3.decrease.circle") {
                             showingFilter.toggle()
-                        } label: {
-                            Image(systemName: "line.horizontal.3.decrease.circle")
-                                .symbolVariant(bar.filter == .none ? .none : .fill)
                         }
+                        .symbolVariant(bar.filters.isEmpty ? .none : .fill)
                         .popover(isPresented: $showingFilter) {
                             FilterView()
-                                .frame(width: 300, height: 400, alignment: .top)
+                                .frame(width: 400, height: 500, alignment: .top)
                         }
                         
                     }
@@ -50,5 +47,7 @@ struct CocktailPicker: View {
 #Preview {
     NavigationStack {
         CocktailPicker()
+            .modelContainer(for: [Cocktail.self, Guest.self])
+            .environmentObject(Bar.shared)
     }
 }

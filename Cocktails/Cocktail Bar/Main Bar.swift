@@ -22,7 +22,9 @@ class Bar: ObservableObject {
     @AppStorage("Hidden Ingredients") var hiddenIngredients = [IngredientType]()
     
     @Published var selectedCocktail: [Cocktail] = []
-    @Published var filter: Filter = .none
+    @Published var category: CocktailCategory = .rum
+    @Published var filters: [Filter] = []
+    @Published var matchAllFilters = true
     @Published var search = ""
     
     var device: Device {
@@ -60,16 +62,18 @@ class Bar: ObservableObject {
     // Additional Info
     
     func filterIncludes(_ category: CocktailCategory) -> Bool {
-                
-        switch filter {
-        case .ingredient(let type):
-            return Array(category.recipes.map { cocktail in
-                cocktail.ingredients.map { ingredient in
-                    ingredient.kind
-                }
-            }.joined()).contains(type)
-        default:
-            return true
+        
+        filters.contains { filter in
+            switch filter {
+            case .ingredient(let type):
+                return Array(category.recipes.map { cocktail in
+                    cocktail.ingredients.map { ingredient in
+                        ingredient.kind
+                    }
+                }.joined()).contains(type)
+            default:
+                return true
+            }
         }
         
     }

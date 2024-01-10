@@ -36,4 +36,6 @@ struct VisionHome: View {
 
 #Preview {
     VisionHome()
+        .modelContainer(for: [Cocktail.self, Guest.self])
+        .environmentObject(Bar.shared)
 }

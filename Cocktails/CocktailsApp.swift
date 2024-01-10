@@ -35,7 +35,7 @@ struct CocktailsApp: App {
                             switch sheet {
                             case .shopping:
                                 ShoppingView()
-                            case .filter:
+                            case .filters:
                                 FilterView()
                             case .ingredients:
                                 CocktailsByIngredient()

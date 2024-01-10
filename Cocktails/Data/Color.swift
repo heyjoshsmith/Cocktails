@@ -10,7 +10,7 @@ import SwiftUI
 extension Color {
     
     static var background: Color {
-        #if os(iOS)
+        #if !os(macOS)
         return Color(uiColor: .systemGroupedBackground)
         #else
         return Color(nsColor: .windowBackgroundColor)
@@ -18,7 +18,7 @@ extension Color {
     }
     
     static var background2: Color {
-        #if os(iOS)
+        #if !os(macOS)
         return Color(uiColor: .secondarySystemGroupedBackground)
         #else
         return Color(nsColor: .windowBackgroundColor)
@@ -26,7 +26,7 @@ extension Color {
     }
     
     static var background3: Color {
-        #if os(iOS)
+        #if !os(macOS)
         return Color(uiColor: .tertiarySystemGroupedBackground)
         #else
         return Color(nsColor: .windowBackgroundColor)
@@ -34,7 +34,7 @@ extension Color {
     }
     
     static var label: Color {
-        #if os(iOS)
+        #if !os(macOS)
         return Color(uiColor: .label)
         #else
         return Color(nsColor: .windowBackgroundColor)
@@ -42,7 +42,7 @@ extension Color {
     }
     
     static var label2: Color {
-        #if os(iOS)
+        #if !os(macOS)
         return Color(uiColor: .secondaryLabel)
         #else
         return Color(nsColor: .windowBackgroundColor)
@@ -50,7 +50,7 @@ extension Color {
     }
     
     static var label3: Color {
-        #if os(iOS)
+        #if !os(macOS)
         return Color(uiColor: .tertiaryLabel)
         #else
         return Color(nsColor: .windowBackgroundColor)
@@ -58,7 +58,7 @@ extension Color {
     }
     
     static var label4: Color {
-        #if os(iOS)
+        #if !os(macOS)
         return Color(uiColor: .quaternaryLabel)
         #else
         return Color(nsColor: .windowBackgroundColor)
@@ -66,7 +66,7 @@ extension Color {
     }
     
     static var fill: Color {
-        #if os(iOS)
+        #if !os(macOS)
         return Color(uiColor: .systemFill)
         #else
         return Color(nsColor: .windowBackgroundColor)
@@ -74,7 +74,7 @@ extension Color {
     }
     
     static var fill2: Color {
-        #if os(iOS)
+        #if !os(macOS)
         return Color(uiColor: .secondarySystemFill)
         #else
         return Color(nsColor: .windowBackgroundColor)
@@ -82,7 +82,7 @@ extension Color {
     }
     
     static var fill3: Color {
-        #if os(iOS)
+        #if !os(macOS)
         return Color(uiColor: .tertiarySystemFill)
         #else
         return Color(nsColor: .windowBackgroundColor)
@@ -90,7 +90,7 @@ extension Color {
     }
     
     static var fill4: Color {
-        #if os(iOS)
+        #if !os(macOS)
         return Color(uiColor: .quaternarySystemFill)
         #else
         return Color(nsColor: .windowBackgroundColor)

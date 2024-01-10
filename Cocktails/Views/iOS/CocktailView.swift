@@ -247,12 +247,14 @@ struct CocktailView: View {
                     .padding(.horizontal, -16)
                     .padding(.bottom, -16)
                     .toolbar {
+                        #if !os(visionOS)
                         ToolbarItemGroup(placement: .keyboard) {
                             Spacer()
                             Button("Done") {
                                 focused = false
                             }
                         }
+                        #endif
                     }
                     
                 }
@@ -371,10 +373,10 @@ struct CocktailView: View {
     
 }
 
-struct CocktailView_Previews: PreviewProvider {
-    static var previews: some View {
-        NavigationStack {
-            CocktailView(for: cocktails[69])
-        }
+#Preview {
+    NavigationStack {
+        CocktailView(for: cocktails[69])
     }
+    .modelContainer(for: [Cocktail.self, Guest.self])
+    .environmentObject(Bar.shared)
 }

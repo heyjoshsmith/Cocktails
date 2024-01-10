@@ -9,12 +9,10 @@ import SwiftUI
 
 enum Filter: Equatable, Hashable {
     
-    case none, liked, disliked, notRated, ingredient(_ type: IngredientType)
+    case liked, disliked, notRated, ingredient(_ type: IngredientType)
         
     var name: String {
         switch self {
-        case .none:
-            return "None"
         case .liked:
             return "Liked"
         case .disliked:
@@ -28,8 +26,6 @@ enum Filter: Equatable, Hashable {
     
     var icon: String {
         switch self {
-        case .none:
-            return "xmark.circle"
         case .liked:
             return "hand.thumbsup"
         case .disliked:
@@ -44,8 +40,6 @@ enum Filter: Equatable, Hashable {
     #if os(macOS)
     var keyboardShortcut: KeyboardShortcut {
         switch self {
-        case .none:
-            return KeyboardShortcut("0")
         case .liked:
             return KeyboardShortcut("1")
         case .disliked:

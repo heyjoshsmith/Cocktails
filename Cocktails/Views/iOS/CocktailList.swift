@@ -32,7 +32,7 @@ struct CocktailList: View {
                 VStack {
                     
                     #if !os(visionOS)
-                    if bar.filter == Filter.none && bar.search.isEmpty {
+                    if bar.filters.isEmpty && bar.search.isEmpty {
                         FeaturedCocktails()
                             .transition(.scale)
                     }
@@ -57,7 +57,7 @@ struct CocktailList: View {
             }
             .edgesIgnoringSafeArea(.horizontal)
             .searchable(text: $bar.search)
-            .navigationTitle(bar.filter == .none ? "Featured" : bar.filter.name)
+            .navigationTitle(bar.filters.isEmpty ? "Featured" : "Filtered")
             .navigationDestination(for: Cocktail.self, destination: CocktailView.init)
             .toolbar { leadingToolbar ; trailingToolbar }
             
@@ -100,7 +100,7 @@ struct CocktailList: View {
                 showingFilter.toggle()
             } label: {
                 Image(systemName: "line.horizontal.3.decrease.circle")
-                    .symbolVariant(bar.filter == .none ? .none : .fill)
+                    .symbolVariant(bar.filters.isEmpty ? .none : .fill)
             }
             .sheet(isPresented: $showingFilter) {
                 FilterView()
