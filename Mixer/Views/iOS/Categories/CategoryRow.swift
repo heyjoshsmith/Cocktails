@@ -18,7 +18,7 @@ struct CategoryRow: View {
     var body: some View {
         VStack(alignment: .leading) {
             
-            #if os(xrOS)
+            #if os(visionOS)
             HStack {
                 Text(category.name)
                     .font(.title.weight(.bold))
@@ -54,7 +54,7 @@ struct CategoryRow: View {
             ScrollView(.horizontal, showsIndicators: false) {
                 LazyHStack(alignment: .top, spacing: 15) {
                     ForEach(category.recipes) { cocktail in
-                        if filterIncludes(cocktail) && searchIncludes(cocktail) {
+                        if searchIncludes(cocktail) {
                             CategoryItem(cocktail: cocktail)
                                 .transition(.scale)
                         }
@@ -73,25 +73,6 @@ struct CategoryRow: View {
     
     
     // Additional Info
-    
-    func filterIncludes(_ cocktail: Cocktail) -> Bool {
-        
-        let liked = bar.likes.contains(cocktail.number)
-        let disliked = bar.dislikes.contains(cocktail.number)
-        
-        switch bar.filter {
-        case .liked:
-            return liked
-        case .disliked:
-            return disliked
-        case .notRated:
-            return !liked && !disliked
-        case .none:
-            return true
-        case .ingredient(let type):
-            return cocktail.ingredients.map { $0.kind }.contains(type)
-        }
-    }
     
     func searchIncludes(_ cocktail: Cocktail) -> Bool {
         
@@ -120,7 +101,7 @@ struct CategoryRow: View {
     }
     
     func labelColor(for category: CocktailCategory) -> Color {
-        #if os(xrOS)
+        #if os(visionOS)
         return Color.primary
         #else
         return category.color

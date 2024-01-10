@@ -75,7 +75,6 @@ struct ShareableView_Previews: PreviewProvider {
             Color.background.edgesIgnoringSafeArea(.all)
             ShareableView(for: Cocktail.example(of: "Cuba Libre"))
         }
-        .environmentObject(Bar.preview)
         .preferredColorScheme(.dark)
     }
 }

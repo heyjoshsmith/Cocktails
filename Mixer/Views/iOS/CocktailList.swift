@@ -17,16 +17,21 @@ struct CocktailList: View {
     @State private var viewingFriends = false
     @State private var showingFilter = false
     
-    @State private var viewingCategory: CocktailCategory = .vodka
+    @State private var viewingCategory: CocktailCategory?
+    
+    init() {
+        #if os(visionOS)
+        self._viewingCategory = State(initialValue: .vodka)
+        #endif
+    }
     
     var body: some View {
-        
         NavigationStack(path: $bar.selectedCocktail) {
             ScrollView {
                 
                 VStack {
                     
-                    #if !os(xrOS)
+                    #if !os(visionOS)
                     if bar.filter == Filter.none && bar.search.isEmpty {
                         FeaturedCocktails()
                             .transition(.scale)
@@ -35,7 +40,7 @@ struct CocktailList: View {
                     
                     ForEach(CocktailCategory.allCases, id: \.self) { category in
                         
-                        if bar.filterIncludes(category) && bar.searchInclude(category) && viewingCategory == category {
+                        if bar.filterIncludes(category) && bar.searchInclude(category) && (viewingCategory == nil || viewingCategory == category) {
                             CategoryRow(category: category)
                                 .transition(.scale)
 
@@ -59,7 +64,6 @@ struct CocktailList: View {
         }
         .background(Color.background)
         .onAppear(perform: bar.reloadWidgets)
-        
     }
     
     
@@ -151,7 +155,6 @@ extension URL {
 struct CocktailList_Previews: PreviewProvider {
     static var previews: some View {
         CocktailList()
-            .environmentObject(Bar.preview)
 //            .preferredColorScheme(.dark)
     }
 }

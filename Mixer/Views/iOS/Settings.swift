@@ -47,8 +47,6 @@ struct SettingsView: View {
                 Section {
                     Button("Reset Spotlight", action: {bar.spotlightIndexed = false})
                         .disabled(bar.spotlightIndexed == false)
-                    Button("Reset Ratings", role: .destructive, action: bar.deleteRatings)
-                        .disabled(bar.liked.isEmpty && bar.disliked.isEmpty)
                 }
             }
             .navigationTitle("Settings")
@@ -81,6 +79,5 @@ extension Double {
 struct SettingsView_Previews: PreviewProvider {
     static var previews: some View {
         SettingsView()
-            .environmentObject(Bar.preview)
     }
 }

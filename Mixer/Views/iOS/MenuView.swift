@@ -171,6 +171,5 @@ struct MenuView: View {
 struct MenuView_Previews: PreviewProvider {
     static var previews: some View {
         MenuView(.constant([MenuItem(Cocktail.example(of: "Martini"), count: 4)]))
-            .environmentObject(Bar.preview)
     }
 }

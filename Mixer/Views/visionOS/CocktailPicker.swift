@@ -51,5 +51,4 @@ struct CocktailPicker: View {
     NavigationStack {
         CocktailPicker()
     }
-    .environmentObject(Bar.preview)
 }

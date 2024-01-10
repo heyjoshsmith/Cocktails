@@ -17,9 +17,7 @@ struct CategoryItem: View {
     @State private var yOffset: Double = 0
     
     @State private var editing = false
-    
-    @State private var rating: RatingType = .none
-    
+        
     @State private var isActive = false
     
     var body: some View {
@@ -29,50 +27,33 @@ struct CategoryItem: View {
                     
                     ZStack(alignment: .topLeading) {
                         
-                        #if os(xrOS)
+                        #if os(visionOS)
                         cocktail.circleImage(size: 155)
                         #else
                         cocktail.squareImage(size: 155)
                             .cornerRadius(5)
                         #endif
                         
-                        if rating != .none {
-                            LinearGradient(colors: [.clear, .clear, .clear, .clear, .black.opacity(0.25), .black.opacity(0.55)], startPoint: .bottomTrailing, endPoint: .topLeading)
-                        }
-                        
-                        ratingIcon
-                            .transition(.scale)
+                        LinearGradient(colors: [.clear, .clear, .clear, .clear, .black.opacity(0.25), .black.opacity(0.55)], startPoint: .bottomTrailing, endPoint: .topLeading)
+
                     }
                     .frame(width: 155, height: 155, alignment: .center)
                     
-                    #if !os(xrOS)
+                    #if !os(visionOS)
                     textLabel
                     #endif
                     
                 }
             }
-            #if os(xrOS)
+            #if os(visionOS)
             .buttonBorderShape(.circle)
             #endif
             
-            #if os(xrOS)
+            #if os(visionOS)
             textLabel
             #endif
             
         }
-        .onAppear(perform: load)
-        .contextMenu {
-            ForEach(RatingType.allCases, id: \.self) { rating in
-                Button {
-                    setCocktail(rating)
-                } label: {
-                    Label(rating.action, systemImage: rating.icon)
-                }
-            }
-        } preview: {
-            preview()
-        }
-
 
     }
     
@@ -81,38 +62,7 @@ struct CategoryItem: View {
             .font(.footnote)
             .foregroundColor(.primary)
     }
-    
-    func load() {
-        withAnimation {
-            if bar.likes.contains(cocktail.number) {
-                rating = .liked
-            } else if bar.dislikes.contains(cocktail.number) {
-                rating = .disliked
-            } else {
-                rating = .none
-            }
-        }
-    }
-    
-    func setCocktail(_ rating: RatingType) {
-        withAnimation {
-            bar.rate(cocktail, rating: rating)
-            self.rating = rating
-        }
-    }
-    
-    var ratingIcon: some View {
-        return Image(systemName: rating.icon)
-            .symbolVariant(.fill)
-        .font(.system(size: 13))
-        .foregroundColor(.white)
-        .frame(width: 25, height: 25, alignment: .center)
-        .background(rating.color)
-        .clipShape(Circle())
-        .opacity(rating == .none ? 0 : 1)
-        .padding(5)
-    }
-    
+        
     var heroPreview: some View {
         ZStack(alignment: .bottomLeading) {
             
@@ -143,9 +93,6 @@ struct CategoryItem: View {
         return VStack {
             ZStack(alignment: .topLeading) {
                 heroPreview
-                ratingIcon
-                    .scaleEffect(1.5)
-                    .padding()
             }
             VStack(alignment: .leading) {
                 Text("Ingredients")

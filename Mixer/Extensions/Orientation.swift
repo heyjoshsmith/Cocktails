@@ -13,7 +13,7 @@ struct DeviceRotationViewModifier: ViewModifier {
     func body(content: Content) -> some View {
         content
             .onAppear()
-        #if !os(xrOS)
+        #if !os(visionOS)
             .onReceive(NotificationCenter.default.publisher(for: UIDevice.orientationDidChangeNotification)) { _ in
                 action(UIDevice.current.orientation)
             }

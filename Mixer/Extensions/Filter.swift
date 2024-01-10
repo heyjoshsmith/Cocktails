@@ -10,9 +10,7 @@ import SwiftUI
 enum Filter: Equatable, Hashable {
     
     case none, liked, disliked, notRated, ingredient(_ type: IngredientType)
-    
-    static var ratings: [Filter] = [.liked, .disliked, .notRated]
-    
+        
     var name: String {
         switch self {
         case .none:

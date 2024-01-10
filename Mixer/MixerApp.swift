@@ -26,27 +26,36 @@ struct MixerApp: App {
     var body: some Scene {
         WindowGroup {
             Group {
-                #if os(xrOS)
+                #if os(visionOS)
                 VisionHome()
                 #else
-                CocktailList()
-                    .sheet(item: $sheet) { sheet in
-                        switch sheet {
-                        case .shopping:
-                            ShoppingView()
-                        case .filter:
-                            FilterView()
-                        case .ingredients:
-                            CocktailsByIngredient()
-                        case .guests:
-                            GuestsView()
-                        case .settings:
-                            SettingsView()
+                TabView {
+                    CocktailList()
+                        .sheet(item: $sheet) { sheet in
+                            switch sheet {
+                            case .shopping:
+                                ShoppingView()
+                            case .filter:
+                                FilterView()
+                            case .ingredients:
+                                CocktailsByIngredient()
+                            case .guests:
+                                GuestsView()
+                            case .settings:
+                                SettingsView()
+                            }
                         }
-                    }
+                        .tabItem {
+                            Label("Home", systemImage: "house")
+                        }
+                    GuestsView()
+                        .tabItem {
+                            Label("Guests", systemImage: "person.3")
+                        }
+                }
                 #endif
             }
-            .environment(\.managedObjectContext, bar.container.viewContext)
+            .modelContainer(for: [Cocktail.self, Guest.self])
             .environmentObject(bar)
             .onAppear(perform: bar.loadSearch)
             .onOpenURL(perform: openURL)

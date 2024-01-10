@@ -25,9 +25,7 @@ struct CocktailView: View {
     init(for cocktail: Cocktail) {
         self.cocktail = cocktail
     }
-    
-    @State private var currentRating: RatingType = .none
-    
+        
     @State private var orientation = UIDeviceOrientation.unknown
     
     @State private var bartenderView = false
@@ -85,27 +83,6 @@ struct CocktailView: View {
                 .toolbar {
                     ToolbarItemGroup(placement: .confirmationAction) {
                         
-                        Menu {
-                            ForEach(RatingType.allCases, id: \.self) { rating in
-                                Button {
-                                    bar.rate(cocktail, rating: rating)
-                                    currentRating = rating
-                                } label: {
-                                    Label(rating.action, systemImage: rating.icon)
-                                }
-                            }
-                        } label: {
-                            if self.currentRating == .none {
-                                Text("Rate")
-                                    .fontWeight(.regular)
-                            } else {
-                                Label(self.currentRating.action, systemImage: self.currentRating.icon)
-                                    .symbolVariant(.circle.fill)
-                                    .foregroundStyle(.white, self.currentRating.color)
-                                    .font(.system(size: 20))
-                            }
-                        }
-                        
                         Button(action: share) {
                             Image(systemName: "square.and.arrow.up")
                         }
@@ -139,15 +116,7 @@ struct CocktailView: View {
 
     
     func load() {
-        
-        if bar.likes.contains(cocktail.number) {
-            currentRating = .liked
-        } else if bar.dislikes.contains(cocktail.number) {
-            currentRating = .disliked
-        } else {
-            currentRating = .none
-        }
-        
+                
         let userActivity = NSUserActivity(activityType: "com.heyjoshsmith.Cocktails")
         userActivity.title = cocktail.name
         userActivity.persistentIdentifier = cocktail.name
@@ -393,7 +362,7 @@ struct CocktailView: View {
     }
     
     var largeScreen: Bool {
-        #if os(xrOS)
+        #if os(visionOS)
         return true
         #else
         return (bar.device == .iPad || (bar.device == .iPhone && (orientation == .landscapeLeft || orientation == .landscapeRight)))
@@ -407,6 +376,5 @@ struct CocktailView_Previews: PreviewProvider {
         NavigationStack {
             CocktailView(for: cocktails[69])
         }
-        .environmentObject(Bar.preview)
     }
 }

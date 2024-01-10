@@ -172,6 +172,5 @@ struct IngredientsView: View {
 struct IngredientsView_Previews: PreviewProvider {
     static var previews: some View {
         IngredientsView(selected: .constant([.agave]))
-            .environmentObject(Bar.preview)
     }
 }

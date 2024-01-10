@@ -51,7 +51,7 @@ struct LargeCocktailView: View {
                             } label: {
                                 Label("Home", systemImage: "chevron.left")
                                     .foregroundColor(.white)
-                                #if !os(xrOS)
+                                #if !os(visionOS)
                                     .font(.system(size: size(tv: 0, mac: 20, iPad: 15)))
                                 #endif
                             }
@@ -62,7 +62,7 @@ struct LargeCocktailView: View {
                             } label: {
                                 Label("Mix", systemImage: "info.circle")
                                     .foregroundColor(.white)
-                                #if !os(xrOS)
+                                #if !os(visionOS)
                                     .font(.system(size: size(tv: 0, mac: 20, iPad: 15)))
                                 #endif
                             }
@@ -83,7 +83,7 @@ struct LargeCocktailView: View {
                         .padding(.leading, size(tv: 0, mac: 35, iPad: 15))
                         
                     }
-                    #if os(xrOS)
+                    #if os(visionOS)
                     .padding(.vertical)
                     .padding(.leading, 30)
                     #endif
@@ -111,7 +111,7 @@ struct LargeCocktailView: View {
                         }
                         .padding([.vertical, .trailing], size(tv: 0, mac: 25, iPad: 20, iPhone: 10))
                         .padding(.vertical, size(tv: 0, mac: 25, iPad: 20, iPhone: 10))
-                        #if os(xrOS)
+                        #if os(visionOS)
                         .padding(.vertical)
                         .padding(.trailing, 30)
                         #endif
@@ -131,44 +131,8 @@ struct LargeCocktailView: View {
             #endif
             
         }
-        .onAppear(perform: load)
         .fullScreenCover(isPresented: $bartenderView) {
             BartenderTest(cocktail)
-        }
-    }
-    
-    func load() {
-        if bar.likes.contains(cocktail.number) {
-            isLiked = true
-        }
-        if bar.dislikes.contains(cocktail.number) {
-            isDisliked = true
-        }
-    }
-    
-    func like() {
-        withAnimation {
-            if bar.likes.contains(cocktail.number) {
-                bar.rate(cocktail, rating: .none)
-                self.isLiked = false
-            } else {
-                bar.rate(cocktail, rating: .liked)
-                self.isLiked = true
-                self.isDisliked = false
-            }
-        }
-    }
-    
-    func dislike() {
-        withAnimation {
-            if bar.dislikes.contains(cocktail.number) {
-                bar.rate(cocktail, rating: .none)
-                self.isDisliked = false
-            } else {
-                bar.rate(cocktail, rating: .disliked)
-                self.isDisliked = true
-                self.isLiked = false
-            }
         }
     }
     
@@ -260,7 +224,7 @@ struct LargeCocktailView: View {
             HStack(spacing: 15) {
                 
                 Text(cocktail.name)
-                #if os(xrOS)
+                #if os(visionOS)
                     .font(.title.weight(.bold))
                 #else
                     .font(.system(size: 25, weight: .bold))
@@ -268,31 +232,11 @@ struct LargeCocktailView: View {
                     .foregroundColor(.white)
                 
                 Spacer()
-                
-                Button(action: like) {
-                    Image(systemName: "hand.thumbsup")
-                        .symbolVariant(isLiked  ? .fill : .none)
-                        .frame(width: 5, height: 5, alignment: .center)
-                        .rotationEffect(.degrees(isLiked  ? 0 : 360))
-                        .animation(.spring(), value: isLiked)
-                }
-                .buttonStyle(TVButtonStyle(color: isLiked ? .green : nil, mac: bar.device == .iPhone))
-                .transition(.scale)
-                
-                Button(action: dislike) {
-                    Image(systemName: "hand.thumbsdown")
-                        .symbolVariant(isDisliked  ? .fill : .none)
-                        .frame(width: 5, height: 5, alignment: .center)
-                        .rotationEffect(.degrees(isDisliked  ? 0 : 360))
-                        .animation(.spring(), value: isDisliked)
-                }
-                .buttonStyle(TVButtonStyle(color: isDisliked ? .red : nil, mac: bar.device == .iPhone))
-                .transition(.scale)
-                
+                                
             }
             
             Text(cocktail.flavorProfile)
-            #if !os(xrOS)
+            #if !os(visionOS)
                 .font(.system(size: 15))
             #endif
                 .foregroundColor(.white)
@@ -325,27 +269,7 @@ struct LargeCocktailView: View {
                     .foregroundColor(.white)
                 
                 Spacer()
-                
-                Button(action: like) {
-                    Image(systemName: "hand.thumbsup")
-                        .symbolVariant(isLiked  ? .fill : .none)
-                        .frame(width: buttonFrame, height: buttonFrame, alignment: .center)
-                        .rotationEffect(.degrees(isLiked  ? 0 : 360))
-                        .animation(.spring(), value: isLiked)
-                }
-                .buttonStyle(TVButtonStyle(color: isLiked ? .green : nil, mac: bar.device != .tv))
-                .transition(.scale)
-                
-                Button(action: dislike) {
-                    Image(systemName: "hand.thumbsdown")
-                        .symbolVariant(isDisliked  ? .fill : .none)
-                        .frame(width: buttonFrame, height: buttonFrame, alignment: .center)
-                        .rotationEffect(.degrees(isDisliked  ? 0 : 360))
-                        .animation(.spring(), value: isDisliked)
-                }
-                .buttonStyle(TVButtonStyle(color: isDisliked ? .red : nil, mac: bar.device != .tv))
-                .transition(.scale)
-                
+                                
             }
             
             Text(cocktail.flavorProfile)
@@ -515,6 +439,5 @@ struct LargeCocktailView: View {
 struct LargeCocktailView_Previews: PreviewProvider {
     static var previews: some View {
         LargeCocktailView(for: Cocktail.example(of: "Martini"), viewing: .constant(nil))
-            .environmentObject(Bar.preview)
     }
 }

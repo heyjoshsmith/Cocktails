@@ -7,20 +7,28 @@
 
 import Foundation
 
-struct MenuItem: Codable, Hashable, Identifiable {
-    var cocktail: Cocktail
+struct MenuItem: Codable, Identifiable, Equatable {
+    
+    var name: String
     var count: Int
+    var ingredients: [Ingredient]
     
     init(_ cocktail: Cocktail, count: Int) {
-        self.cocktail = cocktail
+        self.name = cocktail.name
         self.count = count
+        self.ingredients = cocktail.ingredients
     }
     
-    var id: Self {
-        return self
+    var id: String {
+        return name
     }
     
     var scaledIngredients: [Ingredient] {
-        return cocktail.ingredients.map { Ingredient($0.kind, amount: ($0.value.value * Double(count)))}
+        return ingredients.map { Ingredient($0.kind, amount: ($0.value.value * Double(count)))}
     }
+    
+    var cocktail: Cocktail {
+        return Cocktail(name)
+    }
+    
 }

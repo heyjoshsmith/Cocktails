@@ -36,5 +36,4 @@ struct VisionHome: View {
 
 #Preview {
     VisionHome()
-        .environmentObject(Bar.preview)
 }

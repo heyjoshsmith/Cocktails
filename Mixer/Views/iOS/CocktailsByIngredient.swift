@@ -119,6 +119,5 @@ struct CocktailsByIngredient: View {
 struct CocktailsByIngredient_Previews: PreviewProvider {
     static var previews: some View {
         CocktailsByIngredient()
-            .environmentObject(Bar.preview)
     }
 }

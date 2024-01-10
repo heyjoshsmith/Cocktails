@@ -19,45 +19,6 @@ struct FilterView: View {
             
             ScrollView {
                 
-                if search.isEmpty {
-                    VStack {
-                        
-                        HStack {
-                            Text("Ratings")
-                            Spacer()
-                        }
-                        .textCase(.uppercase)
-                        .foregroundColor(.secondary)
-                        
-                        HStack {
-                            
-                            Button {
-                                setFilter(to: .liked)
-                            } label: {
-                                ratingButton(.liked)
-                            }
-                            .tint(RatingType.liked.color)
-                            
-                            Button {
-                                setFilter(to: .disliked)
-                            } label: {
-                                ratingButton(.disliked)
-                            }
-                            .tint(RatingType.disliked.color)
-                            
-                        }
-                        
-                        Button {
-                            setFilter(to: .notRated)
-                        } label: {
-                            ratingButton(.none)
-                        }
-                        .tint(RatingType.none.color)
-                        
-                    }
-                    .padding()
-                }
-                
                 VStack {
                     
                     HStack {
@@ -126,20 +87,6 @@ struct FilterView: View {
         dismiss()
     }
     
-    func ratingButton(_ rating: RatingType) -> some View {
-        HStack {
-            Spacer()
-            Image(systemName: rating.icon)
-                .symbolVariant(bar.filter == rating.filter ? .fill : .none)
-            Text(rating.name)
-            Spacer()
-        }
-        .padding()
-        .foregroundColor(bar.filter == rating.filter ? .white : .primary)
-        .background(bar.filter == rating.filter ? rating.color : Color.background2)
-        .cornerRadius(10)
-    }
-    
     var ingredients: [IngredientType] {
         
         let original = IngredientType.allCases
@@ -160,8 +107,6 @@ struct FilterView: View {
 struct FilterView_Previews: PreviewProvider {
     static var previews: some View {
         FilterView()
-            .environmentObject(Bar.preview)
-            .environment(\.managedObjectContext, Bar.preview.container.viewContext)
             .preferredColorScheme(.dark)
     }
 }

@@ -34,6 +34,5 @@ struct LinkTests: View {
 struct LinkTests_Previews: PreviewProvider {
     static var previews: some View {
         LinkTests()
-            .environmentObject(Bar.preview)
     }
 }

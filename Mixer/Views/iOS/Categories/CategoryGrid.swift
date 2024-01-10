@@ -22,18 +22,12 @@ struct CategoryGrid: View {
             ScrollView {
                 LazyVGrid(columns: columns(geo: geo), spacing: 10) {
                     ForEach(category.recipes) { cocktail in
-                        if filterIncludes(cocktail) {
-                            NavigationLink {
-                                CocktailView(for: cocktail)
-                            } label: {
-                                ZStack(alignment: .topLeading) {
-                                    if rating(for: cocktail) != .none {
-                                        LinearGradient(colors: [.clear, .clear, .clear, .clear, .black.opacity(0.25), .black.opacity(0.55)], startPoint: .bottomLeading, endPoint: .topTrailing)
-                                    }
-                                    gridItem(for: cocktail, geo: geo)
-                                    
-                                    ratingIcon(for: cocktail)
-                                }
+                        NavigationLink {
+                            CocktailView(for: cocktail)
+                        } label: {
+                            ZStack(alignment: .topLeading) {
+                                LinearGradient(colors: [.clear, .clear, .clear, .clear, .black.opacity(0.25), .black.opacity(0.55)], startPoint: .bottomLeading, endPoint: .topTrailing)
+                                gridItem(for: cocktail, geo: geo)
                             }
                         }
                     }
@@ -80,48 +74,6 @@ struct CategoryGrid: View {
         .cornerRadius(10)
     }
     
-    func filterIncludes(_ cocktail: Cocktail) -> Bool {
-        
-        let liked = bar.likes.contains(cocktail.number)
-        let disliked = bar.dislikes.contains(cocktail.number)
-        
-        switch bar.filter {
-        case .liked:
-            return liked
-        case .disliked:
-            return disliked
-        case .notRated:
-            return !liked && !disliked
-        case .none:
-            return true
-        default:
-            return true
-        }
-    }
-    
-    func rating(for cocktail: Cocktail) -> RatingType {
-        if bar.likes.contains(cocktail.number) {
-            return .liked
-        } else if bar.dislikes.contains(cocktail.number) {
-            return .disliked
-        } else {
-            return .none
-        }
-    }
-    
-    func ratingIcon(for cocktail: Cocktail) -> some View {
-        
-        return Image(systemName: rating(for: cocktail).icon)
-            .symbolVariant(.fill)
-            .font(.system(size: 13))
-            .foregroundColor(.white)
-            .frame(width: 25, height: 25, alignment: .center)
-            .background(rating(for: cocktail).color)
-            .clipShape(Circle())
-            .opacity(rating(for: cocktail) == .none ? 0 : 1)
-            .padding(5)
-    }
-    
     enum Device {
         case iPhone, iPad, watch, mac, tv
     }
@@ -161,6 +113,5 @@ struct CategoryGrid_Previews: PreviewProvider {
         NavigationStack {
             CategoryGrid(for: .gin)
         }
-        .environmentObject(Bar.preview)
     }
 }

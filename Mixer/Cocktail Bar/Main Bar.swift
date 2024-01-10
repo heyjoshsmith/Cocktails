@@ -13,49 +13,7 @@ import WidgetKit
 
 class Bar: ObservableObject {
     
-    let container: NSPersistentCloudKitContainer
     public static let shared = Bar()
-    
-    init(inMemory: Bool = false) {
-        
-        container = NSPersistentCloudKitContainer(name: "Mixer")
-        
-        if inMemory {
-            container.persistentStoreDescriptions.first!.url = URL(fileURLWithPath: "/dev/null")
-        } else {
-            let groupID = "group.com.heyjoshsmith.Mixer"
-
-            if let url = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: groupID) {
-                container.persistentStoreDescriptions.first?.url = url.appendingPathComponent("Mixer.sqlite")
-            }
-        }
-        
-        container.loadPersistentStores { _, error in
-            if let error = error {
-                fatalError("Fatal error loading store: \(error.localizedDescription)")
-            }
-
-            self.container.viewContext.automaticallyMergesChangesFromParent = true
-
-        }
-        
-    }
-
-    static var preview: Bar = {
-        let result = Bar(inMemory: true)
-        let viewContext = result.container.viewContext
-        for _ in 0..<10 {
-
-        }
-        do {
-            try viewContext.save()
-        } catch {
-            let nsError = error as NSError
-            fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
-        }
-        return result
-    }()
-    
     
     
     // Stored Properties
@@ -91,18 +49,8 @@ class Bar: ObservableObject {
     
     // Main Functions
     
-    func save() {
-        do {
-            try container.viewContext.save()
-            reloadWidgets()
-        } catch {
-            let nsError = error as NSError
-            fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
-        }
-    }
-    
     func reloadWidgets() {
-        #if !os(xrOS)
+        #if !os(visionOS)
         WidgetCenter.shared.reloadAllTimelines()
         #endif
     }
@@ -112,22 +60,8 @@ class Bar: ObservableObject {
     // Additional Info
     
     func filterIncludes(_ category: CocktailCategory) -> Bool {
-        
-        let categoryNumbers = Set(category.recipes.map { $0.number })
-        
+                
         switch filter {
-        case .liked:
-            return categoryNumbers.contains { cocktail in
-                likes.contains(cocktail)
-            }
-        case .disliked:
-            return categoryNumbers.contains { cocktail in
-                dislikes.contains(cocktail)
-            }
-        case .notRated:
-            return categoryNumbers.contains { cocktail in
-                !likes.contains(cocktail) && !dislikes.contains(cocktail)
-            }
         case .ingredient(let type):
             return Array(category.recipes.map { cocktail in
                 cocktail.ingredients.map { ingredient in
