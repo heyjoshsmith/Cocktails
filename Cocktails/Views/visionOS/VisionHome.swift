@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct VisionHome: View {
     var body: some View {
@@ -35,7 +36,10 @@ struct VisionHome: View {
 }
 
 #Preview {
-    VisionHome()
-        .modelContainer(for: [Cocktail.self, Guest.self])
+    let config = ModelConfiguration(isStoredInMemoryOnly: true)
+    let container = try! ModelContainer(for: Cocktail.self, Guest.self, configurations: config)
+    
+    return VisionHome()
         .environmentObject(Bar.shared)
+        .modelContainer(container)
 }

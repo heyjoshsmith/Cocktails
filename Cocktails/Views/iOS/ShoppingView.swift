@@ -25,21 +25,16 @@ struct ShoppingView: View {
                 
                 if menu.isEmpty {
                     
-                    Button {
-                        viewingMenu.toggle()
-                    } label: {
-                        HStack {
-                            Spacer()
-                            Image(systemName: "plus.circle.fill")
-                            Text("Add Drink")
-                            Spacer()
+                    ContentUnavailableView {
+                        Label("No Items", systemImage: "waterbottle.fill")
+                    } description: {
+                        Text("You don't have anything on your list yet.")
+                    } actions: {
+                        Button("Add Drink", systemImage: "plus") {
+                            viewingMenu.toggle()
                         }
-                        .padding(.vertical, 20)
-                        .foregroundColor(.white)
-                        .background(.blue)
-                        .cornerRadius(10)
+                        .buttonStyle(.borderedProminent)
                     }
-                    .padding()
                     
                 } else {
                     List {
@@ -92,8 +87,10 @@ struct ShoppingView: View {
             })
             .toolbar {
                 
-                ToolbarItemGroup(placement: .confirmationAction) {
-                    Button("Reset", role: .destructive, action: reset)
+                if !menu.isEmpty || !shoppingCart.isEmpty {
+                    ToolbarItemGroup(placement: .confirmationAction) {
+                        Button("Reset", role: .destructive, action: reset)
+                    }
                 }
                 
             }
@@ -180,8 +177,10 @@ struct ShoppingView: View {
     }
     
     func reset() {
-        menu.removeAll()
-        shoppingCart.removeAll()
+        withAnimation {
+            menu.removeAll()
+            shoppingCart.removeAll()
+        }
     }
     
     func demo() {
@@ -275,8 +274,10 @@ struct ShoppingView: View {
     
 }
 
-struct ShoppingView_Previews: PreviewProvider {
-    static var previews: some View {
-        ShoppingView()
+#Preview {
+    TabView {
+        Tab("Shopping", systemImage: "cart") {
+            ShoppingView()
+        }
     }
 }

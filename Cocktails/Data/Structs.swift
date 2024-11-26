@@ -23,6 +23,10 @@ struct Ingredient: Codable, Hashable, Identifiable {
         return Measurement(value: amount, unit: kind.units)
     }
     
+    func amount(for numberOfDrinks: Int) -> Int {
+        return Int(amount) * numberOfDrinks
+    }
+    
     var measurement: String {
         
         let formatter = MeasurementFormatter()
@@ -78,6 +82,24 @@ struct Ingredient: Codable, Hashable, Identifiable {
     
     static func < (lhs: Ingredient, rhs: Ingredient) -> Bool {
         lhs.kind.name < rhs.kind.name
+    }
+    
+}
+
+typealias Ingredients = [Ingredient]
+extension Ingredients {
+    
+    func scaled(for numberOfDrinks: Int) -> Ingredients {
+        return self.map { ingredient in
+            Ingredient(ingredient.kind, amount: ingredient.amount * Double(numberOfDrinks))
+        }
+    }
+    
+    func scaledDescription(for numberOfDrinks: Int) -> String {
+        let stringArray = self.map { ingredient in
+            "\(ingredient.measurement(for: numberOfDrinks)) \(ingredient.name)"
+        }
+        return ListFormatter.localizedString(byJoining: stringArray)
     }
     
 }

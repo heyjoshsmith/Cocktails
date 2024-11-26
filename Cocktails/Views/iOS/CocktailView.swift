@@ -95,7 +95,7 @@ struct CocktailView: View {
             orientation = newOrientation
         }
         .fullScreenCover(isPresented: $bartenderView) {
-            BartenderTest(cocktail)
+            BartenderView(cocktail)
         }
         
     }
@@ -364,11 +364,20 @@ struct CocktailView: View {
     }
     
     var largeScreen: Bool {
-        #if os(visionOS)
-        return true
-        #else
-        return (bar.device == .iPad || (bar.device == .iPhone && (orientation == .landscapeLeft || orientation == .landscapeRight)))
-        #endif
+        switch UIDevice.current.userInterfaceIdiom {
+        case .pad:
+            return true
+        case .phone:
+            return orientation == .landscapeLeft || orientation == .landscapeRight
+        case .tv:
+            return true
+        case .mac:
+            return true
+        case .vision:
+            return true
+        default:
+            return false
+        }
     }
     
 }

@@ -18,7 +18,7 @@ let cocktails: [Cocktail] = [
             Ingredient(.heavyCream, amount: 1),
             Ingredient(.groundNutmeg, amount: 0)
         ],
-        instructions: ["Place all ingredients into a shaker.","Add ice and shake for 20 seconds.","Double strain into coupe or martini glass.", "Garnish with fresh ground nutmeg using microplane."],
+        instructions: ["Place all ingredients into a shaker.","Add ice and shake for 20 seconds.","Double strain into coupe or martini glass.", "Garnish with fresh \(IngredientType.groundNutmeg.name) using microplane."],
         supplies: [.shaker, .strainer, .fineStrainer, .jigger, .microplane, .glasses([.coupe, .martini])],
         tip: "Fun Tip: For a stronger chocolate milkshake flavor add more crème de cacao and less brandy."
     ),
@@ -31,7 +31,7 @@ let cocktails: [Cocktail] = [
             Ingredient(.egg, amount: 1),
             Ingredient(.groundNutmeg, amount: 0)
         ],
-        instructions: ["Place all ingredients into a shaker.", "Dry shake for 20 seconds (no ice).", "Add ice and shake for 8-10 seconds.", "Double strain into small stemmed glass or coupe.", "Garnish with fresh ground nutmeg."],
+        instructions: ["Place all ingredients into a shaker.", "Dry shake for 20 seconds (no ice).", "Add ice and shake for 8-10 seconds.", "Double strain into small stemmed glass or coupe.", "Garnish with fresh \(IngredientType.groundNutmeg.name)."],
         supplies: [.shaker, .strainer, .fineStrainer, .jigger, .glasses([.stemmed, .coupe]), .microplane],
         tip: "Fun Fact: To make eggnog use the same recipe, and add 1 oz of heavy cream or 2 oz of milk!"
     ),
@@ -45,7 +45,7 @@ let cocktails: [Cocktail] = [
             Ingredient(.sugarRim, amount: 0),
             Ingredient(.lemonPeel, amount: 0)
         ],
-        instructions: ["Add sugar rim to coupe or martini glass.", "Place all ingredients into a shaker.", "Add ice and shake for 8-10 seconds.", "Double strain into coupe or martini glass.", "Garnish with lemon peel."],
+        instructions: ["Add \(IngredientType.sugarRim.name) to coupe or martini glass.", "Place all ingredients into a shaker.", "Add ice and shake for 8-10 seconds.", "Double strain into coupe or martini glass.", "Garnish with \(IngredientType.lemonPeel.name)."],
         supplies: [.shaker, .strainer, .fineStrainer, .jigger, .juicer, .glasses([.coupe, .martini])],
         tip: "Helpful Tip: Orange liqueurs can vary in sweetness, so add or take away to best fit your palette"
     ),
@@ -61,7 +61,7 @@ let cocktails: [Cocktail] = [
             Ingredient(.peychaudsBitters, amount: 2),
             Ingredient(.lemonTwistOrCherry, amount: 0)
         ],
-        instructions: ["Place all ingredients into mixing glass.", "Add ice and stir for 30 seconds.", "Strain into rocks glass over ice or large cube.", "Garnish with lemon twist or cherry."],
+        instructions: ["Place all ingredients into mixing glass.", "Add ice and stir for 30 seconds.", "Strain into rocks glass over ice or large cube.", "Garnish with \(IngredientType.lemonTwistOrCherry.name)."],
         supplies: [.mixingGlass, .strainer, .barSpoon, .jigger, .glass(.martini)],
         tip: "Similar Cocktails: Manhattan, Sazerac, Old Fashioned, Boulevardier, Martinez."
     ),
@@ -77,7 +77,7 @@ let cocktails: [Cocktail] = [
             Ingredient(.sevenUp, amount: 0),
             Ingredient(.cherryAndOrangeSlice, amount: 0)
         ],
-        instructions: ["Place orange wedges and cherry into glass.", "Add sugar cube and 3 dashes of Angostura bitters", "Lightly muddle everything until sugar is dissolved.", "Add ice to glass, pour in Brandy and stir glass.", "Add soda to taste.", "Garnish with orange wedge and cherry."],
+        instructions: ["Place \(IngredientType.cherryAndOrangeSlice.name) into glass.", "Add \(IngredientType.sugarCube.name) and \(IngredientType.angosturaBitters.name)", "Lightly muddle everything until sugar is dissolved.", "Add ice to glass, pour in \(IngredientType.brandy.name) and stir glass.", "Add \(IngredientType.sevenUp.name) to taste.", "Garnish with \(IngredientType.cherryAndOrangeSlice.name)."],
         supplies: [.jigger, .barSpoon, .muddler, .glass(.doubleRocks)],
         tip: "Helpful Tips: Add 7-UP for \"sweet\", Squirt for \"sour\", or soda water for \"press\" style old fashioned."
     ),
@@ -92,9 +92,9 @@ let cocktails: [Cocktail] = [
             Ingredient(.heavyCream, amount: 2),
             Ingredient(.caramelAndShavedChocolate, amount: 0)
         ],
-        instructions: ["Place all ingredients into a shaker.", "Add ice and shake for 20 seconds.", "Rim glass with caramel and shaved chocolate.", "Strain drink into glass.", "Garnish with more caramel and chocolate."],
+        instructions: ["Place all ingredients into a shaker.", "Add ice and shake for 20 seconds.", "Rim glass with \(IngredientType.caramelAndShavedChocolate.name).", "Strain drink into glass.", "Garnish with more \(IngredientType.caramelAndShavedChocolate.name)."],
         supplies: [.shaker, .strainer, .jigger, .glass(.martini)],
-        tip: "Fun Tips: Add caramel and chocolate to the inside of the glass for a better presentation."
+        tip: "Fun Tips: Add \(IngredientType.caramelAndShavedChocolate.name) to the inside of the glass for a better presentation."
     ),
     Cocktail(
         number: 7, category: .dessert, name: "Chocolate Martini",
@@ -108,7 +108,7 @@ let cocktails: [Cocktail] = [
             Ingredient(.heavyCream, amount: 0.5),
             Ingredient(.chocolateSyrupAndShavedChocolate, amount: 0)
         ],
-        instructions: ["Place all ingredients into a shaker.", "Add ice and shake for 30 seconds.", "Add chocolate to inside of glass.", "Double strain into glass.", "Garnish with chocolate sauce and shaved chocolate."],
+        instructions: ["Place all ingredients into a shaker.", "Add ice and shake for 30 seconds.", "Add \(IngredientType.chocolateSyrupAndShavedChocolate.name) to inside of glass.", "Double strain into glass.", "Garnish with \(IngredientType.chocolateSyrupAndShavedChocolate.name)."],
         supplies: [.shaker, .strainer, .jigger, .glass(.martini)],
         tip: "Helpful Tips: Use a squeeze bottle or bar spoon for running chocolate around inside of glass."
     ),
@@ -122,7 +122,7 @@ let cocktails: [Cocktail] = [
             Ingredient(.heavyCream, amount: 1),
             Ingredient(.groundNutmegOrChocolate, amount: 0)
         ],
-        instructions: ["Place all ingredients into a shaker.", "Add ice and shake for 15-20 seconds.", "Double strain into coupe or martini glass.", "Garnish with fresh ground nutmeg or chocolate."],
+        instructions: ["Place all ingredients into a shaker.", "Add ice and shake for 15-20 seconds.", "Double strain into coupe or martini glass.", "Garnish with fresh \(IngredientType.groundNutmegOrChocolate.name)."],
         supplies: [.shaker, .strainer, .jigger, .glasses([.coupe, .martini])],
         tip: "Helpful Tips: For a boozier cocktail add 1oz of brandy, For a boozy milkshake add a scoop of vanilla or chocolate mint ice cream and serve in a larger glass,"
     ),
@@ -139,7 +139,7 @@ let cocktails: [Cocktail] = [
             Ingredient(.mascarponeCheese, amount: 1),
             Ingredient(.chocolatePowder, amount: 0)
         ],
-        instructions: ["Place all ingredients into a shaker.", "Add ice and shake for 15-20 seconds.", "Remove ice and shake again for 30 seconds (reverse dry shake).", "Strain drink into glass.", "Garnish with chocolate powder."],
+        instructions: ["Place all ingredients into a shaker.", "Add ice and shake for 15-20 seconds.", "Remove ice and shake again for 30 seconds (reverse dry shake).", "Strain drink into glass.", "Garnish with \(IngredientType.chocolatePowder.name)."],
         supplies: [.shaker, .strainer, .jigger, .glasses([.smallCoupe, .coffee])],
         tip: "Helpful Tips: The reverse dry shake allows you to thicken your cocktail with longer shaking but without dilution."
     ),
@@ -154,7 +154,7 @@ let cocktails: [Cocktail] = [
             Ingredient(.cremeDeViolette, amount: 0.25),
             Ingredient(.lemonPeelOrDarkCharry, amount: 0)
         ],
-        instructions: ["Place all ingredients into a shaker", "Add Ice to shaker and shake your drink for 8 10 seconds", "Double Strain into coupe or martini glass", "Garnish with lemon peel or cherry"],
+        instructions: ["Place all ingredients into a shaker", "Add ice to shaker and shake your drink for 8 10 seconds", "Double strain into coupe or martini glass", "Garnish with \(IngredientType.lemonPeelOrDarkCharry.name)"],
         supplies: [.shaker, .strainer, .fineStrainer, .jigger, .juicer, .yPeeler, .glasses([.coupe, .martini])],
         tip: "Fun Tips: Crème de violette differs from brand to brand. and trving a new brand may slightly change the color of your cocktail"
     ),
@@ -168,7 +168,7 @@ let cocktails: [Cocktail] = [
             Ingredient(.honeySyrup, amount: 0.75),
             Ingredient(.lemonTwist, amount: 0)
         ],
-        instructions: ["Make the Honey Syrup by mixing 3-parts Honey with 1-part Hot Water, then let settle to room temperature.", "Place all ingredients into a shaker.", "Add ice to shaker and shake your drink for 8-10 seconds.", "Double strain into stemmed glass.", "Garnish with lemon peel."],
+        instructions: ["Make the \(IngredientType.honeySyrup.name) by mixing 3-parts Honey with 1-part Hot Water, then let settle to room temperature.", "Place all ingredients into a shaker.", "Add ice to shaker and shake your drink for 8-10 seconds.", "Double strain into stemmed glass.", "Garnish with \(IngredientType.lemonPeel.name)."],
         supplies: [.shaker, .hawthorneStrainer, .jigger, .yPeeler, .glass(.stemmed)],
         tip: "Fun Tips: If this drink has too much honey flavor, try changing your honey syrup ratio to 2:1 or even 1:1."
     ),
@@ -183,7 +183,7 @@ let cocktails: [Cocktail] = [
             Ingredient(.cremeDeMure, amount: 0.5),
             Ingredient(.lemonWedgeAndBlackberry, amount: 0)
         ],
-        instructions: ["Place gin, lemon juice, and simple syrup into shaker.", "Add ice and shake for 15-20 seconds.", "Add ice to Lewis bag and pound ice until crushed (optional).", "Fill rocks glass with crushed ice, and strain cocktail.", "Pour layer of crème de mûre over top.", "Garnish with lemon wedge and blackberry."],
+        instructions: ["Place \(IngredientType.gin.name), \(IngredientType.lemonJuice.name), and \(IngredientType.simpleSyrup.name) into shaker.", "Add ice and shake for 15-20 seconds.", "Add ice to Lewis bag and pound ice until crushed (optional).", "Fill rocks glass with crushed ice, and strain cocktail.", "Pour layer of \(IngredientType.cremeDeMure.name) over top.", "Garnish with \(IngredientType.lemonWedgeAndBlackberry.name)."],
         supplies: [.shaker, .hawthorneStrainer, .jigger, .juicer, .lewisBag, .glass(.rocks)],
         tip: "Helpful Tips: If you cannot find crème de mûre at the liquor store you could try making your own, or substituting Chambord, a black raspberry liqueur."
     ),
@@ -198,7 +198,7 @@ let cocktails: [Cocktail] = [
             Ingredient(.eggWhite, amount: 1),
             Ingredient(.raspberriesOrLemonZest, amount: 0)
         ],
-        instructions: ["Place all ingredients into a shaker without ice.", "Give your drink a \"dry shake\" for 30 seconds.", "Add ice to shaker and shake your drink for 8-10 seconds.", "Double strain into coupe or martini glass.", "No garnish needed, but raspberries are a popular choice."],
+        instructions: ["Place all ingredients into a shaker without ice.", "Give your drink a \"dry shake\" for 30 seconds.", "Add ice to shaker and shake your drink for 8-10 seconds.", "Double strain into coupe or martini glass.", "No garnish needed, but \(IngredientType.raspberriesOrLemonZest.name) are a popular choice."],
         supplies: [.shaker, .strainer, .fineStrainer, .jigger, .juicer, .glasses([.coupe, .martini])],
         tip: "Raspberry Syrup: Boil 4 cups of water with 2 cups of raspberries for 20 minutes. Add 2 cups of sugar and let mixture come to room temperature, Bottle and store for up to 3 weeks."
     ),
@@ -214,7 +214,7 @@ let cocktails: [Cocktail] = [
             Ingredient(.absinthe, amount: 0),
             Ingredient(.lemonTwist, amount: 0)
         ],
-        instructions: ["Place all ingredients into a shaker.", "Add ice to shaker and shake your drink for 8-10 seconds.", "Place teaspoon of absinthe into glass and \"rinse\" the inside of the glass.", "Double strain into your glass.", "Garnish with lemon twist."],
+        instructions: ["Place all ingredients into a shaker.", "Add ice to shaker and shake your drink for 8-10 seconds.", "Place teaspoon of \(IngredientType.absinthe.name) into glass and \"rinse\" the inside of the glass.", "Double strain into your glass.", "Garnish with \(IngredientType.lemonTwist.name)."],
         supplies: [.shaker, .hawthorneStrainer, .fineStrainer, .jigger, .juicer, .glasses([.coupe, .nickAndNora])],
         tip: "Fun Fact: This cocktail was originally made with Kina Lillet that no longer exists. So, a popular substitute is Cocchi Americano or you can use the modern version Lillet."
     ),
@@ -230,7 +230,7 @@ let cocktails: [Cocktail] = [
             Ingredient(.redGrapes, amount: 5),
             Ingredient(.orangeWedgeAndGrape, amount: 0)
         ],
-        instructions: ["Place grapes to shaker and muddle.", "Add rest of ingredients to shaker.", "Add ice to shaker and shake your drink for 8-10 seconds.", "Double strain into rocks glass with ice or large ice cube.", "Garnish with grape and orange wedge."],
+        instructions: ["Place \(IngredientType.redGrapes.name) to shaker and muddle.", "Add rest of ingredients to shaker.", "Add ice to shaker and shake your drink for 8-10 seconds.", "Double strain into rocks glass with ice or large ice cube.", "Garnish with \(IngredientType.orangeWedgeAndGrape.name)."],
         supplies: [.shaker, .hawthorneStrainer, .fineStrainer, .jigger, .juicer, .muddler, .glass(.rocks)],
         tip: "Helpful Tips: Try different grapes and see which ones you like the best in your Enzoni!"
     ),
@@ -244,7 +244,7 @@ let cocktails: [Cocktail] = [
             Ingredient(.simpleSyrup, amount: 0.75),
             Ingredient(.limeWheel, amount: 0)
         ],
-        instructions: ["Place all ingredients into a shaker.", "Add ice to shaker and shake your drink for 8-10 seconds.", "Double strain into coupe or martini glass.", "Cut a lime wheel and place on rim of glass for garnish."],
+        instructions: ["Place all ingredients into a shaker.", "Add ice to shaker and shake your drink for 8-10 seconds.", "Double strain into coupe or martini glass.", "Cut a \(IngredientType.limeWheel.name) and place on rim of glass for garnish."],
         supplies: [.shaker, .strainer, .fineMeshStrainer, .jigger, .juicer, .glasses([.martini, .coupe])],
         tip: "Fun Tips: Make it a French Gimlet by substituting 1oz of St. Germain for simple syrup!"
     ),
@@ -258,7 +258,7 @@ let cocktails: [Cocktail] = [
             Ingredient(.lemonJuice, amount: 0.75),
             Ingredient(.sugarRimAndGrapefruitTwist, amount: 0)
         ],
-        instructions: ["Place all ingredients into a shaker.", "Add ice to shaker and shake your drink for 8-10 seconds.", "Sugar rim of martini glass.", "Double strain into glass.", "Garnish with grapefruit twist."],
+        instructions: ["Place all ingredients into a shaker.", "Add ice to shaker and shake your drink for 8-10 seconds.", "Sugar rim of martini glass.", "Double strain into glass.", "Garnish with \(IngredientType.sugarRimAndGrapefruitTwist.name)."],
         supplies: [.shaker, .hawthorneStrainer, .jigger, .juicer, .channelKnife, .glass(.martini)],
         tip: "Helpful Tips: If you don't want to buy a whole grapefruit to garnish, feel free to use a lemon twist instead!"
     ),
@@ -273,7 +273,7 @@ let cocktails: [Cocktail] = [
             Ingredient(.maraschinoLiqueur, amount: 0.75),
             Ingredient(.maraschinoCherry, amount: 0)
         ],
-        instructions: ["Place all ingredients into a shaker.", "Add ice to shaker and shake your drink for 8-10 seconds.", "Double strain into coupe or martini glass.", "Garnish with Maraschino cherry."],
+        instructions: ["Place all ingredients into a shaker.", "Add ice to shaker and shake your drink for 8-10 seconds.", "Double strain into coupe or martini glass.", "Garnish with \(IngredientType.maraschinoCherry.name)."],
         supplies: [.shaker, .hawthorneStrainer, .jigger, .juicer, .glasses([.coupe, .martini])],
         tip: "Fun Tips: Love Whiskey? Try this recipe by subbing out whiskey for the gin and create a Final Ward!"
     ),
@@ -288,7 +288,7 @@ let cocktails: [Cocktail] = [
             Ingredient(.orangeBitters, amount: 2),
             Ingredient(.lemonPeel, amount: 0)
         ],
-        instructions: ["Place all ingredients into mixing glass.", "Add ice and stir for 30 seconds.", "Strain into coupe or martini glass.", "Garnish with a lemon peel."],
+        instructions: ["Place all ingredients into mixing glass.", "Add ice and stir for 30 seconds.", "Strain into coupe or martini glass.", "Garnish with a \(IngredientType.lemonPeel.name)."],
         supplies: [.mixingGlass, .hawthorneStrainer, .barSpoon, .jigger, .yPeeler, .glasses([.coupe, .martini])],
         tip: "Fun Tips: Try the more traditional version and make this cocktail with Old Tom Gin and see which version you like most!"
     ),
@@ -302,7 +302,7 @@ let cocktails: [Cocktail] = [
             Ingredient(.oliveJuice, amount: 0.5),
             Ingredient(.cocktailOlives, amount: 0)
         ],
-        instructions: ["Place gin and vermouth into mixing glass.", "Add ice and stir for 30 seconds.", "Strain into coupe or martini glass.", "Finish with your choice of garnish."],
+        instructions: ["Place \(IngredientType.gin.name) and \(IngredientType.dryVermouth.name) into mixing glass.", "Add ice and stir for 30 seconds.", "Strain into coupe or martini glass.", "Finish with your choice of garnish."],
         supplies: [.mixingGlass, .hawthorneStrainer, .barSpoon, .jigger, .yPeeler, .glasses([.coupe, .martini])],
         tip: "Fun Tips: A \"dry\" martini refers to using less vermouth, and a \"wet\" martini refers to adding more vermouth. Try them out and find your favorite combination!"
     ),
@@ -316,7 +316,7 @@ let cocktails: [Cocktail] = [
             Ingredient(.sweetVermouth, amount: 1),
             Ingredient(.orangePeel, amount: 0)
         ],
-        instructions: ["Place all ingredients into mixing glass.", "Add ice and stir for 30 seconds.", "Add ice or large ice cube to rocks glass.", "Strain cocktail into your glass.", "Garnish with an orange peel."],
+        instructions: ["Place all ingredients into mixing glass.", "Add ice and stir for 30 seconds.", "Add ice or large ice cube to rocks glass.", "Strain cocktail into your glass.", "Garnish with an \(IngredientType.orangePeel.name)."],
         supplies: [.mixingGlass, .hawthorneStrainer, .barSpoon, .jigger, .yPeeler, .glass(.rocks)],
         tip: "Fun Tips: Love whiskey? Try the Boulevardier, it's a Negroni but substitutes whiskey for gin!"
     ),
@@ -334,7 +334,7 @@ let cocktails: [Cocktail] = [
             Ingredient(.eggWhite, amount: 1),
             Ingredient(.sodaWater, amount: 0)
         ],
-        instructions: ["Add all ingredients minus egg white to shaker.", "Add ice and shake vigorously for 40 seconds.", "Double strain your cocktail back into shaker.", "Add egg white and dry shake (no ice) for 60 Seconds.", "Pour into Collins glass and leave ½ inch from the top.", "Let drink rest in fridge for 1-2 minutes.", "Carefully pour cold soda water in the middle of the glass to raise the foam top above the rim of the glass ~ (1-2oz)."],
+        instructions: ["Add all ingredients minus \(IngredientType.eggWhite.name) to shaker.", "Add ice and shake vigorously for 40 seconds.", "Double strain your cocktail back into shaker.", "Add \(IngredientType.eggWhite.name) and dry shake (no ice) for 60 Seconds.", "Pour into Collins glass and leave ½ inch from the top.", "Let drink rest in fridge for 1-2 minutes.", "Carefully pour cold \(IngredientType.sodaWater.name) in the middle of the glass to raise the foam top above the rim of the glass ~ (1-2oz)."],
         supplies: [.shaker, .hawthorneStrainer, .fineStrainer, .jigger, .juicer, .glass(.collins)],
         tip: "Helpful Tips: Can't find orange blossom water? Try grating about a teaspoon of orange peel into your drink!"
     ),
@@ -349,7 +349,7 @@ let cocktails: [Cocktail] = [
             Ingredient(.sodaWater, amount: 0),
             Ingredient(.lemonPeelOrCherry, amount: 0)
         ],
-        instructions: ["Place all ingredients (except soda) into a shaker.", "Add ice and shake for 8-10 seconds.", "Add ice to your Collins glass and strain your cocktail into glass.", "Top off with soda water and garnish with lemon peel or wedge and a cherry."],
+        instructions: ["Place all ingredients (except \(IngredientType.sodaWater.name) into a shaker.", "Add ice and shake for 8-10 seconds.", "Add ice to your Collins glass and strain your cocktail into glass.", "Top off with \(IngredientType.sodaWater.name) and garnish with \(IngredientType.lemonPeelOrCherry.name)."],
         supplies: [.shaker, .hawthorneStrainer, .jigger, .juicer, .glass(.collins)],
         tip: "Helpful Tips: Never add carbonated soda to your shaker tin. If you shake carbonated soda your tin will burst open from the pressure and spill your drink everywhere!"
     ),
@@ -363,7 +363,7 @@ let cocktails: [Cocktail] = [
             Ingredient(.lillet, amount: 0.5),
             Ingredient(.lemonPeel, amount: 0)
         ],
-        instructions: ["Place all ingredients into mixing glass.", "Add ice and stir for 30 seconds.", "Strain into coupe or martini glass.", "Garnish with lemon peel."],
+        instructions: ["Place all ingredients into mixing glass.", "Add ice and stir for 30 seconds.", "Strain into coupe or martini glass.", "Garnish with \(IngredientType.lemonPeel.name)."],
         supplies: [.mixingGlass, .hawthorneStrainer, .barSpoon, .jigger, .yPeeler, .glasses([.martini, .coupe])],
         tip: "Fun Fact: This cocktail was originally made with Kina Lillet, which no longer exists. You can use the modern version Lillet, or a popular substitute is Cocchi Americano."
     ),
@@ -378,7 +378,7 @@ let cocktails: [Cocktail] = [
             Ingredient(.eggWhite, amount: 1),
             Ingredient(.lemonPeel, amount: 0)
         ],
-        instructions: ["Place all ingredients into a shaker.", "Give your drink a \"dry shake\" for 30 Seconds.", "Add ice and shake for 8-10 seconds.", "Double strain into coupe or Nick and Nora glass.", "No garnish needed, but lemon peel is a popular choice."],
+        instructions: ["Place all ingredients into a shaker.", "Give your drink a \"dry shake\" for 30 Seconds.", "Add ice and shake for 8-10 seconds.", "Double strain into coupe or Nick and Nora glass.", "No garnish needed, but \(IngredientType.lemonPeel.name) is a popular choice."],
         supplies: [.shaker, .hawthorneStrainer, .fineStrainer, .jigger, .juicer, .glasses([.smallCoupe, .nickAndNora])],
         tip: "Helpful Tips: Many recipes call for simple syrup, so if you want a less tart cocktail try adding .25oz of simple syrup!"
     ),
@@ -394,7 +394,7 @@ let cocktails: [Cocktail] = [
             Ingredient(.eggWhite, amount: 1),
             Ingredient(.lemonPeelOrDarkCharry, amount: 0)
         ],
-        instructions: ["Place all ingredients into shaker.", "Place all ingredients into shaker.", "Add ice and shake for 8-10 seconds.", "Add ice or large ice cube to rocks glass.", "Strain your drink into the glass.", "Garnish with a dark cherry and lemon peel."],
+        instructions: ["Place all ingredients into shaker.", "Add ice and shake for 8-10 seconds.", "Add ice or large ice cube to rocks glass.", "Strain your drink into the glass.", "Garnish with a \(IngredientType.lemonPeelOrDarkCharry.name)."],
         supplies: [.shaker, .hawthorneStrainer, .jigger, .juicer, .glass(.rocks)],
         tip: "Fun Tips: Try using over-proofed bourbon (50% ABV or higher) to provide a stronger whiskey presence."
     ),
@@ -408,7 +408,7 @@ let cocktails: [Cocktail] = [
             Ingredient(.sodaWater, amount: 0),
             Ingredient(.orangePeelOrWedge, amount: 0)
         ],
-        instructions: ["Add ice to your Collins glass.", "Add Campari and sweet vermouth to your glass.", "Top your glass off with soda water.", "Garnish with an orange peel or wedge."],
+        instructions: ["Add ice to your Collins glass.", "Add \(IngredientType.campari.name) and \(IngredientType.sweetVermouth.name) to your glass.", "Top your glass off with soda water.", "Garnish with an \(IngredientType.orangePeelOrWedge.name)."],
         supplies: [.jigger, .glass(.collins)],
         tip: "Helpful Tips: This is a classic \"build in your glass\" cocktail. Feel free to give it a stir to mix the ingredients better!"
     ),
@@ -427,7 +427,7 @@ let cocktails: [Cocktail] = [
             Ingredient(.lemonLimeSoda, amount: 0),
             Ingredient(.lemonWedgeOrCherry, amount: 0)
         ],
-        instructions: ["Place all ingredients into a shaker.", "Add ice and shake for 8-10 seconds.", "Add ice to your Collins glass.", "Strain cocktail into your glass.", "Top off with lemon/lime soda.", "Garnish with a lemon wedge."],
+        instructions: ["Place all ingredients into a shaker.", "Add ice and shake for 8-10 seconds.", "Add ice to your Collins glass.", "Strain cocktail into your glass.", "Top off with \(IngredientType.lemonLimeSoda.name).", "Garnish with a \(IngredientType.lemonWedgeOrCherry.name)."],
         supplies: [.shaker, .hawthorneStrainer, .jigger, .juicer, .glass(.collins)],
         tip: "Fun Fact: Blue Curacao is just an orange liqueur with blue food coloring added. So, for any drink that includes orange liqueur, you can use Blue Curacao to make your cocktail blue!"
     ),
@@ -442,7 +442,7 @@ let cocktails: [Cocktail] = [
             Ingredient(.simpleSyrup, amount: 0.5),
             Ingredient(.limeWheel, amount: 0)
         ],
-        instructions: ["Place all ingredients into a shaker.", "Add ice and shake for 8-10 seconds.", "Strain into coupe or margarita glass.", "Garnish with a lime wheel.", "* Recipe calls for no ice, but feel free to add some to your drink."],
+        instructions: ["Place all ingredients into a shaker.", "Add ice and shake for 8-10 seconds.", "Strain into coupe or margarita glass.", "Garnish with a \(IngredientType.limeWheel.name).", "* Recipe calls for no ice, but feel free to add some to your drink."],
         supplies: [.shaker, .hawthorneStrainer, .fineStrainer, .jigger, .glasses([.coupe, .margarita])],
         tip: "Fun Tips: This cocktail is also served blended. Simply put the ingredients and a scoop of ice in a blender!"
     ),
@@ -460,7 +460,7 @@ let cocktails: [Cocktail] = [
             Ingredient(.simpleSyrup, amount: 0.75),
             Ingredient(.mexicanCoke, amount: 0)
         ],
-        instructions: ["Place all ingredients into a shaker.", "Add ice and shake for 8-10 seconds.", "Add ice to your Collins glass.", "Strain cocktail into your glass, and top off with cola.", "Garnish with lemon wedge and dark cherry."],
+        instructions: ["Place all ingredients into a shaker.", "Add ice and shake for 8-10 seconds.", "Add ice to your Collins glass.", "Strain cocktail into your glass, and top off with \(IngredientType.mexicanCoke.name).", "Garnish with \(IngredientType.lemonWedgeOrCherry.name)."],
         supplies: [.shaker, .hawthorneStrainer, .jigger, .glass(.collins)],
         tip: "Fun Fact: Of course the Long Island has no iced tea, but gets its name from the addition of cola that looks like iced tea!"
     ),
@@ -477,7 +477,7 @@ let cocktails: [Cocktail] = [
             Ingredient(.appleSlices, amount: 0),
             Ingredient(.mint, amount: 0)
         ],
-        instructions: ["Using your y-peeler shave ribbons of cucumber and apples.", "Cut up lemon slices and strawberry slices.", "Add fruit and mint into glass.", "Add ice, Pimms #1, lemon soda and lightly stir.", "Garnish with lemon wheel."],
+        instructions: ["Using your y-peeler shave ribbons of \(IngredientType.cucumber.name) and \(IngredientType.appleSlices.name).", "Cut up \(IngredientType.lemon.name) and \(IngredientType.strawberries.name) slices.", "Add fruit and mint into glass.", "Add ice, Pimms #1, \(IngredientType.lemonSoda.name) and lightly stir.", "Garnish with \(IngredientType.lemonPeel.name)."],
         supplies: [.jigger, .yPeeler, .barKnife, .barSpoon, .glass(.collins)],
         tip: "Fun Tips: Try using tonic water for a more bitter flavor, and try more local fruits and vegetables to make your own custom Pimm's Cup!"
     ),
@@ -492,7 +492,7 @@ let cocktails: [Cocktail] = [
             Ingredient(.eggWhite, amount: 1),
             Ingredient(.angosturaBitters, amount: 0)
         ],
-        instructions: ["Place all ingredients into a shaker.", "Give your drink a \"dry shake\" for 30 Seconds.", "Add ice and shake for 8-10 seconds.", "Double strain into glass.", "Garnish with 3-5 drops of Angostura bitters on top."],
+        instructions: ["Place all ingredients into a shaker.", "Give your drink a \"dry shake\" for 30 Seconds.", "Add ice and shake for 8-10 seconds.", "Double strain into glass.", "Garnish with 3-5 drops of \(IngredientType.angosturaBitters.name) on top."],
         supplies: [.shaker, .hawthorneStrainer, .fineStrainer, .jigger, .juicer, .glasses([.stemmed, .rocks])],
         tip: "Helpful Tips: For a more \"frothy\" cocktail try shaking with one large ice cube instead of smaller ice cubes!"
     ),
@@ -509,7 +509,7 @@ let cocktails: [Cocktail] = [
             Ingredient(.cinnamonStick, amount: 1),
             Ingredient(.sodaWater, amount: 0)
         ],
-        instructions: ["In a pitcher add diced fruit.", "Add juice from 1 orange and 1 cinnamon stick.", "Measure and add ¾ cup of Brandy.", "Add 2 bottles of Spanish red wine.", "Stir with bar spoon and refrigerate for 30 minutes.", "Pour into glass of your choice and top with soda water (optional)."],
+        instructions: ["In a pitcher add \(IngredientType.dicedGreenApple.name) and \(IngredientType.dicedLemon.name).", "Add juice from \(IngredientType.oranges.name) and \(IngredientType.cinnamonStick.name).", "Measure and add \(IngredientType.brandy.name).", "Add 2 bottles of Spanish \(IngredientType.redWine.name).", "Stir with bar spoon and refrigerate for 30 minutes.", "Pour into glass of your choice and top with \(IngredientType.sodaWater.name) (optional)."],
         supplies: [.pitcher, .barSpoon, .measuringCups, .juicer],
         tip: "Helpful Tips: Try white wine or rose for a lighter sangria. Also feel free to add your favorite fruits and berries to customize your own sangria!"
     ),
@@ -525,7 +525,7 @@ let cocktails: [Cocktail] = [
             Ingredient(.limeJuice, amount: 0.5),
             Ingredient(.pineappleFrond, amount: 0)
         ],
-        instructions: ["Place all ingredients into a shaker.", "Add ice and shake for 8-10 seconds.", "Add ice to Double Old Fashioned .", "Strain your drink into the glass.", "Garnish with a pineapple frond."],
+        instructions: ["Place all ingredients into a shaker.", "Add ice and shake for 8-10 seconds.", "Add ice to Double Old Fashioned.", "Strain your drink into the glass.", "Garnish with a \(IngredientType.pineappleFrond.name)."],
         supplies: [.shaker, .hawthorneStrainer, .jigger, .juicer, .glass(.doubleOldFashioned)],
         tip: "Helpful Tips: Jägermeister is a digestif and aids in digestion. It's made with over 56 herbs and spices and features a unique flavor of spice, citrus, licorice, and saffron."
     ),
@@ -538,7 +538,7 @@ let cocktails: [Cocktail] = [
             Ingredient(.lime, amount: 1),
             Ingredient(.fineSugar, amount: 0.5)
         ],
-        instructions: ["Add quartered lime into double rocks glass.", "Add 1 tablespoon of sugar to glass.", "Muddle limes and sugar together and add Cachaça to glass.", "Add ice, then give a 5 second shake.", "Pour back into glass and add more ice if needed."],
+        instructions: ["Add quartered \(IngredientType.lime.name) into double rocks glass.", "Add \(IngredientType.fineSugar.name) to glass.", "Muddle limes and sugar together and add Cachaça to glass.", "Add ice, then give a 5 second shake.", "Pour back into glass and add more ice if needed."],
         supplies: [.shaker, .jigger, .muddler, .glass(.doubleRocks)],
         tip: "Helpful Tips: Many recipes calls for a quick stir only, but I prefer a quick shake. Try both and see which you prefer!"
     ),
@@ -552,7 +552,7 @@ let cocktails: [Cocktail] = [
             Ingredient(.mexicanCoke, amount: 0),
             Ingredient(.limeWedge, amount: 0)
         ],
-        instructions: ["Place ice into glass.", "Add rum and squeezed lime juice.", "Top glass off with Coca Cola.", "Use bar spoon for quick stir.", "Garnish with a wedge of lime."],
+        instructions: ["Place ice into glass.", "Add \(IngredientType.whiteRum.name) and \(IngredientType.limeJuice.name).", "Top glass off with \(IngredientType.mexicanCoke.name).", "Use bar spoon for quick stir.", "Garnish with a \(IngredientType.limeWedge.name)."],
         supplies: [.jigger, .barSpoon, .glasses([.collins, .rocks])],
         tip: "Fun Tips: Mexican Coca-Coca, recognized by the signature bottles, are made with real sugar, and preferred over canned Cola made with corn syrup."
     ),
@@ -566,7 +566,7 @@ let cocktails: [Cocktail] = [
             Ingredient(.limeJuice, amount: 1),
             Ingredient(.limeWheel, amount: 0)
         ],
-        instructions: ["Place all ingredients into a shaker.", "Add ice to shaker and shake your drink for 8-10 seconds.", "Double strain into glass.", "Garnish with lime wheel."],
+        instructions: ["Place all ingredients into a shaker.", "Add ice to shaker and shake your drink for 8-10 seconds.", "Double strain into glass.", "Garnish with \(IngredientType.limeWheel.name)."],
         supplies: [.shaker, .hawthorneStrainer, .fineStrainer, .jigger, .juicer, .glasses([.coupe, .martini])],
         tip: "Helpful Tips: The Daiquiri is typically made with light rum, but try it with your favorite aged rum for a more complex cocktail!"
     ),
@@ -578,9 +578,10 @@ let cocktails: [Cocktail] = [
             Ingredient(.darkRum, amount: 2),
             Ingredient(.limeJuice, amount: 0.5),
             Ingredient(.gingerBeer, amount: 0),
-            Ingredient(.limeWedge, amount: 0)
+            Ingredient(.limeWedge, amount: 0),
+            Ingredient(.angosturaBitters, amount: 5)
         ],
-        instructions: ["Place rum and lime juice into glass.", "Add ice to glass and top glass off with ginger beer.", "Give a light stir with bar spoon.", "Garnish with lime wedge.", "(Optional) Add 5 dashes of Angostura bitters on top."],
+        instructions: ["Place rum and lime juice into glass.", "Add ice to glass and top glass off with \(IngredientType.gingerBeer.name).", "Give a light stir with bar spoon.", "Garnish with \(IngredientType.limeWheel.name).", "(Optional) Add \(IngredientType.angosturaBitters.name) on top."],
         supplies: [.jigger, .barSpoon, .juicer, .glasses([.collins, .rocks])],
         tip: "Helpful Tips: Your ginger beer plays a huge part in this cocktail. Try getting a ginger-spice forward brand and avoid ones with high fructose corn syrup."
     ),
@@ -595,7 +596,7 @@ let cocktails: [Cocktail] = [
             Ingredient(.grenadine, amount: 1),
             Ingredient(.orangePeel, amount: 0)
         ],
-        instructions: ["Place all ingredients into mixing glass.", "Add ice and stir for 30 seconds.", "Strain into your glass.", "Garnish with an orange peel."],
+        instructions: ["Place all ingredients into mixing glass.", "Add ice and stir for 30 seconds.", "Strain into your glass.", "Garnish with an \(IngredientType.orangePeel.name)."],
         supplies: [.mixingGlass, .hawthorneStrainer, .fineStrainer, .jigger, .glasses([.coupe, .nickAndNora])],
         tip: "Fun Tips: Vermouth is fortified wine, So, it must be refrigerated and consumed within a few months."
     ),
@@ -610,7 +611,7 @@ let cocktails: [Cocktail] = [
             Ingredient(.limeJuice, amount: 0.75),
             Ingredient(.limeWheel, amount: 0)
         ],
-        instructions: ["Place all ingredients into a shaker.", "Add ice to shaker and shake your drink for 8-10 seconds.", "Double strain into coupe or martini glass.", "Garnish with a lime wheel."],
+        instructions: ["Place all ingredients into a shaker.", "Add ice to shaker and shake your drink for 8-10 seconds.", "Double strain into coupe or martini glass.", "Garnish with a \(IngredientType.limeWheel.name)."],
         supplies: [.shaker, .hawthorneStrainer, .fineStrainer, .jigger, .juicer, .glasses([.coupe, .martini])],
         tip: "Helpful Tips: Hemingway wasn't a fan, but if you'd like the drink to be a little sweeter add .5oz of simple syrup!"
     ),
@@ -628,7 +629,7 @@ let cocktails: [Cocktail] = [
             Ingredient(.hotWater, amount: 4),
             Ingredient(.groundNutmeg, amount: 0)
         ],
-        instructions: ["In a large bowl thoroughly mix together everything in the batter recipe using a whisk, spoon or fork.", "Add two scoops of batter into heat proof glass.", "Add rum and hot water to glass.", "Stir until completely dissolved.", "Garnish with fresh ground nutmeg."],
+        instructions: ["In a large bowl thoroughly mix together everything in the batter recipe using a whisk, spoon or fork.", "Add two scoops of batter into heat proof glass.", "Add \(IngredientType.rum.name) and \(IngredientType.hotWater.name) to glass.", "Stir until completely dissolved.", "Garnish with fresh \(IngredientType.groundNutmeg.name)."],
         supplies: [],
         tip: "Fun Tips: Your batter should be made to taste, so try different amounts of spices to get your favorite mix! Store in freezer or fridge,"
     ),
@@ -643,7 +644,7 @@ let cocktails: [Cocktail] = [
             Ingredient(.passionfruitSyrup, amount: 2),
             Ingredient(.cherryAndOrangeSlice, amount: 0)
         ],
-        instructions: ["Place all ingredients into a shaker.", "(Optional) Place ice in Lewis bag and pound ice to crush.", "Add ice to shaker and shake your", "Pour all contents of shaker into glass and top with ice if needed.", "Garnish with orange slice and cherry."],
+        instructions: ["Place all ingredients into a shaker.", "(Optional) Place ice in Lewis bag and pound ice to crush.", "Add ice to shaker and shake your", "Pour all contents of shaker into glass and top with ice if needed.", "Garnish with \(IngredientType.cherryAndOrangeSlice.name)."],
         supplies: [.shaker, .jigger, .juicer, .lewisBag, .glass(.hurricane)],
         tip: "Passionfruit Syrup Recipe: 1;1 Ratio of passion fruit pure and simple syrup. You can also find passion fruit syrups online,"
     ),
@@ -659,7 +660,7 @@ let cocktails: [Cocktail] = [
             Ingredient(.limeJuice, amount: 0.5),
             Ingredient(.pineappleFrond, amount: 0)
         ],
-        instructions: ["Place all ingredients into a shaker.", "Add ice to shaker and shake your drink for 8-10 seconds.", "Add Ice to your glass.", "Strain drink into glass.", "Garnish with pineapple fronds."],
+        instructions: ["Place all ingredients into a shaker.", "Add ice to shaker and shake your drink for 8-10 seconds.", "Add Ice to your glass.", "Strain drink into glass.", "Garnish with \(IngredientType.pineappleFrond.name)."],
         supplies: [.shaker, .strainer, .juicer, .lewisBag, .glasses([.rocks, .collins, .tiki])],
         tip: "Helpful Tips: Pineapple juice helps create a wonderful froth on top. Want more froth? Shake it longer!"
     ),
@@ -675,7 +676,7 @@ let cocktails: [Cocktail] = [
             Ingredient(.simpleSyrup, amount: 0.25),
             Ingredient(.halfLimeAndMint, amount: 0)
         ],
-        instructions: ["Place all ingredients into shaker (save ½ of squeezed lime).", "Add ice to shaker and shake your drink for 8-10 seconds.", "Add ice to double rocks glass.", "Strain drink into glass.", "Garnish with half squeeze-lime and mint sprig."],
+        instructions: ["Place all ingredients into shaker (save ½ of squeezed lime).", "Add ice to shaker and shake your drink for 8-10 seconds.", "Add ice to double rocks glass.", "Strain drink into glass.", "Garnish with \(IngredientType.halfLimeAndMint.name)."],
         supplies: [.shaker, .strainer, .jigger, .juicer, .glass(.doubleRocks)],
         tip: "Helpful Tips: Use crushed ice for a more tiki style, Orgeat is available on Amazon."
     ),
@@ -691,7 +692,7 @@ let cocktails: [Cocktail] = [
             Ingredient(.sodaWater, amount: 0),
             Ingredient(.limeWheelAndMintSprig, amount: 0)
         ],
-        instructions: ["Add quartered lime into glass.", "Add rest of the ingredients to glass (slap mint with hands).", "Lightly muddle everything in glass.", "Add ice, top with soda water and stir to mix everything together.", "Slide lime wheels into glass and garnish with mint sprig."],
+        instructions: ["Add quartered \(IngredientType.lime.name) into glass.", "Add rest of the ingredients to glass (slap mint with hands).", "Lightly muddle everything in glass.", "Add ice, top with \(IngredientType.sodaWater.name) and stir to mix everything together.", "Slide lime wheels into glass and garnish with mint sprig."],
         supplies: [.barSpoon, .jigger, .muddler, .lewisBag, .glass(.collins)],
         tip: "Helpful Tips: When stirring your mojito only fill glass about 75% full, give it a good stir then top it off with more ice and soda water!"
     ),
@@ -706,7 +707,7 @@ let cocktails: [Cocktail] = [
             Ingredient(.orangeJuice, amount: 0.5),
             Ingredient(.pineappleFrondsAndGroundNutmeg, amount: 0)
         ],
-        instructions: ["Place all ingredients into a shaker.", "Add ice to shaker and shake your drink for 8-10 seconds.", "Add ice to double rocks glass.", "Strain drink into glass.", "Garnish with a pineapple fronds & ground nutmeg."],
+        instructions: ["Place all ingredients into a shaker.", "Add ice to shaker and shake your drink for 8-10 seconds.", "Add ice to double rocks glass.", "Strain drink into glass.", "Garnish with \(IngredientType.pineappleFrondsAndGroundNutmeg.name)."],
         supplies: [.shaker, .strainer, .jigger, .microplane, .glass(.doubleRocks)],
         tip: "Fun Facts: The Painkiller at the Soggy Dollar Bar has four variations: 1,2,3,4 representing how many shots of rum will come in your cocktail!"
     ),
@@ -720,7 +721,7 @@ let cocktails: [Cocktail] = [
             Ingredient(.pineappleJuice, amount: 2),
             Ingredient(.pineappleWedgeAndCherry, amount: 0)
         ],
-        instructions: ["Add ingredients to your glass.", "Fill glass with ice to top.", "Pour ice and ingredients into blender.", "Blend for 8-12 seconds.", "Pour back into Hurricane glass.", "Garnish with pineapple wedge and cherry."],
+        instructions: ["Add ingredients to your glass.", "Fill glass with ice to top.", "Pour ice and ingredients into blender.", "Blend for 8-12 seconds.", "Pour back into Hurricane glass.", "Garnish with \(IngredientType.pineappleWedgeAndCherry.name)."],
         supplies: [.blender, .jigger, .glass(.hurricane)],
         tip: "Helpful Tips: Don't have a blender? You can also make this cocktail by shaking it and serving it over ice!"
     ),
@@ -1413,7 +1414,7 @@ let cocktails: [Cocktail] = [
             Ingredient(.absinthe, amount: 0.0),
             Ingredient(.lemonTwist, amount: 0.0)
         ],
-        instructions: ["Add sugar cube to mixing glass and pour 4-6 dashes of bitters on top.", "Add whiskey and lightly muddle sugar to break it up.", "Add ice and Stir for 30-45 seconds.", "Use atomizer or pour a small amount of absinthe and run around the inside of glass then discard. Strain into rocks glass without ice.", "Garnish with a lemon peel."],
+        instructions: ["Add \(IngredientType.sugarCube.name) to mixing glass and pour 4-6 dashes of bitters on top.", "Add \(IngredientType.ryeWhiskey.name) and lightly muddle sugar to break it up.", "Add ice and Stir for 30-45 seconds.", "Use atomizer or pour a small amount of \(IngredientType.absinthe.name) and run around the inside of glass then discard. Strain into rocks glass without ice.", "Garnish with a \(IngredientType.lemonTwist.name)."],
         supplies: [.mixingGlass, .barSpoon, .hawthorneStrainer, .muddler, .glasses([.rocks])],
         tip: "Helpful Tips: The cocktail was originally made with cognac, so try the same recipe with cognac and see which one you like best!"
     ),
@@ -1428,7 +1429,7 @@ let cocktails: [Cocktail] = [
             Ingredient(.angosturaBitters, amount: 4.0),
             Ingredient(.lemonPeel, amount: 0.0)
         ],
-        instructions: ["Add ingredients to mixing glass.", "Add ice and stir for 30 seconds.", "(optional) Add large ice cube to rocks glass.", "Strain cocktail into glass.", "Garnish with orange or lemon peel."],
+        instructions: ["Add all ingredients to mixing glass.", "Add ice and stir for 30 seconds.", "(optional) Add large ice cube to rocks glass.", "Strain cocktail into glass.", "Garnish with orange or lemon peel."],
         supplies: [.mixingGlass, .barSpoon, .jigger, .glasses([.smallCoupe, .rocks])],
         tip: "Helpful Tips: Fernet is a strong flavor and not enjoyed by all, so try purchasing a smaller bottle first to see if you enjoy the cocktail!"
     ),

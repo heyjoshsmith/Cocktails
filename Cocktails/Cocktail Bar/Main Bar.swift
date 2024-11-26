@@ -14,6 +14,7 @@ import WidgetKit
 class Bar: ObservableObject {
     
     public static let shared = Bar()
+    public static let preview = Bar()
     
     
     // Stored Properties
@@ -26,26 +27,6 @@ class Bar: ObservableObject {
     @Published var filters: [Filter] = []
     @Published var matchAllFilters = true
     @Published var search = ""
-    
-    var device: Device {
-        
-        #if os(iOS)
-        let type = UIDevice.current.userInterfaceIdiom
-        
-        switch type {
-        case .pad: return .iPad
-        default: return .iPhone
-        }
-        
-        #elseif os(macOS)
-        return .mac
-        #elseif os(tvOS)
-        return .tv
-        #else
-        return .watch
-        #endif
-        
-    }
     
     
     
@@ -63,7 +44,11 @@ class Bar: ObservableObject {
     
     func filterIncludes(_ category: CocktailCategory) -> Bool {
         
-        filters.contains { filter in
+        if (filters.isEmpty) {
+            return true
+        }
+        
+        return filters.contains { filter in
             switch filter {
             case .ingredient(let type):
                 return Array(category.recipes.map { cocktail in
@@ -116,8 +101,4 @@ class Bar: ObservableObject {
         
     }
     
-}
-
-enum Device {
-    case iPhone, iPad, watch, mac, tv
 }

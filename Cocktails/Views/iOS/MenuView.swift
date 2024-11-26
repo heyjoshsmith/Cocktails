@@ -53,10 +53,9 @@ struct MenuView: View {
                     if !category.searchRecipes(search).isEmpty {
                         Section(category.name) {
                             ForEach(category.searchRecipes(search)) { cocktail in
-                                if !menuContains(cocktail) {
-                                    cocktailRow(for: cocktail)
-                                        .transition(.scale)
-                                }
+                                cocktailRow(for: cocktail)
+                                    .disabled(menuContains(cocktail))
+                                    .transition(.scale)
                             }
                         }
                     }
@@ -73,23 +72,25 @@ struct MenuView: View {
             CocktailView(for: cocktail)
         } label: {
             HStack {
-                CocktailLabel(cocktail)
+                CocktailLabel(cocktail, onMenu: menuContains(cocktail))
                 Spacer()
-                Button {
-                    toggle(cocktail)
-                } label: {
-                    Image(systemName: "plus.circle.fill")
-                        .foregroundColor(.blue)
-                        .frame(width: 40, height: 40, alignment: .center)
+                if !menuContains(cocktail) {
+                    Button {
+                        toggle(cocktail)
+                    } label: {
+                        Image(systemName: "plus.circle.fill")
+                            .foregroundColor(.blue)
+                            .frame(width: 40, height: 40, alignment: .center)
+                    }
+                    .buttonStyle(.plain)
                 }
-                .buttonStyle(.plain)
             }
         }
     }
     
     func menuContains(_ cocktail: Cocktail) -> Bool {
         return menu.contains { item in
-            item.cocktail == cocktail
+            item.cocktail.name == cocktail.name
         }
     }
     
@@ -97,7 +98,7 @@ struct MenuView: View {
         withAnimation {
             if menuContains(cocktail) {
                 menu.removeAll { item in
-                    item.cocktail == cocktail
+                    item.cocktail.name == cocktail.name
                 }
             } else {
                 menu.append(MenuItem(cocktail, count: 1))
@@ -138,9 +139,11 @@ struct MenuView: View {
     struct CocktailLabel: View {
         
         var cocktail: Cocktail
+        var onMenu: Bool
         
-        init(_ cocktail: Cocktail) {
+        init(_ cocktail: Cocktail, onMenu: Bool) {
             self.cocktail = cocktail
+            self.onMenu = onMenu
         }
      
         var body: some View {
@@ -154,7 +157,7 @@ struct MenuView: View {
                         .fontWeight(.medium)
                         .foregroundColor(.primary)
                     
-                    Text(cocktail.flavorProfile)
+                    Text(onMenu ? "Already Added" : cocktail.flavorProfile)
                         .foregroundColor(.secondary)
                         .font(.caption)
                         .lineLimit(2)

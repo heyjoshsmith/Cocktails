@@ -12,6 +12,7 @@ struct GuestsView: View {
     
     @Query(sort: \Guest.name) private var guests: [Guest]
     
+    @State private var viewingGuest: Guest?
     @State private var addingGuest = false
     @State private var search = ""
         
@@ -23,27 +24,60 @@ struct GuestsView: View {
                 } else if filteredGuests.isEmpty {
                     ContentUnavailableView.search(text: search)
                 } else {
-                    Section("Favorites") {
-                        ForEach(filteredGuests.favorites) { guest in
-                            GuestRow(for: guest)
+                    if !filteredGuests.favorites.isEmpty {
+                        Section("Favorites") {
+                            ForEach(filteredGuests.favorites) { guest in
+                                NavigationLink {
+                                    GuestView(guest)
+                                } label: {
+                                    GuestRow(for: guest)
+                                }
+                            }
                         }
                     }
-                    Section {
-                        ForEach(filteredGuests.nonFavorites) { guest in
-                            GuestRow(for: guest)
+                    if !filteredGuests.nonFavorites.isEmpty {
+                        Section("More") {
+                            ForEach(filteredGuests.nonFavorites) { guest in
+                                NavigationLink {
+                                    GuestView(guest)
+                                } label: {
+                                    GuestRow(for: guest)
+                                }
+                            }
                         }
                     }
                 }
             }
             .navigationTitle("Guests")
             .toolbar {
-                Button("Add", systemImage: "plus") {
-                    addingGuest.toggle()
+                
+                if let guest = guests.first(where: { guest in
+                        guest.isHost
+                    }) {
+                    ToolbarItem(placement: .topBarLeading) {
+                        Button {
+                            viewingGuest = guest
+                        } label: {
+                            AsyncImageLoader(
+                                photoData: guest.photoData,
+                                placeholderImage: Image(systemName: "person.crop.circle"),
+                                imageSize: CGSize(width: 40, height: 40)
+                            )
+                        }
+                    }
+                }
+                ToolbarItem(placement: .topBarTrailing) {
+                    Button("Add", systemImage: "plus") {
+                        addingGuest.toggle()
+                    }
                 }
             }
             .searchable(text: $search)
             .sheet(isPresented: $addingGuest) {
                 GuestEditor()
+            }
+            .sheet(item: $viewingGuest) { guest in
+                GuestView(guest)
             }
         }
     }
@@ -62,9 +96,16 @@ struct GuestsView: View {
     
 }
 
-struct GuestsView_Previews: PreviewProvider {
-    static var previews: some View {
-        GuestsView()
-            .modelContainer(for: [Guest.self])
+#Preview {
+    
+    let config = ModelConfiguration(isStoredInMemoryOnly: true)
+    let container = try! ModelContainer(for: Guest.self, configurations: config)
+    
+    Guest.previewGuests.forEach { guest in
+        container.mainContext.insert(guest)
     }
+    
+    return GuestsView()
+        .environmentObject(Bar.preview)
+        .modelContainer(container)
 }

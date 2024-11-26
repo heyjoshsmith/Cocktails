@@ -126,15 +126,15 @@ enum IngredientType: String, Codable, Hashable, CaseIterable, Identifiable {
         case .lemonTwistOrCherry:
             return "Lemon Twist or Cherry"
         case .orangeSlices:
-            return "Orange Slices"
+            return "Orange Slice"
         case .maraschinoCherries:
-            return "Maraschino Cherries"
+            return "Maraschino Cherry"
         case .sugarCube:
-            return "Sugar Cubes"
+            return "Sugar Cube"
         case .sevenUp:
             return "7-Up"
         case .cherryAndOrangeSlice:
-            return "Cherry & Orange Slices"
+            return "Cherry & Orange Slice"
         case .amaretto:
             return "Amaretto"
         case .baileys:
@@ -190,7 +190,7 @@ enum IngredientType: String, Codable, Hashable, CaseIterable, Identifiable {
         case .campari:
             return "Campari"
         case .redGrapes:
-            return "Red Grapes"
+            return "Red Grape"
         case .orangeWedgeAndGrape:
             return "Orange Wedge and Grape"
         case .limeJuice:
@@ -216,7 +216,7 @@ enum IngredientType: String, Codable, Hashable, CaseIterable, Identifiable {
         case .oliveJuice:
             return "Olive Juice"
         case .cocktailOlives:
-            return "Cocktail Olives"
+            return "Cocktail Olive"
         case .orangePeel:
             return "Orange Peel"
         case .orangeFlowerWater:
@@ -256,9 +256,9 @@ enum IngredientType: String, Codable, Hashable, CaseIterable, Identifiable {
         case .lemon:
             return "Lemon"
         case .strawberries:
-            return "Strawberries"
+            return "Strawberry"
         case .appleSlices:
-            return "Apple Slices"
+            return "Apple Slice"
         case .mint:
             return "Mint"
         case .pisco:
@@ -266,13 +266,13 @@ enum IngredientType: String, Codable, Hashable, CaseIterable, Identifiable {
         case .redWine:
             return "Red Wine"
         case .oranges:
-            return "Oranges"
+            return "Orange"
         case .dicedGreenApple:
-            return "Diced Green Apples"
+            return "Diced Green Apple"
         case .dicedLemon:
             return "Diced Lemon"
         case .cinnamonStick:
-            return "Cinnamon Sticks"
+            return "Cinnamon Stick"
         case .agedRum:
             return "Aged Rum"
         case .pineappleJuice:
@@ -406,7 +406,7 @@ enum IngredientType: String, Codable, Hashable, CaseIterable, Identifiable {
         case .espresso:
             return "Espresso"
         case .coffeBeans:
-            return "Coffee Beans"
+            return "Coffee Bean"
         case .raspberryLiqueur:
             return "Raspberry Liqueur"
         case .raspberriesOrPineappleWedgeOrLemontTwist:

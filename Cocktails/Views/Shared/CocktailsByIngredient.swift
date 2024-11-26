@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct CocktailsByIngredient: View {
     
@@ -19,27 +20,26 @@ struct CocktailsByIngredient: View {
             List {
                 
                 Section("Ingredients") {
+                    
                     ForEach(ingredientList) { ingredient in
                         Text(ingredient.name)
                             .swipeActions {
-                                Button {
+                                Button("Delete", systemImage: "trash") {
                                     ingredientList.removeAll { item in
                                         item == ingredient
                                     }
-                                } label: {
-                                    Label("Delete", systemImage: "trash")
                                 }
                                 .tint(.red)
                             }
                     }
-                    Button {
+                    
+                    Button("Add Ingredient", systemImage: "plus") {
                         choosingIngredients.toggle()
-                    } label: {
-                        Label("Add Ingredient", systemImage: "plus")
                     }
                     .sheet(isPresented: $choosingIngredients) {
-                        IngredientsView(selected: $ingredientList)
+                        IngredientPicker(selected: $ingredientList)
                     }
+                    
                 }
                 
                 Section {
@@ -79,18 +79,17 @@ struct CocktailsByIngredient: View {
             }
             .navigationTitle("Cocktails")
             .toolbar {
+                #if !os(visionOS)
                 ToolbarItem(placement: .cancellationAction) {
-                    Button {
-                        dismiss()
-                    } label: {
-                        HStack {
-//                            Image(systemName: "chevron.left")
-                            Text("Done")
+                    if (!ingredientList.isEmpty) {
+                        Button("Clear") {
+                            withAnimation {
+                                ingredientList.removeAll()
+                            }
                         }
-//                            .font(.system(size: 20))
-//                            .foregroundColor(Color.label3)
                     }
                 }
+                #endif
             }
         }
     }
@@ -116,8 +115,14 @@ struct CocktailsByIngredient: View {
     
 }
 
-struct CocktailsByIngredient_Previews: PreviewProvider {
-    static var previews: some View {
-        CocktailsByIngredient()
-    }
+#Preview {
+    let config = ModelConfiguration(isStoredInMemoryOnly: true)
+    let container = try! ModelContainer(for: Cocktail.self, configurations: config)
+    
+    return Text("")
+        .sheet(isPresented: .constant(true)) {
+            CocktailsByIngredient()
+        }
+        .environmentObject(Bar.shared)
+        .modelContainer(container)
 }

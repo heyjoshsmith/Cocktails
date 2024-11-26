@@ -6,16 +6,13 @@
 //
 
 import SwiftUI
+import SwiftData
 
-struct IngredientsView: View {
+struct IngredientPicker: View {
     
     @Binding var selected: [IngredientType]
     
-    @EnvironmentObject private var bar: Bar
-    @Environment(\.dismiss) private var dismiss
-    @Environment(\.editMode) private var editMode
     @State private var editing = EditMode.inactive
-    
     @State private var selection = Set<IngredientType>()
     @State private var search = ""
     
@@ -38,10 +35,8 @@ struct IngredientsView: View {
                         }
                         .disabled(selected.contains(ingredient))
                         .swipeActions(edge: .leading) {
-                            Button {
+                            Button("Hide", systemImage: "eye.slash") {
                                 show(ingredient)
-                            } label: {
-                                Label("Hide", systemImage: "eye.slash")
                             }
                             .tint(.red)
                         }
@@ -78,11 +73,21 @@ struct IngredientsView: View {
             .searchable(text: $search)
             .toolbar {
                 
-                ToolbarItemGroup(placement: .confirmationAction) {
+                #if os(visionOS)
+                ToolbarItem(placement: .cancellationAction) {
+                    Button("Done") {
+                        dismiss()
+                    }
+                }
+                #endif
+                ToolbarItem(placement: .automatic) {
                     if editing.isEditing {
                         Button("Toggle", action: toggle)
                             .disabled(selection.isEmpty)
                     }
+                }
+                
+                ToolbarItem(placement: .automatic) {
                     EditButton()
                 }
                 
@@ -90,6 +95,9 @@ struct IngredientsView: View {
             .environment(\.editMode, $editing)
         }
     }
+    
+    
+    // Main Functions
     
     func select(_ ingredient: IngredientType) {
         selected.append(ingredient)
@@ -139,6 +147,9 @@ struct IngredientsView: View {
         dismiss()
     }
     
+    
+    // Supporting Info
+    
     var active: [IngredientType] {
         
         let visible = IngredientType.allCases.filter { ingredient in
@@ -167,10 +178,20 @@ struct IngredientsView: View {
         }
     }
     
+    
+    // Environments
+    
+    @EnvironmentObject private var bar: Bar
+    @Environment(\.dismiss) private var dismiss
+    @Environment(\.editMode) private var editMode
+    
 }
 
-struct IngredientsView_Previews: PreviewProvider {
-    static var previews: some View {
-        IngredientsView(selected: .constant([.agave]))
-    }
+#Preview {
+    let config = ModelConfiguration(isStoredInMemoryOnly: true)
+    let container = try! ModelContainer(for: Cocktail.self, configurations: config)
+    
+    return IngredientPicker(selected: .constant([.agave]))
+        .environmentObject(Bar.shared)
+        .modelContainer(container)
 }

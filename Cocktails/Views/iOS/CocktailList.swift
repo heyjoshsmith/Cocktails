@@ -39,7 +39,7 @@ struct CocktailList: View {
                     #endif
                     
                     ForEach(CocktailCategory.allCases, id: \.self) { category in
-                        
+                                                
                         if bar.filterIncludes(category) && bar.searchInclude(category) && (viewingCategory == nil || viewingCategory == category) {
                             CategoryRow(category: category)
                                 .transition(.scale)
@@ -59,7 +59,7 @@ struct CocktailList: View {
             .searchable(text: $bar.search)
             .navigationTitle(bar.filters.isEmpty ? "Featured" : "Filtered")
             .navigationDestination(for: Cocktail.self, destination: CocktailView.init)
-            .toolbar { leadingToolbar ; trailingToolbar }
+            .toolbar { trailingToolbar }
             
         }
         .background(Color.background)
@@ -69,30 +69,6 @@ struct CocktailList: View {
     
     
     // Toolbar
-    
-    var leadingToolbar: some ToolbarContent {
-        ToolbarItemGroup(placement: .cancellationAction) {
-            
-            Button {
-                searchingIngredients.toggle()
-            } label: {
-                Image(systemName: "vial.viewfinder")
-            }
-            .fullScreenCover(isPresented: $searchingIngredients) {
-                CocktailsByIngredient()
-            }
-            
-            Button {
-                shopping.toggle()
-            } label: {
-                Image(systemName: "cart")
-            }
-            .sheet(isPresented: $shopping) {
-                ShoppingView()
-            }
-            
-        }
-    }
         
     var trailingToolbar: some ToolbarContent {
         ToolbarItemGroup(placement: .confirmationAction) {
@@ -104,30 +80,6 @@ struct CocktailList: View {
             }
             .sheet(isPresented: $showingFilter) {
                 FilterView()
-            }
-            
-            Menu {
-                
-                Button {
-                    viewingFriends.toggle()
-                } label: {
-                    Label("Friends", systemImage: "person.crop.circle")
-                }
-                
-                Button {
-                    viewingSettings.toggle()
-                } label: {
-                    Label("Settings", systemImage: "gear")
-                }
-                
-            } label: {
-                Label("Menu", systemImage: "ellipsis.circle")
-            }
-            .sheet(isPresented: $viewingFriends) {
-                GuestsView()
-            }
-            .sheet(isPresented: $viewingSettings) {
-                SettingsView()
             }
         
         }
@@ -152,9 +104,7 @@ extension URL {
     
 }
 
-struct CocktailList_Previews: PreviewProvider {
-    static var previews: some View {
-        CocktailList()
-//            .preferredColorScheme(.dark)
-    }
+#Preview {
+    CocktailList()
+        .environmentObject(Bar.preview)
 }

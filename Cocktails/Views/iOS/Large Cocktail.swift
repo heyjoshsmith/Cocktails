@@ -6,12 +6,20 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct LargeCocktailView: View {
     
-    @EnvironmentObject private var bar: Bar
-    @Environment(\.dismiss) private var dismiss
-    @Environment(\.isFocused) private var focused: Bool
+    init(for cocktail: Cocktail, viewing: Binding<Cocktail?>) {
+        self.cocktail = cocktail
+        self._viewing = viewing
+    }
+    
+    var cocktail: Cocktail
+    @Binding var viewing: Cocktail?
+    
+    
+    // Calculated Variables
     
     @State private var isLiked = false
     @State private var isDisliked = false
@@ -19,14 +27,7 @@ struct LargeCocktailView: View {
     @State private var upColor: Color?
     @State private var downColor: Color?
     
-    var cocktail: Cocktail
-    @Binding var viewing: Cocktail?
-    
-    init(for cocktail: Cocktail, viewing: Binding<Cocktail?>) {
-        self.cocktail = cocktail
-        self._viewing = viewing
-    }
-    
+    @State private var settingNumberOfDrinks = false
     @State private var numberOfDrinks = 1
     @State private var bartenderView = false
     
@@ -35,64 +36,27 @@ struct LargeCocktailView: View {
             
             ZStack {
                 
+                #if !os(visionOS)
                 cocktail.heroImage(width: geo.size.width, height: geo.size.height)
+                #endif
                 
-                HStack(alignment: .top, spacing: viewSpacing) {
+                HStack(alignment: .top, spacing: 0) {
                     
-                    VStack(alignment: .leading) {
-                        
-                        HStack(spacing: 25) {
-                            
-                            Button {
-                                withAnimation {
-                                    viewing = nil
-                                    dismiss()
-                                }
-                            } label: {
-                                Label("Home", systemImage: "chevron.left")
-                                    .foregroundColor(.white)
-                                #if !os(visionOS)
-                                    .font(.system(size: size(tv: 0, mac: 20, iPad: 15)))
-                                #endif
-                            }
-                            .buttonStyle(.plain)
-                            
-                            Button {
-                                bartenderView.toggle()
-                            } label: {
-                                Label("Mix", systemImage: "info.circle")
-                                    .foregroundColor(.white)
-                                #if !os(visionOS)
-                                    .font(.system(size: size(tv: 0, mac: 20, iPad: 15)))
-                                #endif
-                            }
-                            .buttonStyle(.plain)
-                            
+                    Group {
+                        switch UIDevice.current.userInterfaceIdiom {
+                        case .phone:
+                            smallScreenView(size: geo)
+                        default:
+                            largeScreenView(size: geo)
                         }
-                        .padding([.leading, .top])
-                        
-                        Group {
-                            if bar.device == .iPhone {
-                                smallScreenView(size: geo)
-                            } else {
-                                largeScreenView(size: geo)
-                            }
-                        }
-                        .frame(width: geo.size.width / 3, alignment: .top)
-                        .padding([.vertical, .leading], size(tv: 75, mac: 0))
-                        .padding(.leading, size(tv: 0, mac: 35, iPad: 15))
-                        
                     }
-                    #if os(visionOS)
-                    .padding(.vertical)
-                    .padding(.leading, 30)
-                    #endif
+                    .frame(width: geo.size.width / 3, alignment: .top)
                     
                     ScrollView(.vertical, showsIndicators: false) {
                         
-                        VStack(spacing: 25) {
+                        VStack(alignment: .leading, spacing: 25) {
                             
-                            if bar.device != .iPhone {
+                            if UIDevice.current.userInterfaceIdiom != .phone {
                                 details
                                 
                                 Divider()
@@ -109,32 +73,33 @@ struct LargeCocktailView: View {
                             supplies
                             
                         }
-                        .padding([.vertical, .trailing], size(tv: 0, mac: 25, iPad: 20, iPhone: 10))
-                        .padding(.vertical, size(tv: 0, mac: 25, iPad: 20, iPhone: 10))
-                        #if os(visionOS)
-                        .padding(.vertical)
-                        .padding(.trailing, 30)
-                        #endif
+                        .padding()
+                        .padding(.bottom)
+                        .frame(maxWidth: .infinity, alignment: .leading)
                         
                     }
-                    .padding([.vertical, .trailing], size(tv: 75, mac: 0, iPhone: 0))
                     
                 }
-                .background(Color.black.opacity(0.5))
-                .background(.ultraThinMaterial)
                 .frame(width: geo.size.width, height: geo.size.height, alignment: .center)
                 
             }
             .navigationTitle(cocktail.name)
-            #if !os(macOS)
-            .navigationBarHidden(true)
-            #endif
+            .toolbar {
+                ToolbarItem(placement: .automatic) {
+                    Button("Mix", systemImage: "shuffle") {
+                        bartenderView.toggle()
+                    }
+                }
+            }
             
         }
         .fullScreenCover(isPresented: $bartenderView) {
-            BartenderTest(cocktail)
+            BartenderView(cocktail)
         }
     }
+    
+    
+    // Main Functions
     
     func increase() {
         withAnimation {
@@ -159,59 +124,113 @@ struct LargeCocktailView: View {
         }
     }
     
-    var firstColumnPadding: CGFloat {
-        return bar.device == .tv ? 75 : 25
-    }
     
-    var viewSpacing: CGFloat {
-        switch bar.device {
-        case .tv: return 100
-        case .mac: return 50
-        default: return 25
+    // Supporting Info
+    
+    var firstColumnPadding: CGFloat {
+        switch UIDevice.current.userInterfaceIdiom {
+        case .tv:
+            return 75
+        default:
+            return 25
         }
     }
     
-    func size(tv: CGFloat, mac: CGFloat, iPad: CGFloat? = nil, iPhone: CGFloat? = nil) -> CGFloat {
+    var sectionTitle: Font {
+        return .title.weight(.semibold)
+    }
+    
+    var textSize: Font {
+        return .body
+    }
+    
+    var buttonFrame: CGFloat {
+        size(phone: 1, tv: 30, mac: 10)
+    }
+    
+    func font(_ font: Font, phone: CGFloat? = nil, pad: CGFloat? = nil, tv: CGFloat? = nil, mac: CGFloat? = nil, vision: CGFloat? = nil) -> Font {
+        
+        var result: Font = .body
+        
+        switch UIDevice.current.userInterfaceIdiom {
+        case .phone:
+            if let phone {
+                result = .system(size: phone)
+            }
+        case .pad:
+            if let pad {
+                result = .system(size: pad)
+            }
+        case .tv:
+            if let tv {
+                result = .system(size: tv)
+            }
+        case .mac:
+            if let mac {
+                result = .system(size: mac)
+            }
+        case .vision:
+            if let vision {
+                result = .system(size: vision)
+            }
+        default:
+            result = font
+        }
+        
+        return result
+    }
+    
+    func size(phone: CGFloat? = nil, pad: CGFloat? = nil, tv: CGFloat? = nil, mac: CGFloat? = nil, vision: CGFloat? = nil) -> CGFloat {
         
         var result: CGFloat? = 0
         
-        switch bar.device {
-        case .tv: result = tv
-        case .mac: result = mac
-        case .iPad: result = iPad
-        case .iPhone: result = iPhone
-        default: result = 0
+        switch UIDevice.current.userInterfaceIdiom {
+        case .phone:
+            result = phone
+        case .pad:
+            result = pad
+        case .tv:
+            result = tv
+        case .mac:
+            result = mac
+        case .vision:
+            result = vision
+        default:
+            result = 0
         }
         
         return result ?? 0
         
     }
     
-    func heroImage(size geo: GeometryProxy) -> some View {
-        cocktail.squareImage(size: geo.size.width / 3)
-            .cornerRadius(size(tv: 20, mac: 10, iPad: 10, iPhone: 10))
-            .padding(.bottom, size(tv: 35, mac: 15, iPad: 15, iPhone: 0))
-    }
+    
+    // Additional View
     
     func largeScreenView(size geo: GeometryProxy) -> some View {
         return ScrollView(.vertical, showsIndicators: false) {
             VStack(alignment: .leading) {
                 
-                heroImage(size: geo)
+                Image("\(cocktail.name)-Square")
+                    .resizable()
+                    .scaledToFill()
+                    .clipShape(.rect(cornerRadius: 15))
+                    .padding(.bottom)
                 
                 Text("History")
-                    .font(.system(size: size(tv: 40, mac: 30, iPad: 20), weight: .bold))
+                    .font(.largeTitle.weight(.bold))
                     .foregroundColor(.white)
-                    .padding(.bottom, size(tv: 0, mac: 5))
+                    .padding(.leading)
                 
                 Text(cocktail.history)
-                    .font(.system(size: size(tv: 25, mac: 20, iPad: 15)))
+                    .font(.body)
                     .foregroundColor(.white)
+                    .padding(.leading)
                 
             }
             .multilineTextAlignment(.leading)
+            .padding()
+            .padding(.bottom)
             .frame(width: geo.size.width / 3)
-            .padding(.vertical, size(tv: 0, mac: 15))
         }
     }
     
@@ -219,16 +238,17 @@ struct LargeCocktailView: View {
         
         VStack {
             Spacer()
-            heroImage(size: geo)
+            
+            Image("\(cocktail.name)-Square")
+                .resizable()
+                .scaledToFill()
+                .clipShape(.rect(cornerRadius: 15))
+                .padding(.bottom)
             
             HStack(spacing: 15) {
                 
                 Text(cocktail.name)
-                #if os(visionOS)
                     .font(.title.weight(.bold))
-                #else
-                    .font(.system(size: 25, weight: .bold))
-                #endif
                     .foregroundColor(.white)
                 
                 Spacer()
@@ -236,9 +256,7 @@ struct LargeCocktailView: View {
             }
             
             Text(cocktail.flavorProfile)
-            #if !os(visionOS)
-                .font(.system(size: 15))
-            #endif
+                .font(.body)
                 .foregroundColor(.white)
                 .opacity(0.7)
             
@@ -262,82 +280,59 @@ struct LargeCocktailView: View {
         
         return VStack(alignment: .leading) {
             
-            HStack(spacing: size(tv: 25, mac: 25, iPad: 10, iPhone: 10)) {
-                
-                Text(cocktail.name)
-                    .font(.system(size: size(tv: 75, mac: 40, iPad: 35, iPhone: 35), weight: .bold))
-                    .foregroundColor(.white)
-                
-                Spacer()
-                                
-            }
+            Text(cocktail.name)
+                .font(.largeTitle.weight(.bold))
+                .foregroundColor(.white)
             
             Text(cocktail.flavorProfile)
-                .font(.system(size: size(tv: 40, mac: 25, iPad: 20, iPhone: 20)))
+                .font(.title)
                 .foregroundColor(.white)
                 .opacity(0.7)
                 .fixedSize(horizontal: false, vertical: true)
                 .padding(.bottom)
             
             Text(title)
-                .font(.system(size: sectionTitle, weight: .bold))
+                .font(sectionTitle)
                 .foregroundColor(.white)
             
             Text(text)
-                .font(.system(size: textSize))
+                .font(textSize)
                 .foregroundColor(.white)
                 .opacity(0.7)
                 .fixedSize(horizontal: false, vertical: true)
             
         }
-        .buttonStyle(PlainNavigationLinkButtonStyle())
         
-    }
-    
-    var sectionTitle: CGFloat {
-        size(tv: 55, mac: 30, iPad: 20, iPhone: 25)
-    }
-    
-    var buttonFrame: CGFloat {
-        size(tv: 30, mac: 10, iPhone: 1)
-    }
-    
-    var textSize: CGFloat {
-        size(tv: 40, mac: 20, iPad: 15, iPhone: 20)
     }
     
     var ingredients: some View {
         
         return VStack(alignment: .leading, spacing: 20) {
             
-            HStack(spacing: size(tv: 25, mac: 25, iPad: 15, iPhone: 10)) {
+            HStack(spacing: 15) {
 
                 Text("Ingredients")
-                    .font(.system(size: sectionTitle, weight: .bold))
+                    .font(sectionTitle)
                     .foregroundColor(.white)
                 
                 Spacer()
                 
-                Text("Serves \(numberOfDrinks)")
-                    .font(.system(size: sectionTitle, weight: .bold))
-                    .padding(.trailing, 15)
+                Button("Decrease", systemImage: "minus", action: decrease)
+                    .labelStyle(.iconOnly)
+                    .buttonStyle(.bordered)
+                    .disabled(numberOfDrinks == 1)
                 
-                Button(action: increase) {
-                    Image(systemName: "plus")
-                        .frame(width: buttonFrame, height: buttonFrame, alignment: .center)
+                Button(numberOfDrinks.formatted()) {
+                    settingNumberOfDrinks = true
                 }
-                .buttonStyle(TVButtonStyle(color: upColor, mac: bar.device != .tv))
-                .scaleEffect(upColor == nil ? 1 : 1.1)
-                .animation(.easeInOut(duration: 0.1), value: upColor)
+                .buttonStyle(.bordered)
+                .alert("Number of Drinks", isPresented: $settingNumberOfDrinks) {
+                    TextField("Total", value: $numberOfDrinks, format: .number.precision(.fractionLength(0)))
+                }
                 
-                Button(action: decrease) {
-                    Image(systemName: "minus")
-                        .frame(width: buttonFrame, height: buttonFrame, alignment: .center)
-                }
-                .buttonStyle(TVButtonStyle(color: downColor, mac: bar.device != .tv))
-                .scaleEffect(downColor == nil ? 1 : 1.1)
-                .animation(.easeInOut(duration: 0.1), value: downColor)
-                .opacity(numberOfDrinks == 1 ? 0.5 : 1)
+                Button("Increase", systemImage: "plus", action: increase)
+                    .labelStyle(.iconOnly)
+                    .buttonStyle(.bordered)
                 
             }
             .padding(.bottom, size(tv: 35, mac: 0))
@@ -353,7 +348,7 @@ struct LargeCocktailView: View {
                                 .foregroundColor(.white)
                                 .opacity(0.7)
                         }
-                        .font(.system(size: textSize))
+                        .font(textSize)
                     }
                     .buttonStyle(HighlightNavigationLinkButtonStyle())
                     
@@ -372,26 +367,22 @@ struct LargeCocktailView: View {
         return VStack(alignment: .leading, spacing: 20) {
             
             Text("Instructions")
-                .font(.system(size: sectionTitle, weight: .bold))
+                .font(sectionTitle)
                 .padding(.bottom, size(tv: 35, mac: 0))
 
             VStack(spacing: 25) {
                 ForEach(cocktail.instructions, id: \.self) { instruction in
                     
                     if let index = cocktail.instructions.firstIndex(of: instruction) {
-                        Button(action: {}) {
-                            HStack(alignment: .top, spacing: 10) {
-                                Text("\(index + 1).")
-                                    .frame(width: size(tv: 60, mac: 20, iPad: 15, iPhone: 20), alignment: .leading)
-                                Text(instruction)
-                                    .fixedSize(horizontal: false, vertical: true)
-                                
-                                Spacer()
-                            }
-                            .font(.system(size: textSize))
+                        HStack(alignment: .top, spacing: 10) {
+                            Text("\(index + 1).")
+                                .frame(width: 20, alignment: .leading)
+                            Text(instruction)
+                                .fixedSize(horizontal: false, vertical: true)
+                            
+                            Spacer()
                         }
-                        .buttonStyle(HighlightNavigationLinkButtonStyle())
-
+                        .font(textSize)
                     }
                     
                 }
@@ -400,7 +391,6 @@ struct LargeCocktailView: View {
         }
         .foregroundStyle(.white)
         .multilineTextAlignment(.leading)
-        .buttonStyle(PlainNavigationLinkButtonStyle())
         
     }
     
@@ -409,16 +399,15 @@ struct LargeCocktailView: View {
         return VStack(alignment: .leading, spacing: 20) {
             
             Text("Supplies")
-                .font(.system(size: sectionTitle, weight: .bold))
-                .padding(.bottom, size(tv: 35, mac: 0))
-            
+                .font(sectionTitle)
+
             VStack(spacing: 25) {
                 ForEach(cocktail.supplies, id: \.self) { item in
                     
                     Button(action: {}) {
                         HStack {
                             Text(item.name)
-                                .font(.system(size: textSize))
+                                .font(textSize)
                             Spacer()
                         }
                     }
@@ -434,10 +423,23 @@ struct LargeCocktailView: View {
         
     }
     
+    
+    // Environments
+    
+    @EnvironmentObject private var bar: Bar
+    @Environment(\.dismiss) private var dismiss
+    @Environment(\.isFocused) private var focused: Bool
+    
 }
 
-struct LargeCocktailView_Previews: PreviewProvider {
-    static var previews: some View {
-        LargeCocktailView(for: Cocktail.example(of: "Martini"), viewing: .constant(nil))
-    }
+#Preview {
+    let config = ModelConfiguration(isStoredInMemoryOnly: true)
+    let container = try! ModelContainer(for: Cocktail.self, configurations: config)
+    
+    return LargeCocktailView(
+        for: Cocktail.example(of: "Martini"),
+        viewing: .constant(nil)
+    )
+    .environmentObject(Bar.shared)
+    .modelContainer(container)
 }

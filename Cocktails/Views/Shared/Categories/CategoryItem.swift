@@ -38,6 +38,7 @@ struct CategoryItem: View {
 
                     }
                     .frame(width: 155, height: 155, alignment: .center)
+                    .cornerRadius(5)
                     
                     #if !os(visionOS)
                     textLabel
@@ -117,8 +118,7 @@ struct CategoryItem: View {
     
 }
 
-struct CategoryItem_Previews: PreviewProvider {
-    static var previews: some View {
-        CategoryItem(cocktail: cocktails[3])
-    }
+#Preview {
+    CategoryItem(cocktail: cocktails[3])
+        .environmentObject(Bar.preview)
 }

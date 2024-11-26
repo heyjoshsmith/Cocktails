@@ -18,22 +18,29 @@ struct GuestRow: View {
     var body: some View {
         HStack {
             
-            if let photoData = guest.photoData, let uiImage = UIImage(data: photoData) {
-                Image(uiImage: uiImage)
-                    .resizable()
-                    .scaledToFill()
-                    .frame(width: 40, height: 40, alignment: .center)
-                    .clipShape(.circle)
-            } else {
-                Image(systemName: "person.crop.circle")
-                    .symbolRenderingMode(.multicolor)
-            }
+            AsyncImageLoader(
+                photoData: guest.photoData,
+                placeholderImage: Image(systemName: "person.crop.circle"),
+                imageSize: CGSize(width: 50, height: 50)
+            )
             
             Text(guest.name)
+                .foregroundStyle(Color.label)
             Spacer()
             if guest.isFavorite {
                 Image(systemName: "star.fill")
                     .foregroundStyle(.yellow)
+            }
+        }
+        .contextMenu {
+            if guest.isHost {
+                Button("Set as Guest",systemImage: "figure.walk.arrival") {
+                    guest.isHost = false
+                }
+            } else {
+                Button("Set as Host",systemImage: "house") {
+                    guest.isHost = true
+                }
             }
         }
         .swipeActions(edge: .leading, allowsFullSwipe: true) {
@@ -51,4 +58,9 @@ struct GuestRow: View {
     
     @Environment(\.modelContext) private var modelContext
     
+}
+
+
+#Preview {
+    GuestRow(for: Guest.previewGuests[0])
 }
