@@ -8,21 +8,77 @@
 import SwiftUI
 import SwiftData
 
-@Model final class Cocktail {
+@Model final class Cocktail: Codable {
     
     var number: Int
     var category: CocktailCategory
     var name: String
     var flavorProfile: String
     var history: String
-    
     var ingredients: [Ingredient]
-    
     var instructions: [String]
-    
     var supplies: [Item]
-    
     var tip: String
+
+    enum CodingKeys: String, CodingKey {
+        case number
+        case category
+        case name
+        case flavorProfile
+        case history
+        case ingredients
+        case instructions
+        case supplies
+        case tip
+    }
+
+    init(
+        number: Int,
+        category: CocktailCategory,
+        name: String,
+        flavorProfile: String,
+        history: String,
+        ingredients: [Ingredient],
+        instructions: [String],
+        supplies: [Item],
+        tip: String
+    ) {
+        self.number = number
+        self.category = category
+        self.name = name
+        self.flavorProfile = flavorProfile
+        self.history = history
+        self.ingredients = ingredients
+        self.instructions = instructions
+        self.supplies = supplies
+        self.tip = tip
+    }
+
+    required init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        self.number = try container.decode(Int.self, forKey: .number)
+        self.category = try container.decode(CocktailCategory.self, forKey: .category)
+        self.name = try container.decode(String.self, forKey: .name)
+        self.flavorProfile = try container.decode(String.self, forKey: .flavorProfile)
+        self.history = try container.decode(String.self, forKey: .history)
+        self.ingredients = try container.decode([Ingredient].self, forKey: .ingredients)
+        self.instructions = try container.decode([String].self, forKey: .instructions)
+        self.supplies = try container.decode([Item].self, forKey: .supplies)
+        self.tip = try container.decode(String.self, forKey: .tip)
+    }
+
+    func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(number, forKey: .number)
+        try container.encode(category, forKey: .category)
+        try container.encode(name, forKey: .name)
+        try container.encode(flavorProfile, forKey: .flavorProfile)
+        try container.encode(history, forKey: .history)
+        try container.encode(ingredients, forKey: .ingredients)
+        try container.encode(instructions, forKey: .instructions)
+        try container.encode(supplies, forKey: .supplies)
+        try container.encode(tip, forKey: .tip)
+    }
     
     func heroImage(width: CGFloat? = nil, height: CGFloat, alignment: Alignment? = nil) -> some View {
         return Image("\(name)-Hero")
@@ -94,26 +150,6 @@ import SwiftData
         
         self.tip = result.tip
         
-    }
-    
-    init(
-        number: Int, category: CocktailCategory, name: String,
-        flavorProfile: String,
-        history: String,
-        ingredients: [Ingredient],
-        instructions: [String],
-        supplies: [Item],
-        tip: String
-    ) {
-        self.number = number
-        self.category = category
-        self.name = name
-        self.flavorProfile = flavorProfile
-        self.history = history
-        self.ingredients = ingredients
-        self.instructions = instructions
-        self.supplies = supplies
-        self.tip = tip
     }
     
     static func example(of name: String) -> Cocktail {

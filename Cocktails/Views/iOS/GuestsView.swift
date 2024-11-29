@@ -77,7 +77,9 @@ struct GuestsView: View {
                 GuestEditor()
             }
             .sheet(item: $viewingGuest) { guest in
-                GuestView(guest)
+                NavigationView {
+                    GuestView(guest)
+                }
             }
         }
     }

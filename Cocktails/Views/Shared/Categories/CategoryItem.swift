@@ -6,11 +6,13 @@
 //
 
 import SwiftUI
-import CoreData
+import SwiftData
 
 struct CategoryItem: View {
     
     @EnvironmentObject private var bar: Bar
+    
+    @Query(sort: \Guest.name) private var guests: Guests
     
     var cocktail: Cocktail
     @State private var xOffset: Double = 0
@@ -25,7 +27,7 @@ struct CategoryItem: View {
             NavigationLink(value: cocktail) {
                 VStack(alignment: .leading) {
                     
-                    ZStack(alignment: .topLeading) {
+                    ZStack(alignment: .bottomLeading) {
                         
                         #if os(visionOS)
                         cocktail.circleImage(size: 155)
@@ -35,6 +37,22 @@ struct CategoryItem: View {
                         #endif
                         
                         LinearGradient(colors: [.clear, .clear, .clear, .clear, .black.opacity(0.25), .black.opacity(0.55)], startPoint: .bottomTrailing, endPoint: .topLeading)
+                        
+                        ScrollView(.horizontal) {
+                            HStack(spacing: 5) {
+                                ForEach(guests.thatLike(cocktail)) { guest in
+                                    AsyncImageLoader(
+                                        photoData: guest.photoData,
+                                        placeholderImage: Image(systemName: "person.crop.circle"),
+                                        imageSize: CGSize(width: 30, height: 30)
+                                    )
+                                    .clipShape(.circle)
+                                    .overlay(Circle().stroke(Color.white, lineWidth: 1))
+                                }
+                            }
+                            .frame(height: 30)
+                            .padding(5)
+                        }
 
                     }
                     .frame(width: 155, height: 155, alignment: .center)
@@ -60,8 +78,11 @@ struct CategoryItem: View {
     
     var textLabel: some View {
         Text(cocktail.name)
-            .font(.footnote)
+            .font(.body)
             .foregroundColor(.primary)
+            .lineLimit(1)
+            .truncationMode(.tail)
+            .frame(width: 155, alignment: .leading)
     }
         
     var heroPreview: some View {

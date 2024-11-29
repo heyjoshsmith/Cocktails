@@ -53,7 +53,11 @@ struct GuestView: View {
                 Text(guest.name)
                     .font(.largeTitle.weight(.semibold))
                 
+                tastesView("Likes", cocktails: guest.likes)
+                tastesView("Dislikes", cocktails: guest.dislikes)
+                
             }
+            .padding(.bottom, 100)
             
         }
         .navigationTitle(verticalSizeClass == .compact ? guest.name : "")
@@ -68,6 +72,39 @@ struct GuestView: View {
         .sheet(isPresented: $editing) {
             GuestEditor(guest)
         }
+    }
+    
+    func tastesView(_ name: String, cocktails: Cocktails) -> some View {
+        VStack(alignment: .leading) {
+            HStack {
+                Text(name)
+                Spacer()
+            }
+            .font(.title.bold())
+            .padding(.horizontal)
+            if cocktails.isEmpty {
+                HStack {
+                    Text("None")
+                        .foregroundStyle(.secondary)
+                    Spacer()
+                }
+                .padding(.horizontal)
+            } else {
+                ScrollView(.horizontal) {
+                    HStack {
+                        ForEach(cocktails.sorted(by: <)) { cocktail in
+                            NavigationLink(destination: CocktailView(for: cocktail)) {
+                                CategoryItem(cocktail: cocktail)
+                            }
+                            .transition(.scale)
+                        }
+                    }
+                    .padding(.horizontal)
+                }
+                .scrollIndicators(.hidden)
+            }
+        }
+        .padding(.vertical)
     }
     
     @Environment(\.verticalSizeClass) var verticalSizeClass

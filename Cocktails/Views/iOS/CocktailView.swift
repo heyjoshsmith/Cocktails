@@ -6,11 +6,14 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct CocktailView: View {
     
+    @Environment(\.modelContext) var context
     @EnvironmentObject private var bar: Bar
     @Environment(\.dismiss) private var dismiss
+    @Query(sort: \Guest.name) private var guests: Guests
     
     var cocktail: Cocktail
     
@@ -76,17 +79,36 @@ struct CocktailView: View {
                     .tint(cocktail.category.color)
                     .accentColor(cocktail.category.color)
                     .navigationTitle(cocktail.name)
-
                 }
                 .background(Color.background)
                 .onAppear(perform: load)
                 .toolbar {
                     ToolbarItemGroup(placement: .confirmationAction) {
                         
-                        Button(action: share) {
-                            Image(systemName: "square.and.arrow.up")
-                        }
+                        Button("Share", systemImage: "square.and.arrow.up", action: share)
                         
+                        Menu("Rate", systemImage: "text.badge.star") {
+                            if let host = guests.host() {
+                                Section("Host") {
+                                    tasteMenu(for: host)
+                                }
+                            }
+                            if !guests.favorites.isEmpty {
+                                Section("Favorites: \(guests.favorites.count)") {
+                                    ForEach(guests.favorites) { guest in
+                                        tasteMenu(for: guest)
+                                    }
+                                }
+                            }
+                            if !guests.nonFavorites.isEmpty {
+                                Section("Guests: \(guests.nonFavorites.count)") {
+                                    ForEach(guests.nonFavorites) { guest in
+                                        tasteMenu(for: guest)
+                                    }
+                                }
+                            }
+                        }
+
                     }
                 }
             }
@@ -98,6 +120,25 @@ struct CocktailView: View {
             BartenderView(cocktail)
         }
         
+    }
+    
+    func tasteMenu(for guest: Guest) -> some View {
+        Menu (guest.name, systemImage: guest.likes(cocktail) ? "hand.thumbsup.fill" : guest.dislikes(cocktail) ? "hand.thumbsdown.fill" : "") {
+            Button("Like", systemImage: "hand.thumbsup") {
+                guest.like(cocktail)
+            }
+            .symbolVariant(guest.likes(cocktail) ? .fill : .none)
+            Button("Dislike", systemImage: "hand.thumbsdown") {
+                guest.dislike(cocktail)
+            }
+            .symbolVariant(guest.dislikes(cocktail) ? .fill : .none)
+            
+            if (guest.likes(cocktail) || guest.dislikes(cocktail)) {
+                Button("Clear", systemImage: "xmark.circle", role: .destructive) {
+                    guest.remove(cocktail)
+                }
+            }
+        }
     }
     
     func share() {
@@ -383,9 +424,17 @@ struct CocktailView: View {
 }
 
 #Preview {
-    NavigationStack {
+    
+    let config = ModelConfiguration(isStoredInMemoryOnly: true)
+    let container = try! ModelContainer(for: Guest.self, configurations: config)
+    
+    Guest.previewGuests.forEach { guest in
+        container.mainContext.insert(guest)
+    }
+    
+    return NavigationStack {
         CocktailView(for: cocktails[69])
     }
-    .modelContainer(for: [Cocktail.self, Guest.self])
-    .environmentObject(Bar.shared)
+    .modelContainer(container)
+    .environmentObject(Bar.preview)
 }
